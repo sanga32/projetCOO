@@ -6,5 +6,5 @@ public class test2 {
 
 	int t = 5;
 	
-	llll
+	int t1 = 5;
 }
