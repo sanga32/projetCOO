@@ -9,6 +9,8 @@ public abstract class Message {
 	Personne expediteur, destinataire;
 	Date dateEnvoi;
 	
+	abstract boolean isReception();
+	
 	public Message(String contenu, Personne expediteur, Personne destinataire, Date dateEnvoi) {
 		super();
 		this.contenu = contenu;
