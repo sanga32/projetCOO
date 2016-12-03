@@ -32,7 +32,6 @@ public abstract class Message {
 	public Date getDateEnvoi() {
 		return dateEnvoi;
 	}
-	
-	
+		
 	
 }
