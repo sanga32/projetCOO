@@ -10,4 +10,8 @@ public class Utilisateur extends Personne{
 		return false;
 	}
 
+	public boolean isModo(Salon s){
+		if(s.getModo() == this) return true;
+		return false;
+	}
 }

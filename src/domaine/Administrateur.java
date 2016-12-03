@@ -9,5 +9,8 @@ public class Administrateur extends Personne{
 	public boolean isAdmin() {
 		return true;
 	}
-
+	
+	public boolean isModo(Salon s){
+		return true;
+	}
 }

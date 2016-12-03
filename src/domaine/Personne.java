@@ -28,6 +28,8 @@ public abstract class Personne {
 	
 	public abstract boolean isAdmin();
 	
+	public abstract boolean isModo(Salon s);
+	
 	public void addPersonne(Personne p){
 		this.personnes.add(p);
 	}

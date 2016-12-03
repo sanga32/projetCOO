@@ -1,15 +1,34 @@
 package domaine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Salon {
 	int id;
 	String nom;
 	Personne modo;
+	List<Personne> personnes;
 	public Salon(int id, String nom, Personne modo) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.modo = modo;
+		this.personnes = new ArrayList<Personne>(); //proxy à faire
 	}
+	
+	public boolean isEmpty(){
+		if(personnes.isEmpty()) return true;
+		return false;
+	}
+	
+	public void addPersonne(Personne p){
+		this.personnes.add(p);
+	}
+	
+	public void removePersonne(Personne p){
+		this.personnes.remove(p);
+	}
+	
 	public int getId() {
 		return id;
 	}
