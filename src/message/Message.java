@@ -9,15 +9,10 @@ public abstract class Message {
 	Personne expediteur, destinataire;
 	Date dateEnvoi;
 	
-	abstract boolean isReception();
-	
-	public Message(String contenu, Personne expediteur, Personne destinataire, Date dateEnvoi) {
-		super();
-		this.contenu = contenu;
-		this.expediteur = expediteur;
-		this.destinataire = destinataire;
-		this.dateEnvoi = dateEnvoi;
-	}
+	public abstract boolean isReception();
+	public abstract boolean isExpiration();
+	public abstract boolean isChiffre();
+	public abstract boolean isPrioritaire();
 
 	public String getContenu() {
 		return contenu;
