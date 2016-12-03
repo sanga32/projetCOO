@@ -4,4 +4,5 @@ public class test2 {
 
 	
 	String s = "ed";
+	
 }
