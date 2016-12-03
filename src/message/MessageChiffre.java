@@ -2,6 +2,11 @@ package message;
 
 public class MessageChiffre extends MessageAvecOption{
 
+	public MessageChiffre(Message m){
+		this.message=m;
+	}
+
+	
 	@Override
 	public
 	boolean isReception() {

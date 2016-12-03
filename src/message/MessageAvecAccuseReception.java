@@ -6,7 +6,11 @@ import domaine.Personne;
 
 public class MessageAvecAccuseReception extends MessageAvecOption {
 
-
+	public MessageAvecAccuseReception(Message m) {
+		// TODO Auto-generated constructor stub
+		this.message = m;
+	}
+	
 	@Override
 	public
 	boolean isReception() {

@@ -2,6 +2,10 @@ package message;
 
 public class MessagePrioritaire extends MessageAvecOption{
 
+	public MessagePrioritaire(Message m){
+		this.message = m;
+	}
+	
 	@Override
 	public
 	boolean isReception() {

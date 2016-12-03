@@ -2,6 +2,11 @@ package message;
 
 public class MessageAvecExpiration extends MessageAvecOption {
 
+	public MessageAvecExpiration(Message m) {
+		// TODO Auto-generated constructor stub
+		this.message = m;
+	}
+	
 	@Override
 	public
 	boolean isReception() {

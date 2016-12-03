@@ -1,20 +1,20 @@
 package test;
 
 import message.Message;
-import message.MessagePriveAvecExpirationDecorator;
-import message.MessagePriveChiffreDecorator;
-import message.MessagePrivePrioritaireDecorator;
+import message.MessageAvecAccuseReception;
+import message.MessageAvecExpiration;
+import message.MessageChiffre;
+import message.MessagePrioritaire;
 import message.MessagePrive;
-import message.MessagePriveAvecAccuseReceptionDecorator;
 
 public class testMessage {
 
 	public static void main(String[] args){
 		Message m = new MessagePrive();
-		Message mACK = new MessagePriveAvecAccuseReceptionDecorator(m);
-		Message mExp = new MessagePriveAvecExpirationDecorator(mACK);
-		Message mCh = new MessagePriveChiffreDecorator(mExp);
-		Message mPrio = new MessagePrivePrioritaireDecorator(mCh);
+		Message mACK = new MessageAvecAccuseReception(m);
+		Message mExp = new MessageAvecExpiration(mACK);
+		Message mCh = new MessageChiffre(mExp);
+		Message mPrio = new MessagePrioritaire(mACK);
 		
 		System.out.println(mPrio.isReception());
 		System.out.println(mPrio.isChiffre());
