@@ -67,7 +67,7 @@ public class PersonneMapper {
 	 */
 	public void insert(Personne p) {
 		try {
-			String req = "insert into PROJET_personne(id,login,mdp,nom,prenom) values(?,?,?,?,?)";
+			String req = "insert into PROJET_personne(idPersonne,login,mdp,nom,prenom) values(?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, p.getId());
 			ps.setString(2, p.getLogin());
@@ -90,7 +90,7 @@ public class PersonneMapper {
 	 */
 	public void delete(Personne p) {
 		try {
-			String req = "delete from PROJET_personne whene id =?";
+			String req = "delete from PROJET_personne whene idPersonne =?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, p.getId());
 			ps.execute();
@@ -108,7 +108,7 @@ public class PersonneMapper {
 	 */
 	public void update(Personne p) {
 		try {
-			String req = "UPDATE PROJET_personne SET login =?, mdp=? , nom=? , prenom=? WHERE id=?";
+			String req = "UPDATE PROJET_personne SET login =?, mdp=? , nom=? , prenom=? WHERE idPersonne=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setString(1, p.getLogin());
 			ps.setString(2, p.getMdp());
@@ -133,12 +133,12 @@ public class PersonneMapper {
 		if (idValide(id)) {
 			try {
 				// on va chercher la personne
-				String req = "SELECT id, nom, prenom, evaluation, pere, admin  FROM PROJET_personne WHERE id=?";
+				String req = "SELECT idPersonne, nom, prenom, evaluation, pere, admin  FROM PROJET_personne WHERE id=?";
 				PreparedStatement ps = conn.prepareStatement(req);
 				ps.setInt(1, id);
 				ResultSet rs = ps.executeQuery();
 				rs.next();
-				int id_personne = rs.getInt("id");
+				int id_personne = rs.getInt("idPersonne");
 				String login = rs.getString("login");
 				String mdp = rs.getString("mdp");
 				String nom = rs.getString("nom");
@@ -166,7 +166,7 @@ public class PersonneMapper {
 	 */
 	public boolean idValide(int id) {
 		try {
-			String req = "SELECT id FROM PROJET_personne WHERE id=?";
+			String req = "SELECT idPersonne FROM PROJET_personne WHERE id=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
