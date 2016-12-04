@@ -21,6 +21,11 @@ public abstract class Message {
 		return id;
 	}
 
+	@Override
+	public String toString() {
+		return "Message [id=" + id + ", contenu=" + contenu + ", expediteur=" + expediteur + ", destinataire="
+				+ destinataire + ", dateEnvoi=" + dateEnvoi + "]";
+	}
 	public String getContenu() {
 		return contenu;
 	}

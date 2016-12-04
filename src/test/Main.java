@@ -17,7 +17,7 @@ public class Main {
 	Personne p1;
 	Personne p2;
 	
-
+	mm.clear();
 	p1 = pm.findById(1);
 	p2 = pm.findById(2);
 	
