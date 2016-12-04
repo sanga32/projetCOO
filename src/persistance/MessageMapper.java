@@ -97,7 +97,6 @@ public class MessageMapper {
 		}
 	}
 
-
 	/**
 	 * Recherche une personne à partir de son ID
 	 * 
@@ -105,67 +104,43 @@ public class MessageMapper {
 	 *            id de la personne à trouver en BDD
 	 * @return une personne
 	 */
-	public Message findById(int id) {
-		if (idValide(id)) {
-			try {
-				// on va chercher la personne
-				String req = "SELECT idMessage, message, expediteur, destinataire, dateHeure, "
-						+ "isReception, isExpiration, isChiffre, isPrioritaire  FROM PROJET_MessagePrive WHERE idMessage=?";
-				PreparedStatement ps = conn.prepareStatement(req);
-				ps.setInt(1, id);
-				ResultSet rs = ps.executeQuery();
-				rs.next();
-				int id_message = rs.getInt("idMessage");
-				String message = rs.getString("message");
-				Personne expediteur = new Utilisateur(rs.getInt("expediteur")); //proxy par la suite
-				Personne destinataire = new Utilisateur(rs.getInt("destinataire")); //proxy par la suite
-				Date date = rs.getDate("dateHeure");
-				Message m = new MessagePrive(id_message,message,expediteur,destinataire,date);
-				ArrayList<Message> mess = new ArrayList<Message>();
-				mess.add(m);
-				if(rs.getInt("isReception") == 1){
-					Message mACK = new MessageAvecAccuseReception(mess.get(mess.size()-1));
-					mess.add(mACK);
-				}
-				if(rs.getInt("isExpiration") == 1){
-					Message mExp = new MessageAvecAccuseReception(mess.get(mess.size()-1));
-					mess.add(mExp);
-				}
-				if(rs.getInt("isChiffre") == 1){
-					Message mCh = new MessageAvecAccuseReception(mess.get(mess.size()-1));
-					mess.add(mCh);
-				}
-				if(rs.getInt("isPrioritaire") == 1){
-					Message mPrio = new MessageAvecAccuseReception(mess.get(mess.size()-1));
-					mess.add(mPrio);
-				}
-				return mess.get(mess.size()-1);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Vérifie si l'id passé en paramètre se trouve en BDD
-	 * 
-	 * @param id
-	 *            id à chercher en BDD
-	 * @return vrai si une personne existe sinon false
-	 */
-	public boolean idValide(int id) {
+	public Message findByDestinataire(int id) {
 		try {
-			String req = "SELECT id FROM PROJET_MessagePrive WHERE id=?";
+			// on va chercher la personne
+			String req = "SELECT idMessage, message, expediteur, destinataire, dateHeure, "
+					+ "isReception, isExpiration, isChiffre, isPrioritaire  FROM PROJET_MessagePrive WHERE destinataire=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			rs.getInt(1);
-			return true;
+			int id_message = rs.getInt("idMessage");
+			String message = rs.getString("message");
+			Personne expediteur = new Utilisateur(rs.getInt("expediteur")); // proxy
+																			// par
+																			// la
+																			// suite
+			Personne destinataire = new Utilisateur(rs.getInt("destinataire")); // proxy
+																				// par
+																				// la
+																				// suite
+			Date date = rs.getDate("dateHeure");
+			Message m = new MessagePrive(id_message, message, expediteur, destinataire, date);
+			if (rs.getInt("isReception") == 1) {
+				m = new MessageAvecAccuseReception(m);
+			}
+			if (rs.getInt("isExpiration") == 1) {
+				m = new MessageAvecExpiration(m);
+			}
+			if (rs.getInt("isChiffre") == 1) {
+				m = new MessageChiffre(m);
+			}
+			if (rs.getInt("isPrioritaire") == 1) {
+				m = new MessagePrioritaire(m);
+			}
+			return m;
 		} catch (SQLException e) {
-			return false;
+			e.printStackTrace();
 		}
+		return null;
 	}
-
 }
