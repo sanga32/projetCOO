@@ -41,12 +41,12 @@ public class MessageMapper {
 	}
 
 	/**
-	 * Supprime le contenue de la table PROJET_MessagePrive
+	 * Supprime le contenue de la table Projet_MessagePrive
 	 */
 
 	public void clear() {
 		try {
-			String req = "delete from PROJET_MessagePrive";
+			String req = "delete from Projet_MessagePrive";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.execute();
 			conn.commit();
@@ -63,7 +63,7 @@ public class MessageMapper {
 	 */
 	public void insert(Message m) {
 		try {
-			String req = "insert into PROJET_MessagePrive(idMessage, message, expediteur, destinataire, "
+			String req = "insert into Projet_MessagePrive(idMessage, message, expediteur, destinataire, "
 					+ "dateHeure, isReception, isExpiration, isChiffre, isPrioritaire) values(?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, m.getId());
@@ -71,6 +71,10 @@ public class MessageMapper {
 			ps.setInt(3, m.getExpediteur().getId());
 			ps.setInt(4, m.getDestinataire().getId());
 			ps.setDate(5, m.getDateEnvoi());
+			ps.setInt(6, (m.isReception())?1:0);
+			ps.setInt(7, (m.isExpiration())?1:0);
+			ps.setInt(8, (m.isChiffre())?1:0);
+			ps.setInt(9, (m.isPrioritaire())?1:0);
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {
@@ -87,7 +91,7 @@ public class MessageMapper {
 	 */
 	public void delete(Message m) {
 		try {
-			String req = "delete from PROJET_MessagePrive whene id =?";
+			String req = "delete from Projet_MessagePrive whene id =?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, m.getId());
 			ps.execute();
@@ -108,7 +112,7 @@ public class MessageMapper {
 		try {
 			// on va chercher la personne
 			String req = "SELECT idMessage, message, expediteur, destinataire, dateHeure, "
-					+ "isReception, isExpiration, isChiffre, isPrioritaire  FROM PROJET_MessagePrive WHERE destinataire=?";
+					+ "isReception, isExpiration, isChiffre, isPrioritaire  FROM Projet_MessagePrive WHERE destinataire=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
