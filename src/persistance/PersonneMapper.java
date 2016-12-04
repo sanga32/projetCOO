@@ -50,7 +50,7 @@ public class PersonneMapper {
 
 	public void clear() {
 		try {
-			String req = "delete from PROJET_Personne";
+			String req = "delete from Projet_Personne";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.execute();
 			conn.commit();
@@ -67,7 +67,7 @@ public class PersonneMapper {
 	 */
 	public void insert(Personne p) {
 		try {
-			String req = "insert into PROJET_Personne(idPersonne,login,mdp,nom,prenom) values(?,?,?,?,?)";
+			String req = "insert into Projet_Personne(idPersonne,login,mdp,nom,prenom) values(?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, p.getId());
 			ps.setString(2, p.getLogin());
@@ -90,7 +90,7 @@ public class PersonneMapper {
 	 */
 	public void delete(Personne p) {
 		try {
-			String req = "delete from PROJET_Personne whene idPersonne =?";
+			String req = "delete from Projet_Personne whene idPersonne =?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, p.getId());
 			ps.execute();
@@ -108,7 +108,7 @@ public class PersonneMapper {
 	 */
 	public void update(Personne p) {
 		try {
-			String req = "UPDATE PROJET_Personne SET login =?, mdp=? , nom=? , prenom=? WHERE idPersonne=?";
+			String req = "UPDATE Projet_Personne SET login =?, mdp=? , nom=? , prenom=? WHERE idPersonne=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setString(1, p.getLogin());
 			ps.setString(2, p.getMdp());
@@ -133,7 +133,7 @@ public class PersonneMapper {
 		if (idValide(id)) {
 			try {
 				// on va chercher la personne
-				String req = "SELECT idPersonne, nom, prenom, evaluation, pere, admin  FROM PROJET_Personne WHERE idPersonne=?";
+				String req = "SELECT idPersonne, nom, prenom, evaluation, pere, admin  FROM Projet_Personne WHERE idPersonne=?";
 				PreparedStatement ps = conn.prepareStatement(req);
 				ps.setInt(1, id);
 				ResultSet rs = ps.executeQuery();
@@ -166,7 +166,7 @@ public class PersonneMapper {
 	 */
 	public boolean idValide(int id) {
 		try {
-			String req = "SELECT idPersonne FROM PROJET_Personne WHERE idPersonne=?";
+			String req = "SELECT idPersonne FROM Projet_Personne WHERE idPersonne=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
