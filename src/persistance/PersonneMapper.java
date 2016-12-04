@@ -133,7 +133,7 @@ public class PersonneMapper {
 		if (idValide(id)) {
 			try {
 				// on va chercher la personne
-				String req = "SELECT idPersonne, nom, prenom, evaluation, pere, admin  FROM PROJET_personne WHERE id=?";
+				String req = "SELECT idPersonne, nom, prenom, evaluation, pere, admin  FROM PROJET_personne WHERE idPersonne=?";
 				PreparedStatement ps = conn.prepareStatement(req);
 				ps.setInt(1, id);
 				ResultSet rs = ps.executeQuery();
