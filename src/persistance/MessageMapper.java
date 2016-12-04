@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.util.ArrayList;
+import java.sql.Date;
 
 import domaine.Administrateur;
 import domaine.Personne;
@@ -104,7 +105,7 @@ public class MessageMapper {
 	 *            id de la personne à trouver en BDD
 	 * @return une personne
 	 */
-	public Personne findById(int id) {
+	public Message findById(int id) {
 		if (idValide(id)) {
 			try {
 				// on va chercher la personne
@@ -120,13 +121,26 @@ public class MessageMapper {
 				Personne destinataire = new Utilisateur(rs.getInt("destinataire")); //proxy par la suite
 				Date date = rs.getDate("dateHeure");
 				Message m = new MessagePrive(id_message,message,expediteur,destinataire,date);
-				Personne p;
-				if (rs.getInt("admin") == 0) {
-					p = new Utilisateur(id_personne, login, mdp, nom, prenom);
-				} else {
-					p = new Administrateur(id_personne, login, mdp, nom, prenom);
+				Message mACK = null; Message mExp = null; Message mCh = null; Message mPrio = null;
+				ArrayList<Message> mess = new ArrayList<Message>();
+				mess.add(m);
+				if(rs.getInt("isReception") == 1){
+					mACK = new MessageAvecAccuseReception(mess.get(mess.size()-1));
+					mess.add(mACK);
 				}
-				return p;
+				if(rs.getInt("isExpiration") == 1){
+					mExp = new MessageAvecAccuseReception(mess.get(mess.size()-1));
+					mess.add(mExp);
+				}
+				if(rs.getInt("isChiffre") == 1){
+					mCh = new MessageAvecAccuseReception(mess.get(mess.size()-1));
+					mess.add(mCh);
+				}
+				if(rs.getInt("isPrioritaire") == 1){
+					mPrio = new MessageAvecAccuseReception(mess.get(mess.size()-1));
+					mess.add(mPrio);
+				}
+				return mess.get(mess.size()-1);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
