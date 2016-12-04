@@ -24,6 +24,7 @@ public class Main {
 	mm.insert(new MessagePrive(1, "Salut", p1, p2, Date.valueOf(LocalDate.now())));
 	
 	System.out.println(mm.findByDestinataire(p2));
+	
 	}
 	
 }
