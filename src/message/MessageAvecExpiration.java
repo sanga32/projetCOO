@@ -2,7 +2,7 @@ package message;
 
 public class MessageAvecExpiration extends MessageAvecOption {
 
-	public MessageAvecExpiration(int id, Message m) {
+	public MessageAvecExpiration(Message m) {
 		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.message = m;

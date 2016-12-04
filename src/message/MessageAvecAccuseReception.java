@@ -6,7 +6,7 @@ import domaine.Personne;
 
 public class MessageAvecAccuseReception extends MessageAvecOption {
 
-	public MessageAvecAccuseReception(int id, Message m) {
+	public MessageAvecAccuseReception(Message m) {
 		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.message = m;
