@@ -121,23 +121,22 @@ public class MessageMapper {
 				Personne destinataire = new Utilisateur(rs.getInt("destinataire")); //proxy par la suite
 				Date date = rs.getDate("dateHeure");
 				Message m = new MessagePrive(id_message,message,expediteur,destinataire,date);
-				Message mACK = null; Message mExp = null; Message mCh = null; Message mPrio = null;
 				ArrayList<Message> mess = new ArrayList<Message>();
 				mess.add(m);
 				if(rs.getInt("isReception") == 1){
-					mACK = new MessageAvecAccuseReception(mess.get(mess.size()-1));
+					Message mACK = new MessageAvecAccuseReception(mess.get(mess.size()-1));
 					mess.add(mACK);
 				}
 				if(rs.getInt("isExpiration") == 1){
-					mExp = new MessageAvecAccuseReception(mess.get(mess.size()-1));
+					Message mExp = new MessageAvecAccuseReception(mess.get(mess.size()-1));
 					mess.add(mExp);
 				}
 				if(rs.getInt("isChiffre") == 1){
-					mCh = new MessageAvecAccuseReception(mess.get(mess.size()-1));
+					Message mCh = new MessageAvecAccuseReception(mess.get(mess.size()-1));
 					mess.add(mCh);
 				}
 				if(rs.getInt("isPrioritaire") == 1){
-					mPrio = new MessageAvecAccuseReception(mess.get(mess.size()-1));
+					Message mPrio = new MessageAvecAccuseReception(mess.get(mess.size()-1));
 					mess.add(mPrio);
 				}
 				return mess.get(mess.size()-1);
