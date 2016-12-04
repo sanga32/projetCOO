@@ -11,15 +11,15 @@ public class testMessage {
 
 	public static void main(String[] args){
 		Message m = new MessagePrive();
-		Message mACK = new MessageAvecAccuseReception(m);
-		Message mExp = new MessageAvecExpiration(mACK);
-		Message mCh = new MessageChiffre(mExp);
-		Message mPrio = new MessagePrioritaire(mACK);
+		m = new MessageAvecAccuseReception(m);
+		m = new MessageAvecExpiration(m);
+		//m = new MessageChiffre(m);
+		m = new MessagePrioritaire(m);
 		
-		System.out.println(mPrio.isReception());
-		System.out.println(mPrio.isChiffre());
-		System.out.println(mPrio.isExpiration());
-		System.out.println(mPrio.isPrioritaire());
+		System.out.println(m.isReception());
+		System.out.println(m.isChiffre());
+		System.out.println(m.isExpiration());
+		System.out.println(m.isPrioritaire());
 
 	}
 }
