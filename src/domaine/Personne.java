@@ -13,6 +13,12 @@ public abstract class Personne {
 	List<Interet> interets;
 	List<SousInteret> sousInterets;
 	List<Salon> salons;
+	
+	//à supprimer une fois le proxy créé
+	public Personne(int id) {
+		super();
+		this.id = id;
+	}
 	public Personne(int id, String login, String mdp, String prenom, String nom) {
 		super();
 		this.id = id;

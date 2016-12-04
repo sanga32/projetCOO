@@ -6,8 +6,12 @@ import domaine.Personne;
 
 public class MessagePrive extends Message{
 
-	public MessagePrive(String contenu, Personne expediteur, Personne destinataire, Date dateEnvoi) {
-		// TODO Auto-generated constructor stub
+	public MessagePrive(int id, String contenu, Personne expediteur, Personne destinataire, Date dateEnvoi) {
+		this.id = id;
+		this.contenu = contenu;
+		this.expediteur = expediteur;
+		this.destinataire = destinataire;
+		this.dateEnvoi = dateEnvoi;
 	}
 
 	public MessagePrive() {

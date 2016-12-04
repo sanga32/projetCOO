@@ -5,6 +5,7 @@ import java.sql.Date;
 import domaine.Personne;
 
 public abstract class Message {
+	int id;
 	String contenu;
 	Personne expediteur, destinataire;
 	Date dateEnvoi;
@@ -13,6 +14,12 @@ public abstract class Message {
 	public abstract boolean isExpiration();
 	public abstract boolean isChiffre();
 	public abstract boolean isPrioritaire();
+
+	
+	
+	public int getId() {
+		return id;
+	}
 
 	public String getContenu() {
 		return contenu;

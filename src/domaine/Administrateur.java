@@ -2,6 +2,11 @@ package domaine;
 
 public class Administrateur extends Personne{
 
+	public Administrateur(int id) {
+		super(id);
+	}
+
+	
 	public Administrateur(int id, String login, String mdp, String prenom, String nom) {
 		super(id, login, mdp, prenom, nom);
 	}

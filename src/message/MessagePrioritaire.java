@@ -2,7 +2,8 @@ package message;
 
 public class MessagePrioritaire extends MessageAvecOption{
 
-	public MessagePrioritaire(Message m){
+	public MessagePrioritaire(int id, Message m){
+		this.id = id;
 		this.message = m;
 	}
 	

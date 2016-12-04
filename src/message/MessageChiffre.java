@@ -2,7 +2,8 @@ package message;
 
 public class MessageChiffre extends MessageAvecOption{
 
-	public MessageChiffre(Message m){
+	public MessageChiffre(int id, Message m){
+		this.id = id;
 		this.message=m;
 	}
 
