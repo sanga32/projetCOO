@@ -102,10 +102,10 @@ public abstract class Personne {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public List<Personne> getamis() {
+	public List<Personne> getAmis() {
 		return amis;
 	}
-	public void setamis(List<Personne> amis) {
+	public void setAmis(List<Personne> amis) {
 		this.amis = amis;
 	}
 	public List<Interet> getInterets() {
@@ -127,5 +127,7 @@ public abstract class Personne {
 		this.salons = salons;
 	}
 	
-	
+	public String toString(){
+		return "Personne [id°" + id+" | login = " + login + "]";
+	}
 }

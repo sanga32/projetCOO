@@ -19,22 +19,12 @@ public class VirtualProxyListAmi implements List<Personne> {
 	private int id_personne;
 	private List<Personne> amis = null;
 
-	/**
-	 * Contructeur du virtualProxyListPersonne qui récupère l'id du père des
-	 * fils
-	 * 
-	 * @param id_personne
-	 *            id du père des fils
-	 */
+
 	public VirtualProxyListAmi(int id_personne) {
 		this.id_personne = id_personne;
 	}
 
-	/**
-	 * On vérifie si on a déja initialisé la liste de fils sinon on l'inisialise
-	 * 
-	 * @throws SQLException
-	 */
+
 	public void verifieInitilisation() throws SQLException {
 		if (amis == null) {
 			amis = new ArrayList<Personne>();
@@ -43,31 +33,22 @@ public class VirtualProxyListAmi implements List<Personne> {
 
 	}
 
-	/**
-	 * C'est ici qu'on récupère les fils en BDD
-	 * 
-	 * @throws SQLException
-	 */
+
 	public void initialisation() throws SQLException {
 		amis = PersonneMapper.getInstance().getAmi(id_personne);
 	}
 
-	/**
-	 * On va chercher les fils d'une personne
-	 * 
-	 * @return une liste de personne
-	 * @throws SQLException
-	 */
-	public List<Personne> getFils() throws SQLException {
-		verifieInitilisation();
+
+	public List<Personne> getAmis() {
+		try {
+			verifieInitilisation();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return amis;
 	}
 
-	/**
-	 * On ajoute un fils à la liste de personne
-	 * 
-	 * @return true si tout s'est bien passé
-	 */
+
 	@Override
 	public boolean add(Personne e) {
 		try {

@@ -90,7 +90,7 @@ public class PersonneMapper {
 	 */
 	public void delete(Personne p) {
 		try {
-			String req = "delete from Projet_Personne whene idPersonne =?";
+			String req = "delete from Projet_Personne where idPersonne =?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, p.getId());
 			ps.execute();
@@ -138,7 +138,7 @@ public class PersonneMapper {
 				ps.setInt(1, id);
 				ResultSet rs = ps.executeQuery();
 				rs.next();
-				int id_personne = rs.getInt("idPersonne");
+				int id_personne = rs.getInt(1);
 				String login = rs.getString("login");
 				String mdp = rs.getString("mdp");
 				String nom = rs.getString("nom");
@@ -186,17 +186,18 @@ public class PersonneMapper {
 			ps.setInt(1, id_personne);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
+				System.out.println("1");
 				amis.add(findById(rs.getInt(1)));
 			}
 			
 			String req2 = "SELECT idPersonne2 FROM Projet_Ami WHERE idPersonne1=?";
 			PreparedStatement ps2 = conn.prepareStatement(req2);
-			ps.setInt(1, id_personne);
+			ps2.setInt(1, id_personne);
 			ResultSet rs2 = ps2.executeQuery();
 			while (rs2.next()) {
+				System.out.println("2");
 				amis.add(findById(rs2.getInt(1)));
 			}
-			
 			return amis;
 		} catch (SQLException e) {
 			e.printStackTrace();
