@@ -6,7 +6,6 @@ public class SousInteret {
 	Interet interet;
 	
 	public SousInteret(int id, String nom, Interet interet) {
-		super();
 		this.id = id;
 		this.nom = nom;
 		this.interet = interet;
