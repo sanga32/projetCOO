@@ -133,7 +133,6 @@ public class AmiMapper {
 			ps.setInt(1, id_personne);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				System.out.println("1");
 				amis.add(PersonneMapper.getInstance().findById(rs.getInt("idPersonne1")));
 			}
 			
@@ -142,7 +141,6 @@ public class AmiMapper {
 			ps2.setInt(1, id_personne);
 			ResultSet rs2 = ps2.executeQuery();
 			while (rs2.next()) {
-				System.out.println("2");
 				amis.add(PersonneMapper.getInstance().findById(rs2.getInt("idPersonne2")));
 			}
 			return amis;
