@@ -45,7 +45,7 @@ public class PersonneMapper {
 	}
 
 	/**
-	 * Supprime le contenue de la table TPNOTE_personne
+	 * Supprime le contenue de la table Projet_personne
 	 */
 
 	public void clear() {
