@@ -103,7 +103,7 @@ public class InteretMapper {
 	 *            id de la personne à trouver en BDD
 	 * @return une personne
 	 */
-	public Message findByDestinataire(int id) {
+	public Interet findByDestinataire(int id) {
 		try {
 			// on va chercher la personne
 			String req = "SELECT idInteret, message FROM Projet_Interet WHERE idInteret=?";
@@ -111,25 +111,10 @@ public class InteretMapper {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			int id_message = rs.getInt("idMessage");
+			int idInteret = rs.getInt("idMessage");
 			String message = rs.getString("message");
-			Personne expediteur = new VirtualProxyPersonne(rs.getInt("expediteur"));
-			Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
-			Date date = rs.getDate("dateHeure");
-			Message m = new MessagePrive(id_message, message, expediteur, destinataire, date);
-			if (rs.getInt("isReception") == 1) {
-				m = new MessageAvecAccuseReception(m);
-			}
-			if (rs.getInt("isExpiration") == 1) {
-				m = new MessageAvecExpiration(m);
-			}
-			if (rs.getInt("isChiffre") == 1) {
-				m = new MessageChiffre(m);
-			}
-			if (rs.getInt("isPrioritaire") == 1) {
-				m = new MessagePrioritaire(m);
-			}
-			return m;
+			Interet i = new Interet(idInteret, message);
+			return i;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
