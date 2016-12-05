@@ -105,6 +105,8 @@ public abstract class Personne {
 	public List<Personne> getAmis() {
 		return amis;
 	}
+	
+	
 	public void setAmis(List<Personne> amis) {
 		this.amis = amis;
 	}

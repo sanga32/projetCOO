@@ -65,7 +65,8 @@ public class PersonneMapper {
 	 * @param p
 	 *            personne à insérer en BDD
 	 */
-	public void insert(Personne p) {
+	public int insert(Personne p) {
+		int nbLigne = 0;
 		try {
 			String req = "insert into Projet_Personne(idPersonne,login,mdp,nom,prenom) values(?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
@@ -74,11 +75,12 @@ public class PersonneMapper {
 			ps.setString(3, p.getMdp());
 			ps.setString(4, p.getNom());
 			ps.setString(5, p.getPrenom());
-			ps.execute();
+			nbLigne = ps.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return nbLigne;
 
 	}
 
@@ -176,33 +178,6 @@ public class PersonneMapper {
 		} catch (SQLException e) {
 			return false;
 		}
-	}
-
-	public List<Personne> getAmi(int id_personne) {
-		try {
-			List<Personne> amis = new ArrayList<Personne>();
-			String req = "SELECT idPersonne1 FROM Projet_Ami WHERE idPersonne2=?";
-			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, id_personne);
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				System.out.println("1");
-				amis.add(findById(rs.getInt(1)));
-			}
-			
-			String req2 = "SELECT idPersonne2 FROM Projet_Ami WHERE idPersonne1=?";
-			PreparedStatement ps2 = conn.prepareStatement(req2);
-			ps2.setInt(1, id_personne);
-			ResultSet rs2 = ps2.executeQuery();
-			while (rs2.next()) {
-				System.out.println("2");
-				amis.add(findById(rs2.getInt(1)));
-			}
-			return amis;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 }

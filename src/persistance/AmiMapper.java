@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import domaine.Personne;
 import settings.ConnectionInfo;
@@ -57,7 +59,8 @@ public class AmiMapper {
 	 * @param p2
 	 *            p1 et p2 sont les deux nouveau ami à insérer en bdd
 	 */
-	public void insert(Personne p1, Personne p2) {
+	public int insert(Personne p1, Personne p2) {
+		int nbLigne = 0;
 		// On insère uniquement si ils ne sont pas déja ami
 		if (!isAmi(p1, p2)) {
 			try {
@@ -65,12 +68,13 @@ public class AmiMapper {
 				PreparedStatement ps = conn.prepareStatement(req);
 				ps.setInt(1, p1.getId());
 				ps.setInt(2, p2.getId());
-				ps.execute();
+				nbLigne = ps.executeUpdate();
 				conn.commit();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		return nbLigne;
 
 	}
 
@@ -119,6 +123,33 @@ public class AmiMapper {
 		} catch (SQLException e) {
 			return false;
 		}
+	}
+	
+	public List<Personne> getAmis(int id_personne) {
+		try {
+			List<Personne> amis = new ArrayList<Personne>();
+			String req = "SELECT idPersonne1 FROM Projet_Ami WHERE idPersonne2=?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, id_personne);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				System.out.println("1");
+				amis.add(PersonneMapper.getInstance().findById(rs.getInt("idPersonne1")));
+			}
+			
+			String req2 = "SELECT idPersonne2 FROM Projet_Ami WHERE idPersonne1=?";
+			PreparedStatement ps2 = conn.prepareStatement(req2);
+			ps2.setInt(1, id_personne);
+			ResultSet rs2 = ps2.executeQuery();
+			while (rs2.next()) {
+				System.out.println("2");
+				amis.add(PersonneMapper.getInstance().findById(rs2.getInt("idPersonne2")));
+			}
+			return amis;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

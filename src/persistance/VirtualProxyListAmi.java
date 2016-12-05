@@ -35,7 +35,7 @@ public class VirtualProxyListAmi implements List<Personne> {
 
 
 	public void initialisation() throws SQLException {
-		amis = PersonneMapper.getInstance().getAmi(id_personne);
+		amis = AmiMapper.getInstance().getAmis(id_personne);
 	}
 
 
