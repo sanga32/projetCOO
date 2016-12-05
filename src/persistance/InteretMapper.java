@@ -1,27 +1,30 @@
 package persistance;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.sql.Date;
 
-import domaine.Administrateur;
+import domaine.Interet;
 import domaine.Personne;
-import domaine.Utilisateur;
-import message.*;
+import message.Message;
+import message.MessageAvecAccuseReception;
+import message.MessageAvecExpiration;
+import message.MessageChiffre;
+import message.MessagePrioritaire;
+import message.MessagePrive;
 import settings.ConnectionInfo;
 
-public class MessageMapper {
+public class InteretMapper {
 	private Connection conn;
-	static MessageMapper inst;
+	static InteretMapper inst;
 
 	/**
 	 * Permet d'initialiser le PersonneMapper
 	 */
-	public MessageMapper() {
+	public InteretMapper() {
 		try {
 			conn = DriverManager.getConnection(ConnectionInfo.DB_URL, ConnectionInfo.COMPTE, ConnectionInfo.MDP);
 			conn.setAutoCommit(false);
@@ -34,19 +37,19 @@ public class MessageMapper {
 	 * Retourne l'instance de PersonneMapper
 	 */
 
-	public static MessageMapper getInstance() {
+	public static InteretMapper getInstance() {
 		if (inst == null)
-			inst = new MessageMapper();
+			inst = new InteretMapper();
 		return inst;
 	}
 
 	/**
-	 * Supprime le contenue de la table Projet_MessagePrive
+	 * Supprime le contenue de la table Projet_Interet
 	 */
 
 	public void clear() {
 		try {
-			String req = "delete from Projet_MessagePrive";
+			String req = "delete from Projet_Interet";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.execute();
 			conn.commit();
@@ -61,20 +64,12 @@ public class MessageMapper {
 	 * @param p
 	 *            personne à insérer en BDD
 	 */
-	public void insert(Message m) {
+	public void insert(Interet i) {
 		try {
-			String req = "insert into Projet_MessagePrive(idMessage, message, expediteur, destinataire, "
-					+ "dateHeure, isReception, isExpiration, isChiffre, isPrioritaire) values(?,?,?,?,?,?,?,?,?)";
+			String req = "insert into Projet_Interet(idInteret, description) values(?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, m.getId());
-			ps.setString(2, m.getContenu());
-			ps.setInt(3, m.getExpediteur().getId());
-			ps.setInt(4, m.getDestinataire().getId());
-			ps.setDate(5, m.getDateEnvoi());
-			ps.setInt(6, (m.isReception())?1:0);
-			ps.setInt(7, (m.isExpiration())?1:0);
-			ps.setInt(8, (m.isChiffre())?1:0);
-			ps.setInt(9, (m.isPrioritaire())?1:0);
+			ps.setInt(1, i.getId());
+			ps.setString(2, i.getNom());
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {
@@ -91,7 +86,7 @@ public class MessageMapper {
 	 */
 	public void delete(Message m) {
 		try {
-			String req = "delete from Projet_MessagePrive where idMessage =?";
+			String req = "delete from Projet_Interet where idInteret =?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, m.getId());
 			ps.execute();
@@ -111,8 +106,7 @@ public class MessageMapper {
 	public Message findByDestinataire(int id) {
 		try {
 			// on va chercher la personne
-			String req = "SELECT idMessage, message, expediteur, destinataire, dateHeure, "
-					+ "isReception, isExpiration, isChiffre, isPrioritaire  FROM Projet_MessagePrive WHERE destinataire=?";
+			String req = "SELECT idInteret, message FROM Projet_Interet WHERE idInteret=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
