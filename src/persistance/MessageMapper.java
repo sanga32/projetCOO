@@ -119,14 +119,8 @@ public class MessageMapper {
 			rs.next();
 			int id_message = rs.getInt("idMessage");
 			String message = rs.getString("message");
-			Personne expediteur = new Utilisateur(rs.getInt("expediteur")); // proxy
-																			// par
-																			// la
-																			// suite
-			Personne destinataire = new Utilisateur(rs.getInt("destinataire")); // proxy
-																				// par
-																				// la
-																				// suite
+			Personne expediteur = new VirtualProxyPersonne(rs.getInt("expediteur"));
+			Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
 			Date date = rs.getDate("dateHeure");
 			Message m = new MessagePrive(id_message, message, expediteur, destinataire, date);
 			if (rs.getInt("isReception") == 1) {

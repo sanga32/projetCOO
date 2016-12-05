@@ -1,7 +1,10 @@
 package domaine;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import persistance.VirtualProxyListAmi;
 
 public abstract class Personne {
 	int id;
@@ -9,16 +12,18 @@ public abstract class Personne {
 	String mdp;
 	String prenom;
 	String nom;
-	List<Personne> personnes;
+	List<Personne> amis;
 	List<Interet> interets;
 	List<SousInteret> sousInterets;
 	List<Salon> salons;
 	
-	//à supprimer une fois le proxy créé
-	public Personne(int id) {
-		super();
-		this.id = id;
+	public Personne(){
+		this.amis = new VirtualProxyListAmi(id);
+		this.interets = new ArrayList<Interet>();
+		this.sousInterets = new ArrayList<SousInteret>();
+		this.salons = new ArrayList<Salon>();
 	}
+	
 	public Personne(int id, String login, String mdp, String prenom, String nom) {
 		super();
 		this.id = id;
@@ -26,7 +31,7 @@ public abstract class Personne {
 		this.mdp = mdp;
 		this.prenom = prenom;
 		this.nom = nom;
-		this.personnes = new ArrayList<Personne>(); // remplacer par un proxy par la suite
+		this.amis = new VirtualProxyListAmi(id);
 		this.interets = new ArrayList<Interet>();
 		this.sousInterets = new ArrayList<SousInteret>();
 		this.salons = new ArrayList<Salon>();
@@ -34,14 +39,14 @@ public abstract class Personne {
 	
 	public abstract boolean isAdmin();
 	
-	public abstract boolean isModo(Salon s);
+	public abstract boolean isModo(Salon s) throws SQLException;
 	
 	public void addPersonne(Personne p){
-		this.personnes.add(p);
+		this.amis.add(p);
 	}
 	
 	public void removePersonne(Personne p){
-		this.personnes.remove(p);
+		this.amis.remove(p);
 	}
 	
 	public void addInteret(Interet i){
@@ -97,11 +102,11 @@ public abstract class Personne {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public List<Personne> getPersonnes() {
-		return personnes;
+	public List<Personne> getamis() {
+		return amis;
 	}
-	public void setPersonnes(List<Personne> personnes) {
-		this.personnes = personnes;
+	public void setamis(List<Personne> amis) {
+		this.amis = amis;
 	}
 	public List<Interet> getInterets() {
 		return interets;
