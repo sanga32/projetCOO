@@ -103,7 +103,7 @@ public class InteretMapper {
 	 *            id de la personne à trouver en BDD
 	 * @return une personne
 	 */
-	public Interet findByDestinataire(int id) {
+	public Interet findById(int id) {
 		try {
 			// on va chercher la personne
 			String req = "SELECT idInteret, message FROM Projet_Interet WHERE idInteret=?";
