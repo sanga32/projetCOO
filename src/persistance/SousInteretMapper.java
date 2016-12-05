@@ -123,7 +123,7 @@ public class SousInteretMapper {
 	 * 
 	 * @param id
 	 *            id du SousInteret à trouver en BDD
-	 * @return une personne
+	 * @return un SousInteret
 	 */
 	public SousInteret findById(int id) {
 
