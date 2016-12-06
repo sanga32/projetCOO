@@ -108,7 +108,8 @@ public class PersonneMapper {
 	 * @param p
 	 *            personne à modifier
 	 */
-	public void update(Personne p) {
+	public int update(Personne p) {
+		int nbLigne = 0;
 		try {
 			String req = "UPDATE Projet_Personne SET login =?, mdp=? , nom=? , prenom=? WHERE idPersonne=?";
 			PreparedStatement ps = conn.prepareStatement(req);
@@ -117,11 +118,12 @@ public class PersonneMapper {
 			ps.setString(3, p.getNom());
 			ps.setString(4, p.getPrenom());
 			ps.setInt(5, p.getId());
-			ps.execute();
+			nbLigne = ps.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return nbLigne;
 	}
 
 	/**
