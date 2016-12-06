@@ -105,7 +105,7 @@ public abstract class Personne {
 		this.nom = nom;
 	}
 	public List<Personne> getAmis() {
-		return ((VirtualProxyListAmi) amis).getList();
+		return ((VirtualProxyListAmi) amis).getAmis();
 	}
 	
 	public void setAmis(List<Personne> amis) {

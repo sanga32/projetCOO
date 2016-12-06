@@ -47,16 +47,6 @@ public class VirtualProxyListAmi implements List<Personne> {
 		}
 		return amis;
 	}
-
-	public List<Personne> getList() {
-		try {
-			verifieInitilisation();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return amis;
-	}
-	
 	
 	@Override
 	public boolean add(Personne e) {
