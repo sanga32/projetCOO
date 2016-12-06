@@ -29,6 +29,10 @@ public class Salon {
 		this.personnes.remove(p);
 	}
 	
+	public String toString(){
+		return nom + " modéré par " + modo.login;
+	}
+	
 	public int getId() {
 		return id;
 	}

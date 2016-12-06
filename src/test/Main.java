@@ -10,6 +10,7 @@ import persistance.AmiMapper;
 import persistance.MessageMapper;
 import persistance.NotificationMapper;
 import persistance.PersonneMapper;
+import persistance.SalonMapper;
 
 public class Main {
 
@@ -19,6 +20,7 @@ public class Main {
 		MessageMapper mm = MessageMapper.getInstance();
 		AmiMapper am = AmiMapper.getInstance();
 		NotificationMapper nm = NotificationMapper.getInstance();
+		SalonMapper sm = SalonMapper.getInstance();
 		Personne p1 = new Utilisateur(1, "godona", "1234", "godon", "alexandre");
 		Personne p2 = new Utilisateur(2, "delportek", "4321", "delporte", "kevin");
 		Personne p3 = new Utilisateur(3, "lequette", "5748", "vaze", "amandine");
@@ -28,6 +30,7 @@ public class Main {
 		am.clear();
 		pm.clear();
 		nm.clear();
+		sm.clear();
 		pm.insert(p1);
 		pm.insert(p2);
 		pm.insert(p3);
@@ -55,6 +58,15 @@ public class Main {
 		List<Notification> ln2 = nm.findByPersonne(p1.getId());
 		for(int i=0; i<ln2.size();i++){
 			System.out.println(ln2.get(i).toString());
+		}
+		Salon s = new Salon(1,"les enculés",p3);
+		sm.insertSalon(s);
+		sm.insertPersonne(s, p1);
+		sm.insertPersonne(s, p2);
+		List<Personne> occupeSalon = sm.getPersonnes(1);
+		System.out.println("Salon :"+ s.toString());
+		for(int i=0; i<occupeSalon.size();i++){
+			System.out.println(occupeSalon.get(i).toString());
 		}
 	}
 

@@ -170,7 +170,6 @@ public class NotificationMapper {
 			ResultSet rs2 = ps2.executeQuery();
 			while (rs2.next()) {
 				try {
-					System.out.println("yo");
 					int id_notification = rs2.getInt("n.idNotification");
 					Personne destinataire = new VirtualProxyPersonne(rs2.getInt("destinataire"));
 					Personne expediteur = new VirtualProxyPersonne(rs2.getInt("expediteur"));
