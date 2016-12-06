@@ -131,6 +131,6 @@ public abstract class Personne {
 	}
 	
 	public String toString(){
-		return "Personne [id°" + id+" | login = " + login + "]";
+		return login ;
 	}
 }
