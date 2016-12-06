@@ -70,7 +70,7 @@ public class MessageMapper {
 					+ "dateHeure, isReception, isExpiration, isChiffre, isPrioritaire) values(?,?,?,?,?,?,?,?)";
 			}else{
 				 req = "insert into Projet_DiscussionSalon(idSalon, idPersonne, message, "
-							+ "dateHeure, isReception, isExpiration, isChiffre, isPrioritaire) values(?,?,?,?,?,?,?,?)";
+							+ "dateHeure) values(?,?,?,?)";
 			}
 			PreparedStatement ps = conn.prepareStatement(req);
 		
@@ -82,7 +82,10 @@ public class MessageMapper {
 			ps.setString(1, m.getContenu());
 			ps.setInt(2,((MessagePrive) m).getExpediteur().getId());
 			ps.setInt(3,((MessagePrive) m).getDestinataire().getId());
-		
+			ps.setInt(5, (m.isReception())?1:0);
+			ps.setInt(6, (m.isExpiration())?1:0);
+			ps.setInt(7, (m.isChiffre())?1:0);
+			ps.setInt(8, (m.isPrioritaire())?1:0);
 			
 			}else{
 				
@@ -92,10 +95,7 @@ public class MessageMapper {
 			
 			}
 			ps.setDate(4, m.getDateEnvoi());
-			ps.setInt(5, (m.isReception())?1:0);
-			ps.setInt(6, (m.isExpiration())?1:0);
-			ps.setInt(7, (m.isChiffre())?1:0);
-			ps.setInt(8, (m.isPrioritaire())?1:0);
+			
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {
