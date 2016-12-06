@@ -23,7 +23,7 @@ public class Main {
 		SalonMapper sm = SalonMapper.getInstance();
 		Personne p1 = new Utilisateur(1, "godona", "1234", "godon", "alexandre");
 		Personne p2 = new Utilisateur(2, "delportek", "4321", "delporte", "kevin");
-		Personne p3 = new Utilisateur(3, "lequette", "5748", "vaze", "amandine");
+		Personne p3 = new Utilisateur(3, "lequette", "5748", "lequette", "teddy");
 		;
 
 		mm.clear();
@@ -53,7 +53,7 @@ public class Main {
 		for(int i=0; i<ln.size();i++){
 			System.out.println(ln.get(i).toString());
 		}
-		Notification n2 = new Reponse(2,false,p2,p1);
+		Notification n2 = new Reponse(2,true,p2,p1);
 		nm.insert((Reponse) n2);
 		List<Notification> ln2 = nm.findByPersonne(p1.getId());
 		for(int i=0; i<ln2.size();i++){
@@ -66,7 +66,7 @@ public class Main {
 		List<Personne> occupeSalon = sm.getPersonnes(1);
 		System.out.println("Salon :"+ s.toString());
 		for(int i=0; i<occupeSalon.size();i++){
-			System.out.println(occupeSalon.get(i).toString());
+			System.out.println("    "+occupeSalon.get(i).toString());
 		}
 	}
 
