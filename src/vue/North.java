@@ -19,7 +19,7 @@ public class North extends JPanel {
 		modifierInfos.addActionListener(new ModifierProfilListener(p));
 		
 		this.add(quitter);
-		this.add(new JLabel(""+p.getLogin()));
+		this.add(new JLabel("     "+p.getLogin()+"     "));
 		this.add(modifierInfos);
 	}
 
