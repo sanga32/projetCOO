@@ -5,9 +5,8 @@ import java.sql.Date;
 import domaine.Personne;
 
 public abstract class Message {
-	int id;
 	String contenu;
-	Personne expediteur, destinataire;
+	int id;
 	Date dateEnvoi;
 	
 	public abstract boolean isReception();
@@ -15,32 +14,24 @@ public abstract class Message {
 	public abstract boolean isChiffre();
 	public abstract boolean isPrioritaire();
 
-	
-	
-	public int getId() {
-		return id;
-	}
+
 
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", contenu=" + contenu + ", expediteur=" + expediteur + ", destinataire="
-				+ destinataire + ", dateEnvoi=" + dateEnvoi + "]";
+		return "Message [id=" + id + ", contenu=" + contenu  + ", dateEnvoi=" + dateEnvoi + "]";
 	}
 	public String getContenu() {
 		return contenu;
 	}
 
-	public Personne getExpediteur() {
-		return expediteur;
-	}
 
-	public Personne getDestinataire() {
-		return destinataire;
-	}
 
 	public Date getDateEnvoi() {
 		return dateEnvoi;
 	}
 		
-	
+
+	public int getId() {
+		return this.id;
+	}
 }

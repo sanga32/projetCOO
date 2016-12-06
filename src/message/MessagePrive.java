@@ -5,9 +5,18 @@ import java.sql.Date;
 import domaine.Personne;
 
 public class MessagePrive extends Message{
-
+	Personne expediteur, destinataire;
+	
+	
 	public MessagePrive(int id, String contenu, Personne expediteur, Personne destinataire, Date dateEnvoi) {
-		this.id = id;
+		this.id=id;
+		this.contenu = contenu;
+		this.expediteur = expediteur;
+		this.destinataire = destinataire;
+		this.dateEnvoi = dateEnvoi;
+	}
+	public MessagePrive(String contenu, Personne expediteur, Personne destinataire, Date dateEnvoi) {
+		
 		this.contenu = contenu;
 		this.expediteur = expediteur;
 		this.destinataire = destinataire;
@@ -44,6 +53,14 @@ public class MessagePrive extends Message{
 	boolean isPrioritaire() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public Personne getExpediteur() {
+		return expediteur;
+	}
+
+	public Personne getDestinataire() {
+		return destinataire;
 	}
 
 }

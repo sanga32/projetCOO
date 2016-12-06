@@ -63,18 +63,39 @@ public class MessageMapper {
 	 */
 	public void insert(Message m) {
 		try {
-			String req = "insert into Projet_MessagePrive(idMessage, message, expediteur, destinataire, "
-					+ "dateHeure, isReception, isExpiration, isChiffre, isPrioritaire) values(?,?,?,?,?,?,?,?,?)";
+			String classeMessage = String.valueOf(m.getClass());
+			String req="";
+			if(classeMessage.equals("class message.MessagePrive")==true){
+			 req = "insert into Projet_MessagePrive( message, expediteur, destinataire, "
+					+ "dateHeure, isReception, isExpiration, isChiffre, isPrioritaire) values(?,?,?,?,?,?,?,?)";
+			}else{
+				 req = "insert into Projet_DiscussionSalon(idSalon, idPersonne, message, "
+							+ "dateHeure, isReception, isExpiration, isChiffre, isPrioritaire) values(?,?,?,?,?,?,?,?)";
+			}
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, m.getId());
-			ps.setString(2, m.getContenu());
-			ps.setInt(3, m.getExpediteur().getId());
-			ps.setInt(4, m.getDestinataire().getId());
-			ps.setDate(5, m.getDateEnvoi());
-			ps.setInt(6, (m.isReception())?1:0);
-			ps.setInt(7, (m.isExpiration())?1:0);
-			ps.setInt(8, (m.isChiffre())?1:0);
-			ps.setInt(9, (m.isPrioritaire())?1:0);
+		
+			
+			
+			if(classeMessage.equals("class message.MessagePrive")==true){
+				
+			
+			ps.setString(1, m.getContenu());
+			ps.setInt(2,((MessagePrive) m).getExpediteur().getId());
+			ps.setInt(3,((MessagePrive) m).getDestinataire().getId());
+		
+			
+			}else{
+				
+			ps.setInt(1, ((MessageSimple) m).getIdSalon());
+			ps.setInt(2, ((MessageSimple) m).getIdPersonne());
+			ps.setString(3, m.getContenu());
+			
+			}
+			ps.setDate(4, m.getDateEnvoi());
+			ps.setInt(5, (m.isReception())?1:0);
+			ps.setInt(6, (m.isExpiration())?1:0);
+			ps.setInt(7, (m.isChiffre())?1:0);
+			ps.setInt(8, (m.isPrioritaire())?1:0);
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {
@@ -93,7 +114,7 @@ public class MessageMapper {
 		try {
 			String req = "delete from Projet_MessagePrive where idMessage =?";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, m.getId());
+			//ps.setInt(1, m.getId());
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {
@@ -122,7 +143,7 @@ public class MessageMapper {
 			Personne expediteur = new VirtualProxyPersonne(rs.getInt("expediteur"));
 			Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
 			Date date = rs.getDate("dateHeure");
-			Message m = new MessagePrive(id_message, message, expediteur, destinataire, date);
+			Message m = new MessagePrive( message, expediteur, destinataire, date);
 			if (rs.getInt("isReception") == 1) {
 				m = new MessageAvecAccuseReception(m);
 			}
@@ -141,4 +162,6 @@ public class MessageMapper {
 		}
 		return null;
 	}
+	
+	//messageFindBySalon
 }
