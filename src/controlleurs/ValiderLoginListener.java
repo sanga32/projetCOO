@@ -55,7 +55,7 @@ public class ValiderLoginListener implements ActionListener{
 				} catch (NullPointerException e) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "Aucune personne avec cet ID", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
-
+					e.printStackTrace();
 				}
 			} catch (NumberFormatException e ){
 				JOptionPane.showMessageDialog(null, "Veuillez entrer un ID correct !", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
