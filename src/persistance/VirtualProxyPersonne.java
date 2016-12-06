@@ -46,6 +46,15 @@ public class VirtualProxyPersonne extends Personne{
 		}
 		return personne.getId();
 	}
+	
+	public String getLogin() {
+		try {
+			verifieInitilisation();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return personne.getLogin();
+	}
 
 	@Override
 	public boolean isAdmin() {

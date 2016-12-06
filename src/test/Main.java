@@ -2,6 +2,7 @@ package test;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 import domaine.*;
 import message.MessagePrive;
@@ -45,6 +46,16 @@ public class Main {
 		
 		Notification n1 = new DemandeAmi(1,p1,p2);
 		nm.insert((DemandeAmi) n1);
+		List<Notification> ln = nm.findByPersonne(p2.getId());
+		for(int i=0; i<ln.size();i++){
+			System.out.println(ln.get(i).toString());
+		}
+		Notification n2 = new Reponse(1,false,p2,p1);
+		nm.insert((Reponse) n2);
+		List<Notification> ln2 = nm.findByPersonne(p1.getId());
+		for(int i=0; i<ln2.size();i++){
+			System.out.println(ln2.get(i).toString());
+		}
 	}
 
 }

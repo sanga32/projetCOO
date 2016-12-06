@@ -51,6 +51,9 @@ public class NotificationMapper {
 			String req = "delete from Projet_Notification";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.execute();
+			String req2 = "delete from Projet_DemandeAmi";
+			PreparedStatement ps2 = conn.prepareStatement(req2);
+			ps2.execute();
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -72,7 +75,7 @@ public class NotificationMapper {
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, n.getId());
 			ps.setString(2, n.getMessage());
-			ps.setString(3, n.getMessage());
+			ps.setInt(3, n.getDestinataire().getId());
 			nbLigne1 = ps.executeUpdate();
 			String req2 = "insert into Projet_DemandeAmi(idNotification,expediteur) values(?,?)";
 			PreparedStatement ps2 = conn.prepareStatement(req2);
@@ -93,10 +96,10 @@ public class NotificationMapper {
 		int nbLigne1 = 0;
 		int nbLigne2 = 0;
 		try {
-			String req = "insert into Projet_Notification(message,destinataire) values(?,?,?)";
+			String req = "insert into Projet_Notification(message,destinataire) values(?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setString(1, n.getMessage());
-			ps.setString(2, n.getMessage());
+			ps.setInt(2, n.getDestinataire().getId());
 			nbLigne1 = ps.executeUpdate();
 			String req2 = "insert into Projet_Reponse(reponse,expediteur) values(?,?)";
 			PreparedStatement ps2 = conn.prepareStatement(req2);
@@ -131,31 +134,50 @@ public class NotificationMapper {
 		}
 	}
 
-	public List<Notification> findById(int id_personne) {
+	public List<Notification> findByPersonne(int id_personne) {
 		List<Notification> notifs = new ArrayList<Notification>();
 		try {
-			// on va chercher la personne
-			String req = "SELECT n.idNotification, message, destinataire, expediteur, reponse  "
+			String req = "SELECT n.idNotification, message, destinataire, d.expediteur  "
 					+ "FROM Projet_Notification n join Projet_DemandeAmi d on n.idNotification = d.idNotification "
-					+ "join Projet_reponse r on r.idNotification=n.idNotification WHERE destinataire=?";
+					+ "WHERE destinataire=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id_personne);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				int id_notification = rs.getInt("n.idNotification");
-				String message = rs.getString("message");
-				Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
-				Personne expediteur = new VirtualProxyPersonne(rs.getInt("expediteur"));
-				Notification notif;
-				try{
-					Boolean reponse = (rs.getInt("reponse") ==0)?false:true;
-					
-					notif= new Reponse(id_notification,reponse,destinataire,expediteur);
+				try {
+					int id_notification = rs.getInt("n.idNotification");
+					String message = rs.getString("message");
+					Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
+					Personne expediteur = new VirtualProxyPersonne(rs.getInt("d.expediteur"));
+					Notification notif;
+					notif = new DemandeAmi(id_notification, expediteur, destinataire);
+					notifs.add(notif);
 				} catch (SQLException e) {
-					notif= new DemandeAmi(id_notification,destinataire,expediteur);
+					e.printStackTrace();
 				}
-				notifs.add(notif);
 			}
+
+			String req2 = "SELECT n.idNotification, message, destinataire, r.expediteur, reponse  "
+					+ "FROM Projet_Notification n "
+					+ "join Projet_Reponse r on r.idNotification=n.idNotification WHERE destinataire=?";
+			PreparedStatement ps2 = conn.prepareStatement(req2);
+			ps2.setInt(1, id_personne);
+			ResultSet rs2 = ps2.executeQuery();
+			while (rs2.next()) {
+				try {
+					int id_notification = rs2.getInt("n.idNotification");
+					String message = rs2.getString("message");
+					Personne destinataire = new VirtualProxyPersonne(rs2.getInt("destinataire"));
+					Personne expediteur = new VirtualProxyPersonne(rs2.getInt("expediteur"));
+					Notification notif;
+					Boolean reponse = (rs2.getInt("reponse") == 0) ? false : true;
+					notif = new Reponse(id_notification, reponse, expediteur,destinataire);
+					notifs.add(notif);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
 			return notifs;
 		} catch (SQLException e) {
 			e.printStackTrace();
