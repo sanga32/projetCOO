@@ -24,7 +24,7 @@ public class West extends JPanel {
 		jl.getSelectionModel().addListSelectionListener(new JListAmisController());
 
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
+		this.add(listScrollPane);
 	}
 
 }
