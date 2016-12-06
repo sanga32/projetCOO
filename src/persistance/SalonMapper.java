@@ -8,10 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import domaine.Administrateur;
 import domaine.Personne;
 import domaine.Salon;
-import domaine.Utilisateur;
 import settings.ConnectionInfo;
 
 public class SalonMapper {

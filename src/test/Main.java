@@ -68,6 +68,11 @@ public class Main {
 		for(int i=0; i<occupeSalon.size();i++){
 			System.out.println("    "+occupeSalon.get(i).toString());
 		}
+		
+		List<Salon> salons = pm.getSalon(3);
+		for(int i=0; i<salons.size();i++){
+			System.out.println(salons.get(i).toString());
+		}
 	}
 
 }
