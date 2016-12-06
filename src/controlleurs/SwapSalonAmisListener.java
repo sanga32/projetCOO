@@ -25,6 +25,7 @@ public class SwapSalonAmisListener implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("Salons")){
 			west.getJListAmis();
+			System.out.println("test");
 		} else {
 			west.getJListSalons();
 		}

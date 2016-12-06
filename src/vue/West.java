@@ -10,6 +10,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import controlleurs.CreerSalonListener;
 import controlleurs.JListAmisController;
 import controlleurs.SwapSalonAmisListener;
 import domaine.Personne;
@@ -20,6 +21,7 @@ public class West extends JPanel {
 
 	Personne p;
 	JButton swap;
+	JButton creerSalon;
 	
 	public West(Personne p, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
@@ -48,8 +50,12 @@ public class West extends JPanel {
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
 		swap = new JButton("Amis");
 		swap.addActionListener(new SwapSalonAmisListener(this));
+		creerSalon = new JButton("Creer un salon");
+		creerSalon.addActionListener(new CreerSalonListener(p));
+		
 		this.add(swap);
 		this.add(listScrollPane);
+		this.add(creerSalon);
 
 	}
 	
@@ -71,8 +77,12 @@ public class West extends JPanel {
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
 		swap = new JButton("Salons");
 		swap.addActionListener(new SwapSalonAmisListener(this));
+		creerSalon = new JButton("Creer un salon");
+		creerSalon.addActionListener(new CreerSalonListener(p));
+
 		this.add(swap);
 		this.add(listScrollPane);
+		this.add(creerSalon);
 	}
 	
 
