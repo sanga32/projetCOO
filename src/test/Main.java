@@ -69,9 +69,9 @@ public class Main {
 			System.out.println("    "+occupeSalon.get(i).toString());
 		}
 		
-		List<Salon> salons = sm.getSalons(1);
-		for(int i=0; i<salons.size();i++){
-			System.out.println(salons.get(i).toString());
+		pm.setSalons(p1);
+		for(int i=0; i<p1.getSalons().size();i++){
+			System.out.println(p1.getSalons().get(i).toString());
 		}
 	}
 

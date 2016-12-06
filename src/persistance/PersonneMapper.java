@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import domaine.*;
 import settings.ConnectionInfo;
@@ -180,5 +182,35 @@ public class PersonneMapper {
 		}
 	}
 
-	
+	public void setSalons(Personne p) {
+		List<Salon> salons = new ArrayList<Salon>();
+		try {
+			String req = "SELECT s.idSalon, nom, modo  FROM "
+					+ "Projet_OccupeSalon o join Projet_Salon s on o.idSalon=s.idSalon  WHERE idPersonne=?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, p.getId());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("idSalon");
+				String nom = rs.getString("nom");
+				Personne modo = new VirtualProxyPersonne(rs.getInt("modo"));
+				Salon s = new Salon(id, nom, modo);
+				salons.add(s);
+			}
+			String req2 = "SELECT idSalon, nom, modo  FROM Projet_Salon  WHERE modo=?";
+			PreparedStatement ps2 = conn.prepareStatement(req2);
+			ps2.setInt(1, p.getId());
+			ResultSet rs2 = ps2.executeQuery();
+			while (rs2.next()) {
+				int id = rs2.getInt("idSalon");
+				String nom = rs2.getString("nom");
+				Personne modo = new VirtualProxyPersonne(rs2.getInt("modo"));
+				Salon s = new Salon(id, nom, modo);
+				salons.add(s);
+			}
+			p.setSalons(salons);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

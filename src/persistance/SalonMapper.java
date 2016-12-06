@@ -142,13 +142,13 @@ public class SalonMapper {
 		return null;
 	}
 	
-	public List<Salon> getSalons(int id_personne) {
+	public void setSalons(Personne p) {
 		List<Salon> salons = new ArrayList<Salon>();
 		try {
 			String req = "SELECT s.idSalon, nom, modo  FROM "
 					+ "Projet_OccupeSalon o join Projet_Salon s on o.idSalon=s.idSalon  WHERE idPersonne=?";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, id_personne);
+			ps.setInt(1, p.getId());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				int id = rs.getInt("idSalon");
@@ -159,7 +159,7 @@ public class SalonMapper {
 			}
 			String req2 = "SELECT idSalon, nom, modo  FROM Projet_Salon  WHERE modo=?";
 			PreparedStatement ps2 = conn.prepareStatement(req2);
-			ps2.setInt(1, id_personne);
+			ps2.setInt(1, p.getId());
 			ResultSet rs2 = ps2.executeQuery();
 			while (rs2.next()) {
 				int id = rs2.getInt("idSalon");
@@ -168,11 +168,10 @@ public class SalonMapper {
 				Salon s = new Salon(id, nom, modo);
 				salons.add(s);
 			}
-			return salons;
+			p.setSalons(salons);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
 	}
 
 }
