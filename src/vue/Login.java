@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controller.ValiderLoginListener;
+import controlleurs.ValiderLoginListener;
 
 /**
  * Classe Login permet la connexion d'un utilisateur 

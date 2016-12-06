@@ -2,19 +2,19 @@ package controlleurs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import domaine.Personne;
 import persistance.PersonneMapper;
-import vue.InterfacePersonne;
+import vue.InterfaceChat;
 
 /**
  * Listener du bouton permettant de valider le login et d'accéder à la page d'information
- * @author Kevin
+ * @author Kevin delporte, Alexandre Godon, Teddy Lequette
  *
  */
 
@@ -47,13 +47,8 @@ public class ValiderLoginListener implements ActionListener{
 
 				try {
 					
-					InterfacePersonne ip = null;
-					try {
-						ip = new InterfacePersonne(p);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					InterfaceChat ip = null;
+					ip = new InterfaceChat(p);
 					j.removeAll();
 					j.add(ip);
 					j.updateUI();
@@ -64,7 +59,6 @@ public class ValiderLoginListener implements ActionListener{
 				}
 			} catch (NumberFormatException e ){
 				JOptionPane.showMessageDialog(null, "Veuillez entrer un ID correct !", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
-
 			}
 		}
 
