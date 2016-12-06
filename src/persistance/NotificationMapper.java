@@ -54,6 +54,9 @@ public class NotificationMapper {
 			String req2 = "delete from Projet_DemandeAmi";
 			PreparedStatement ps2 = conn.prepareStatement(req2);
 			ps2.execute();
+			String req3 = "delete from Projet_Reponse";
+			PreparedStatement ps3 = conn.prepareStatement(req3);
+			ps3.execute();
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -96,15 +99,17 @@ public class NotificationMapper {
 		int nbLigne1 = 0;
 		int nbLigne2 = 0;
 		try {
-			String req = "insert into Projet_Notification(message,destinataire) values(?,?)";
+			String req = "insert into Projet_Notification(idNotification,message,destinataire) values(?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setString(1, n.getMessage());
-			ps.setInt(2, n.getDestinataire().getId());
+			ps.setInt(1, n.getId());
+			ps.setString(2, n.getMessage());
+			ps.setInt(3, n.getDestinataire().getId());
 			nbLigne1 = ps.executeUpdate();
-			String req2 = "insert into Projet_Reponse(reponse,expediteur) values(?,?)";
+			String req2 = "insert into Projet_Reponse(idNotification,reponse,expediteur) values(?,?,?)";
 			PreparedStatement ps2 = conn.prepareStatement(req2);
-			ps2.setInt(1, (n.isReponse()) ? 1 : 0);
-			ps2.setInt(2, n.getExpediteur().getId());
+			ps2.setInt(1, n.getId());
+			ps2.setInt(2, (n.isReponse()) ? 1 : 0);
+			ps2.setInt(3, n.getExpediteur().getId());
 			nbLigne2 = ps2.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {
@@ -157,7 +162,7 @@ public class NotificationMapper {
 				}
 			}
 
-			String req2 = "SELECT n.idNotification, message, destinataire, r.expediteur, reponse  "
+			String req2 = "SELECT n.idNotification, destinataire, r.expediteur, reponse  "
 					+ "FROM Projet_Notification n "
 					+ "join Projet_Reponse r on r.idNotification=n.idNotification WHERE destinataire=?";
 			PreparedStatement ps2 = conn.prepareStatement(req2);
@@ -165,8 +170,8 @@ public class NotificationMapper {
 			ResultSet rs2 = ps2.executeQuery();
 			while (rs2.next()) {
 				try {
+					System.out.println("yo");
 					int id_notification = rs2.getInt("n.idNotification");
-					String message = rs2.getString("message");
 					Personne destinataire = new VirtualProxyPersonne(rs2.getInt("destinataire"));
 					Personne expediteur = new VirtualProxyPersonne(rs2.getInt("expediteur"));
 					Notification notif;

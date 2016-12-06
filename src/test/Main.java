@@ -50,7 +50,7 @@ public class Main {
 		for(int i=0; i<ln.size();i++){
 			System.out.println(ln.get(i).toString());
 		}
-		Notification n2 = new Reponse(1,false,p2,p1);
+		Notification n2 = new Reponse(2,false,p2,p1);
 		nm.insert((Reponse) n2);
 		List<Notification> ln2 = nm.findByPersonne(p1.getId());
 		for(int i=0; i<ln2.size();i++){
