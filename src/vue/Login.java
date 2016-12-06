@@ -14,7 +14,7 @@ import controlleurs.ValiderLoginListener;
 
 /**
  * Classe Login permet la connexion d'un utilisateur 
- * @author Kevin
+ * @author Kevin Delporte, ALexandre Godon, Teddy Lequette
  *
  */
 
