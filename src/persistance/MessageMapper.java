@@ -131,7 +131,6 @@ public class MessageMapper {
 	 */
 	public Message findByDestinataire(int id) {
 		try {
-			// on va chercher la personne
 			String req = "SELECT idMessage, message, expediteur, destinataire, dateHeure, "
 					+ "isReception, isExpiration, isChiffre, isPrioritaire  FROM Projet_MessagePrive WHERE destinataire=?";
 			PreparedStatement ps = conn.prepareStatement(req);
@@ -143,7 +142,7 @@ public class MessageMapper {
 			Personne expediteur = new VirtualProxyPersonne(rs.getInt("expediteur"));
 			Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
 			Date date = rs.getDate("dateHeure");
-			Message m = new MessagePrive( message, expediteur, destinataire, date);
+			Message m = new MessagePrive(id_message, message, expediteur, destinataire, date);
 			if (rs.getInt("isReception") == 1) {
 				m = new MessageAvecAccuseReception(m);
 			}
