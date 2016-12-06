@@ -84,11 +84,11 @@ public class InteretMapper {
 	 * @param p
 	 *            personne à supprimer de la BDD
 	 */
-	public void delete(Message m) {
+	public void delete(Interet i) {
 		try {
 			String req = "delete from Projet_Interet where idInteret =?";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, m.getId());
+			ps.setInt(1, i.getId());
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {

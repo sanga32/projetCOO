@@ -93,17 +93,15 @@ public class NotificationMapper {
 		int nbLigne1 = 0;
 		int nbLigne2 = 0;
 		try {
-			String req = "insert into Projet_Notification(idNotification,message,destinataire) values(?,?,?)";
+			String req = "insert into Projet_Notification(message,destinataire) values(?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, n.getId());
+			ps.setString(1, n.getMessage());
 			ps.setString(2, n.getMessage());
-			ps.setString(3, n.getMessage());
 			nbLigne1 = ps.executeUpdate();
-			String req2 = "insert into Projet_Reponse(idNotification,reponse,expediteur) values(?,?)";
+			String req2 = "insert into Projet_Reponse(reponse,expediteur) values(?,?)";
 			PreparedStatement ps2 = conn.prepareStatement(req2);
-			ps2.setInt(1, n.getId());
-			ps2.setInt(2, (n.isReponse()) ? 1 : 0);
-			ps2.setInt(3, n.getExpediteur().getId());
+			ps2.setInt(1, (n.isReponse()) ? 1 : 0);
+			ps2.setInt(2, n.getExpediteur().getId());
 			nbLigne2 = ps2.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {
