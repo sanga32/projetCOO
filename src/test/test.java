@@ -2,6 +2,6 @@ package test;
 
 public class test {
 
-	String s = "alex est un connard";
+	String s = "alex est gros!";
 	
 }
