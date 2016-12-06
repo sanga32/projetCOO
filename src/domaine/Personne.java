@@ -16,6 +16,7 @@ public abstract class Personne {
 	List<Interet> interets;
 	List<SousInteret> sousInterets;
 	List<Salon> salons;
+	List<Notification> notifications;
 	
 	public Personne(){
 		this.amis = new VirtualProxyListAmi(id);
@@ -35,6 +36,7 @@ public abstract class Personne {
 		this.interets = new ArrayList<Interet>();
 		this.sousInterets = new ArrayList<SousInteret>();
 		this.salons = new ArrayList<Salon>();
+		this.notifications = new ArrayList<Notification>();
 	}
 	
 	public abstract boolean isAdmin();
@@ -103,9 +105,8 @@ public abstract class Personne {
 		this.nom = nom;
 	}
 	public List<Personne> getAmis() {
-		return amis;
+		return ((VirtualProxyListAmi) amis).getList();
 	}
-	
 	
 	public void setAmis(List<Personne> amis) {
 		this.amis = amis;

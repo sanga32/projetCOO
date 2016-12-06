@@ -14,6 +14,10 @@ public abstract class Notification {
 		this.destinataire = destinataire;
 	}
 
+	public String toString(){
+		return message;
+	}
+	
 	public int getId() {
 		return id;
 	}

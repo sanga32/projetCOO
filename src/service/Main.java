@@ -7,7 +7,7 @@ import vue.MyFrame;
 public class Main {
 
 	/**
-	 * @param args
+	 * @param args1
 	 */
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {

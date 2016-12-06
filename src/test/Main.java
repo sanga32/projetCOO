@@ -3,11 +3,11 @@ package test;
 import java.sql.Date;
 import java.time.LocalDate;
 
-import domaine.Personne;
-import domaine.Utilisateur;
+import domaine.*;
 import message.MessagePrive;
 import persistance.AmiMapper;
 import persistance.MessageMapper;
+import persistance.NotificationMapper;
 import persistance.PersonneMapper;
 
 public class Main {
@@ -17,6 +17,7 @@ public class Main {
 		PersonneMapper pm = PersonneMapper.getInstance();
 		MessageMapper mm = MessageMapper.getInstance();
 		AmiMapper am = AmiMapper.getInstance();
+		NotificationMapper nm = NotificationMapper.getInstance();
 		Personne p1 = new Utilisateur(1, "godona", "1234", "godon", "alexandre");
 		Personne p2 = new Utilisateur(2, "delportek", "4321", "delporte", "kevin");
 		Personne p3 = new Utilisateur(3, "lequette", "5748", "vaze", "amandine");
@@ -25,6 +26,7 @@ public class Main {
 		mm.clear();
 		am.clear();
 		pm.clear();
+		nm.clear();
 		pm.insert(p1);
 		pm.insert(p2);
 		pm.insert(p3);
@@ -40,7 +42,9 @@ public class Main {
 		System.out.println("Ami de " + alex.getPrenom());
 		for (int i = 0; i < alex.getAmis().size(); i++)
 			System.out.println(alex.getAmis().get(i).toString());
-
+		
+		Notification n1 = new DemandeAmi(1,p1,p2);
+		nm.insert((DemandeAmi) n1);
 	}
 
 }
