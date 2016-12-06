@@ -30,7 +30,7 @@ public class Salon {
 	}
 	
 	public String toString(){
-		return nom + " modéré par " + modo.login;
+		return nom + " modéré par " + modo.getLogin();
 	}
 	
 	public int getId() {
