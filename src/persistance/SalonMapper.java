@@ -46,18 +46,16 @@ public class SalonMapper {
 
 	public int insertSalon(Salon s) {
 		int nbLigne = 0;
-		if (!salonExiste(s.getId())) {
-			try {
-				String req = "insert into Projet_Salon(idSalon, nom, modo) values(?,?,?)";
-				PreparedStatement ps = conn.prepareStatement(req);
-				ps.setInt(1, s.getId());
-				ps.setString(2, s.getNom());
-				ps.setInt(3, s.getModo().getId());
-				nbLigne = ps.executeUpdate();
-				conn.commit();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		try {
+			String req = "insert into Projet_Salon(idSalon, nom, modo) values(?,?,?)";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, s.getId());
+			ps.setString(2, s.getNom());
+			ps.setInt(3, s.getModo().getId());
+			nbLigne = ps.executeUpdate();
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return nbLigne;
 	}
@@ -89,36 +87,38 @@ public class SalonMapper {
 		}
 	}
 
-	public boolean salonExiste(int id_salon) {
+	public Salon findById(int id_salon) {
 		try {
-			String req = "SELECT idSalon FROM Projet_Salon where idSalon=?";
+			String req = "SELECT idSalon, nom, modo  FROM Projet_Salon WHERE idSalon=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id_salon);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			rs.getInt(1);
-			return true;
+			int id = rs.getInt("idSalon");
+			String nom = rs.getString("nom");
+			Personne p = new VirtualProxyPersonne(rs.getInt("modo"));
+			Salon s = new Salon(id, nom, p);
+			return s;
 		} catch (SQLException e) {
-			return false;
+			e.printStackTrace();
 		}
+		return null;
 	}
 
-	public Salon findById(int id_salon) {
-		if (salonExiste(id_salon)) {
-			try {
-				String req = "SELECT idSalon, nom, modo  FROM Projet_Salon WHERE idSalon=?";
-				PreparedStatement ps = conn.prepareStatement(req);
-				ps.setInt(1, id_salon);
-				ResultSet rs = ps.executeQuery();
-				rs.next();
-				int id = rs.getInt("idSalon");
-				String nom = rs.getString("nom");
-				Personne p = new VirtualProxyPersonne(rs.getInt("modo"));
-				Salon s = new Salon(id, nom, p);
-				return s;
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+	public Salon findByNom(String nom) {
+		try {
+			String req = "SELECT idSalon, nom, modo  FROM Projet_Salon WHERE nom=?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setString(1, nom);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			int id = rs.getInt("idSalon");
+			String n = rs.getString("nom");
+			Personne p = new VirtualProxyPersonne(rs.getInt("modo"));
+			Salon s = new Salon(id, n, p);
+			return s;
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -141,7 +141,8 @@ public class SalonMapper {
 		}
 		return null;
 	}
-	
+
+	// init les salons d'une personne
 	public void setSalons(Personne p) {
 		List<Salon> salons = new ArrayList<Salon>();
 		try {

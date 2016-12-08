@@ -22,18 +22,26 @@ public class West extends JPanel {
 	Personne p;
 	JButton swap;
 	JButton creerSalon;
+	East east;
 	
-	public West(Personne p, InterfaceChat interfaceChat) {
+	public West(East e, Personne p, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS); // top to bottom
 		this.setLayout(boxLayout);
 		this.p = p;
+		this.east = e;
 		
 		getJListSalons();
 		
 		getJListAmis();
 	}
 	
+	
+	
+	public JButton getSwap() {
+		return swap;
+	}
+
 	public void getJListAmis(){
 		this.removeAll();
 		JList<Personne> jl = new JList<Personne>();
@@ -44,7 +52,7 @@ public class West extends JPanel {
 		}
 
 		jl.setModel(lmodel);
-		jl.getSelectionModel().addListSelectionListener(new JListAmisController());
+		jl.addListSelectionListener(new JListAmisController(this, east));
 
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
@@ -71,7 +79,7 @@ public class West extends JPanel {
 		}
 
 		jl.setModel(lmodel);
-		jl.getSelectionModel().addListSelectionListener(new JListAmisController());
+		jl.addListSelectionListener(new JListAmisController(this, east));
 
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		listScrollPane.setPreferredSize(new Dimension(115, 150));

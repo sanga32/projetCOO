@@ -30,7 +30,7 @@ public class Salon {
 	}
 	
 	public String toString(){
-		return nom + " modéré par " + modo.getLogin();
+		return nom;
 	}
 	
 	public int getId() {
@@ -51,6 +51,16 @@ public class Salon {
 	public void setModo(Personne modo) {
 		this.modo = modo;
 	}
+
+	public List<Personne> getPersonnes() {
+		return personnes;
+	}
+
+	public void setPersonnes(List<Personne> personnes) {
+		this.personnes = personnes;
+	}
+	
+	
 	
 	
 }

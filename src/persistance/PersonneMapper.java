@@ -134,53 +134,57 @@ public class PersonneMapper {
 	 * @return une personne
 	 */
 	public Personne findById(int id) {
-		if (idValide(id)) {
-			try {
-				// on va chercher la personne
-				String req = "SELECT idPersonne, login, mdp, nom, prenom, admin  FROM Projet_Personne WHERE idPersonne=?";
-				PreparedStatement ps = conn.prepareStatement(req);
-				ps.setInt(1, id);
-				ResultSet rs = ps.executeQuery();
-				rs.next();
-				int id_personne = rs.getInt(1);
-				String login = rs.getString("login");
-				String mdp = rs.getString("mdp");
-				String nom = rs.getString("nom");
-				String prenom = rs.getString("prenom");
-				Personne p;
-				if (rs.getInt("admin") == 0) {
-					p = new Utilisateur(id_personne, login, mdp, nom, prenom);
-				} else {
-					p = new Administrateur(id_personne, login, mdp, nom, prenom);
-				}
-				return p;
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Vérifie si l'id passé en paramètre se trouve en BDD
-	 * 
-	 * @param id
-	 *            id à chercher en BDD
-	 * @return vrai si une personne existe sinon false
-	 */
-	public boolean idValide(int id) {
 		try {
-			String req = "SELECT idPersonne FROM Projet_Personne WHERE idPersonne=?";
+			// on va chercher la personne
+			String req = "SELECT idPersonne, login, mdp, nom, prenom, admin  FROM Projet_Personne WHERE idPersonne=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			rs.getInt(1);
-			return true;
+			int id_personne = rs.getInt(1);
+			String login = rs.getString("login");
+			String mdp = rs.getString("mdp");
+			String nom = rs.getString("nom");
+			String prenom = rs.getString("prenom");
+			Personne p;
+			if (rs.getInt("admin") == 0) {
+				p = new Utilisateur(id_personne, login, mdp, nom, prenom);
+			} else {
+				p = new Administrateur(id_personne, login, mdp, nom, prenom);
+			}
+			return p;
 		} catch (SQLException e) {
-			return false;
+			e.printStackTrace();
 		}
+		return null;
 	}
+	
+	public Personne findByLogin(String login) {
+		try {
+			// on va chercher la personne
+			String req = "SELECT idPersonne, login, mdp, nom, prenom, admin  FROM Projet_Personne WHERE login=?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setString(1, login);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			int id_personne = rs.getInt(1);
+			String l = rs.getString("login");
+			String mdp = rs.getString("mdp");
+			String nom = rs.getString("nom");
+			String prenom = rs.getString("prenom");
+			Personne p;
+			if (rs.getInt("admin") == 0) {
+				p = new Utilisateur(id_personne, l, mdp, nom, prenom);
+			} else {
+				p = new Administrateur(id_personne, l, mdp, nom, prenom);
+			}
+			return p;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 	public void setSalons(Personne p) {
 		List<Salon> salons = new ArrayList<Salon>();
