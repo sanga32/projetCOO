@@ -48,8 +48,8 @@ public class East extends JPanel {
 		JList<Personne> jl = new JList<Personne>();
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
 		Salon s = SalonMapper.getInstance().findByNom(salon);
-		for (Personne pers : s.getPersonnes()) {
-			lmodel.addElement(pers);
+		for (int i =0; i<s.getPersonnes().size();i++) {
+			lmodel.addElement(s.getPersonnes().get(i));
 		}
 
 		jl.setModel(lmodel);
