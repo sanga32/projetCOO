@@ -61,24 +61,19 @@ public class MessageMapper {
 	 * @param p
 	 *            personne à insérer en BDD
 	 */
-	public void insert(Message m) {
+	public void insert(MessagePrive m) {
 		try {
-			String classeMessage = String.valueOf(m.getClass());
 			String req="";
-			if(classeMessage.equals("class message.MessagePrive")==true){
-			 req = "insert into Projet_MessagePrive( message, expediteur, destinataire, "
+			req = "insert into Projet_MessagePrive( message, expediteur, destinataire, "
 					+ "dateHeure, isReception, isExpiration, isChiffre, isPrioritaire) values(?,?,?,?,?,?,?,?)";
-			}else{
-				 req = "insert into Projet_DiscussionSalon(idSalon, idPersonne, message, "
-							+ "dateHeure) values(?,?,?,?)";
-			}
+
 			PreparedStatement ps = conn.prepareStatement(req);
-		
-			
-			
+
+
+
 			//if(classeMessage.equals("class message.MessagePrive")==true){
-				
-			
+
+
 			ps.setString(1, m.getContenu());
 			ps.setInt(2,( m.getExpediteur().getId()));
 			ps.setInt(3,( m).getDestinataire().getId());
@@ -86,16 +81,16 @@ public class MessageMapper {
 			ps.setInt(6, (m.isExpiration())?1:0);
 			ps.setInt(7, (m.isChiffre())?1:0);
 			ps.setInt(8, (m.isPrioritaire())?1:0);
-			
-		/*	}else{
-				
+
+			/*	}else{
+
 			ps.setInt(1, ((MessageSimple) m).getIdSalon());
 			ps.setInt(2, ((MessageSimple) m).getIdPersonne());
 			ps.setString(3, m.getContenu());
-			
+
 			}*/
 			ps.setString(4, m.getDateEnvoi());
-			
+
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {
@@ -161,6 +156,6 @@ public class MessageMapper {
 		}
 		return null;
 	}
-	
+
 	//messageFindBySalon
 }

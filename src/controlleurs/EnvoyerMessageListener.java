@@ -60,7 +60,7 @@ public class EnvoyerMessageListener implements ActionListener{
         System.out.println("String converted to java.sql.Date :" + sqlDate);
 		*/
         System.out.println(strDate);
-		Message toSend = new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate);
+		MessagePrive toSend = new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate);
 		
 		
 		for (String s : listeChoix){
