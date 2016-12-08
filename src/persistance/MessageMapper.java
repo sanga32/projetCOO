@@ -61,7 +61,7 @@ public class MessageMapper {
 	 * @param p
 	 *            personne à insérer en BDD
 	 */
-	public void insert(MessagePrive m) {
+	public void insert(Message toSend) {
 		try {
 			String req="";
 			req = "insert into Projet_MessagePrive( message, expediteur, destinataire, "
@@ -74,13 +74,13 @@ public class MessageMapper {
 			//if(classeMessage.equals("class message.MessagePrive")==true){
 
 
-			ps.setString(1, m.getContenu());
-			ps.setInt(2,( m.getExpediteur().getId()));
-			ps.setInt(3,( m).getDestinataire().getId());
-			ps.setInt(5, (m.isReception())?1:0);
-			ps.setInt(6, (m.isExpiration())?1:0);
-			ps.setInt(7, (m.isChiffre())?1:0);
-			ps.setInt(8, (m.isPrioritaire())?1:0);
+			ps.setString(1, toSend.getContenu());
+			ps.setInt(2,( ((MessagePrive) toSend).getExpediteur().getId()));
+			ps.setInt(3,( (MessagePrive) toSend).getDestinataire().getId());
+			ps.setInt(5, (toSend.isReception())?1:0);
+			ps.setInt(6, (toSend.isExpiration())?1:0);
+			ps.setInt(7, (toSend.isChiffre())?1:0);
+			ps.setInt(8, (toSend.isPrioritaire())?1:0);
 
 			/*	}else{
 
@@ -89,7 +89,7 @@ public class MessageMapper {
 			ps.setString(3, m.getContenu());
 
 			}*/
-			ps.setString(4, m.getDateEnvoi());
+			ps.setString(4, toSend.getDateEnvoi());
 
 			ps.execute();
 			conn.commit();
