@@ -32,6 +32,8 @@ public class JListAmisController implements ListSelectionListener {
 			String personne = lsm.getModel().getElementAt(Index).toString();
 			east.getPersonnePrive(personne);
 		}
+		
+		east.updateUI();
 
 	}
 
