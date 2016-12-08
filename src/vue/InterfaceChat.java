@@ -13,17 +13,23 @@ import domaine.Personne;
  */
 
 public class InterfaceChat extends JPanel {
-
+	
+	East east;
+	West west;
+	North north;
+	South south;
+	Center center;
+	
 	public InterfaceChat(Personne p) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.setLayout(new BorderLayout());
 		
-		East east = new East(this);
-		West west = new West(east,p, this);
-		North north = new North(p, this);
-		South south = new South(p, this);
-		Center center = new Center(p, this);
+		east = new East(this);
+		west = new West(p, this);
+		north = new North(p, this);
+		south = new South(p, this);
+		center = new Center(p, this);
 		
 		this.add(east, BorderLayout.EAST);
 		this.add(west, BorderLayout.WEST);
@@ -31,6 +37,28 @@ public class InterfaceChat extends JPanel {
 		this.add(south, BorderLayout.SOUTH);
 		this.add(center, BorderLayout.CENTER);
 		
+	}
+
+	public East getEast() {
+		return east;
+	}
+
+	public West getWest() {
+		return west;
+	}
+
+	public North getNorth() {
+		return north;
+	}
+
+
+	public South getSouth() {
+		return south;
+	}
+
+
+	public Center getCenter() {
+		return center;
 	}
 
 }
