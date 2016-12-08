@@ -5,6 +5,8 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 import domaine.Personne;
+import domaine.Salon;
+import domaine.Utilisateur;
 
 /**
  * 
@@ -19,17 +21,24 @@ public class InterfaceChat extends JPanel {
 	North north;
 	South south;
 	Center center;
+	Personne utilisateur;
+	Boolean inSalon;
+	Salon salon;
+	static Personne destinataire;
 	
 	public InterfaceChat(Personne p) {
 		// TODO Auto-generated constructor stub
 		super();
 		this.setLayout(new BorderLayout());
-		
+		this.utilisateur = p;
+		inSalon = false;
+		salon = new Salon();
+		destinataire = new Utilisateur() ;
 		east = new East(this);
-		west = new West(p, this);
-		north = new North(p, this);
-		south = new South(p, this);
-		center = new Center(p, this);
+		west = new West(this);
+		north = new North(this);
+		south = new South(this);
+		center = new Center(this);
 		
 		this.add(east, BorderLayout.EAST);
 		this.add(west, BorderLayout.WEST);
@@ -60,5 +69,38 @@ public class InterfaceChat extends JPanel {
 	public Center getCenter() {
 		return center;
 	}
+
+	public Boolean getInSalon() {
+		return inSalon;
+	}
+
+	public void setInSalon(Boolean inSalon) {
+		this.inSalon = inSalon;
+	}
+
+	public Salon getSalon() {
+		return salon;
+	}
+
+	public void setSalon(Salon salon) {
+		this.salon = salon;
+	}
+
+	public Personne getDestinataire() {
+		return destinataire;
+	}
+
+	public void setDestinataire(Personne destinataire) {
+		this.destinataire = destinataire;
+	}
+
+	public Personne getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Personne utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+	
 
 }

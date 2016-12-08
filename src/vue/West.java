@@ -26,11 +26,10 @@ public class West extends JPanel {
 	
 	InterfaceChat interfaceChat;
 	
-	public West(Personne p, InterfaceChat interfaceChat) {
+	public West(InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS); // top to bottom
 		this.setLayout(boxLayout);
-		this.p = p;
 		this.interfaceChat = interfaceChat;
 		
 		getJListSalons();
@@ -46,6 +45,7 @@ public class West extends JPanel {
 
 	public void getJListAmis(){
 		this.removeAll();
+		Personne p = interfaceChat.getUtilisateur();
 		JList<Personne> jl = new JList<Personne>();
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
 
@@ -54,12 +54,12 @@ public class West extends JPanel {
 		}
 
 		jl.setModel(lmodel);
-		jl.addListSelectionListener(new JListAmisController(this, interfaceChat.getEast()));
+		jl.addListSelectionListener(new JListAmisController(interfaceChat));
 
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
 		swap = new JButton("Amis");
-		swap.addActionListener(new SwapSalonAmisListener(this));
+		swap.addActionListener(new SwapSalonAmisListener(interfaceChat));
 		creerSalon = new JButton("Creer un salon");
 		creerSalon.addActionListener(new CreerSalonListener(p));
 		
@@ -71,6 +71,7 @@ public class West extends JPanel {
 	
 	public void getJListSalons(){
 		this.removeAll();
+		Personne p = interfaceChat.getUtilisateur();
 		JList<Salon> jl = new JList<Salon>();
 		DefaultListModel<Salon> lmodel = new DefaultListModel<Salon>();
 
@@ -81,12 +82,12 @@ public class West extends JPanel {
 		}
 
 		jl.setModel(lmodel);
-		jl.addListSelectionListener(new JListAmisController(this, interfaceChat.getEast()));
+		jl.addListSelectionListener(new JListAmisController(interfaceChat));
 
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
 		swap = new JButton("Salons");
-		swap.addActionListener(new SwapSalonAmisListener(this));
+		swap.addActionListener(new SwapSalonAmisListener(interfaceChat));
 		creerSalon = new JButton("Creer un salon");
 		creerSalon.addActionListener(new CreerSalonListener(p));
 		JButton addPersonneSalon = new JButton("Ajouter une personne");

@@ -7,6 +7,10 @@ public class Utilisateur extends Personne{
 		super(id, login, mdp, prenom, nom);
 	}
 
+	public Utilisateur() {
+		super();
+	}
+
 	public boolean isAdmin() {
 		return false;
 	}

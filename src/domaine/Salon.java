@@ -8,6 +8,11 @@ public class Salon {
 	String nom;
 	Personne modo;
 	List<Personne> personnes;
+	
+	public Salon(){
+		
+	}
+	
 	public Salon(int id, String nom, Personne modo, List<Personne> personnes) {
 		super();
 		this.id = id;

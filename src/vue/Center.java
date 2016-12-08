@@ -7,10 +7,13 @@ import javax.swing.JPanel;
 import domaine.Personne;
 
 public class Center extends JPanel {
-
-	public Center(Personne p, InterfaceChat interfaceChat) {
+	
+	InterfaceChat interfaceChat;
+	
+	public Center(InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
 		this.setBackground(Color.LIGHT_GRAY);
+		this.interfaceChat = interfaceChat;
 	}
 
 }

@@ -20,9 +20,7 @@ import persistance.SalonMapper;
 
 public class East extends JPanel {
 
-	Salon s;
-	Personne p;
-	Personne destinataire;
+	InterfaceChat interfaceChat;
 	
 	public East(InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
@@ -39,17 +37,9 @@ public class East extends JPanel {
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
 		Personne p = PersonneMapper.getInstance().findByLogin(personne);
 		lmodel.addElement(p);
-		destinataire = p;
+		interfaceChat.destinataire = p;
 		jl.setModel(lmodel);
 		this.add(jl);
-	}
-
-	public Salon getSalon() {
-		return s;
-	}
-
-	public void setSalon(Salon s) {
-		this.s = s;
 	}
 
 	public void getJListPersonneSalons(String salon) {
@@ -63,14 +53,6 @@ public class East extends JPanel {
 
 		jl.setModel(lmodel);
 		this.add(jl);
-	}
-
-	public Personne getDestinataire() {
-		return destinataire;
-	}
-
-	public void setDestinataire(Personne destinataire) {
-		this.destinataire = destinataire;
 	}
 
 	

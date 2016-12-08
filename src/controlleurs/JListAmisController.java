@@ -6,16 +6,15 @@ import javax.swing.event.ListSelectionListener;
 
 import domaine.Personne;
 import vue.East;
+import vue.InterfaceChat;
 import vue.West;
 
 public class JListAmisController implements ListSelectionListener {
 
-	East east;
-	West west;
+	InterfaceChat interfaceChat;
 
-	public JListAmisController(West w, East e) {
-		this.west = w;
-		this.east = e;
+	public JListAmisController(InterfaceChat interfaceChat) {
+		this.interfaceChat = interfaceChat;
 	}
 
 	@Override
@@ -24,18 +23,18 @@ public class JListAmisController implements ListSelectionListener {
 		int Index = lsm.getSelectionModel().getMinSelectionIndex();
 
 		System.out.println("\nChangement de la selection de liste! ");
-		if ("Salons".equals(west.getSwap().getText())) {
+		if ("Salons".equals(interfaceChat.getWest().getSwap().getText())) {
 			System.out.println("yo");
 			System.out.println("Valeur de l'element: " + lsm.getModel().getElementAt(Index).toString());
 			String salon = lsm.getModel().getElementAt(Index).toString();
-			east.getJListPersonneSalons(salon);
-		} else if("Amis".equals(west.getSwap().getText())){
-			String personne = ""+((Personne) lsm.getModel().getElementAt(Index)).getLogin();
-			east.getPersonnePrive(personne);
+			interfaceChat.getEast().getJListPersonneSalons(salon);
+		} else if("Amis".equals(interfaceChat.getWest().getSwap().getText())){
+			String personne = ((Personne) lsm.getModel().getElementAt(Index)).getLogin();
+			interfaceChat.getEast().getPersonnePrive(personne);
 			
 		}
 		
-		east.updateUI();
+		interfaceChat.getEast().updateUI();
 
 	}
 

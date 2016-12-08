@@ -2,20 +2,22 @@ package controlleurs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InterfaceAddress;
 
 import javax.swing.JPanel;
 
+import vue.InterfaceChat;
 import vue.West;
 
 public class SwapSalonAmisListener implements ActionListener{
 
-	West west ;
+	InterfaceChat interfaceChat;
 	
 	
 	
-	public SwapSalonAmisListener(West west) {
+	public SwapSalonAmisListener(InterfaceChat interfaceChat) {
 		super();
-		this.west = west;
+		this.interfaceChat = interfaceChat;
 	}
 
 
@@ -24,12 +26,12 @@ public class SwapSalonAmisListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("Salons")){
-			west.getJListAmis();
+			interfaceChat.getWest().getJListAmis();
 			System.out.println("test");
 		} else {
-			west.getJListSalons();
+			interfaceChat.getWest().getJListSalons();
 		}
-		west.updateUI();
+		interfaceChat.getWest().updateUI();
 	}
 
 }
