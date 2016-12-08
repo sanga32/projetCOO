@@ -8,12 +8,20 @@ public class Salon {
 	String nom;
 	Personne modo;
 	List<Personne> personnes;
+	public Salon(int id, String nom, Personne modo, List<Personne> personnes) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.modo = modo;
+		this.personnes = personnes;
+	}
+	
 	public Salon(int id, String nom, Personne modo) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.modo = modo;
-		this.personnes = new ArrayList<Personne>(); //proxy à faire
+		this.personnes = new ArrayList<Personne>();
 	}
 	
 	public boolean isEmpty(){

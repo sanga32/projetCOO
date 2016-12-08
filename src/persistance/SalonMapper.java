@@ -97,7 +97,8 @@ public class SalonMapper {
 			int id = rs.getInt("idSalon");
 			String nom = rs.getString("nom");
 			Personne p = new VirtualProxyPersonne(rs.getInt("modo"));
-			Salon s = new Salon(id, nom, p);
+			List<Personne> personnes = getPersonnes(id);
+			Salon s = new Salon(id, nom, p,personnes);
 			return s;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -115,7 +116,8 @@ public class SalonMapper {
 			int id = rs.getInt("idSalon");
 			String n = rs.getString("nom");
 			Personne p = new VirtualProxyPersonne(rs.getInt("modo"));
-			Salon s = new Salon(id, n, p);
+			List<Personne> personnes = getPersonnes(id);
+			Salon s = new Salon(id, nom, p,personnes);
 			return s;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -155,7 +157,8 @@ public class SalonMapper {
 				int id = rs.getInt("idSalon");
 				String nom = rs.getString("nom");
 				Personne modo = new VirtualProxyPersonne(rs.getInt("modo"));
-				Salon s = new Salon(id, nom, modo);
+				List<Personne> personnes = getPersonnes(id);
+				Salon s = new Salon(id, nom, p,personnes);
 				salons.add(s);
 			}
 			String req2 = "SELECT idSalon, nom, modo  FROM Projet_Salon  WHERE modo=?";
@@ -166,7 +169,8 @@ public class SalonMapper {
 				int id = rs2.getInt("idSalon");
 				String nom = rs2.getString("nom");
 				Personne modo = new VirtualProxyPersonne(rs2.getInt("modo"));
-				Salon s = new Salon(id, nom, modo);
+				List<Personne> personnes = getPersonnes(id);
+				Salon s = new Salon(id, nom, p,personnes);
 				salons.add(s);
 			}
 			p.setSalons(salons);

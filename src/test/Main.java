@@ -2,6 +2,7 @@ package test;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import domaine.*;
@@ -59,7 +60,7 @@ public class Main {
 		for(int i=0; i<ln2.size();i++){
 			System.out.println(ln2.get(i).toString());
 		}
-		Salon s = new Salon(1,"les enculés",p3);
+		Salon s = new Salon(1,"les enculés",p3, new ArrayList<Personne>());
 		sm.insertSalon(s);
 		sm.insertPersonne(s, p1);
 		sm.insertPersonne(s, p2);

@@ -198,7 +198,8 @@ public class PersonneMapper {
 				int id = rs.getInt("idSalon");
 				String nom = rs.getString("nom");
 				Personne modo = new VirtualProxyPersonne(rs.getInt("modo"));
-				Salon s = new Salon(id, nom, modo);
+				List<Personne> personnes = SalonMapper.getInstance().getPersonnes(id);
+				Salon s = new Salon(id, nom, p,personnes);
 				salons.add(s);
 			}
 			String req2 = "SELECT idSalon, nom, modo  FROM Projet_Salon  WHERE modo=?";
@@ -209,7 +210,8 @@ public class PersonneMapper {
 				int id = rs2.getInt("idSalon");
 				String nom = rs2.getString("nom");
 				Personne modo = new VirtualProxyPersonne(rs2.getInt("modo"));
-				Salon s = new Salon(id, nom, modo);
+				List<Personne> personnes = SalonMapper.getInstance().getPersonnes(id);
+				Salon s = new Salon(id, nom, p,personnes);
 				salons.add(s);
 			}
 			p.setSalons(salons);
