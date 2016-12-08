@@ -35,6 +35,7 @@ public class East extends JPanel {
 		}
 		
 		jl.setModel(lmodel);
+		this.add(jl);
 	}
 
 }

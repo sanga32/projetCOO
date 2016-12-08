@@ -30,7 +30,7 @@ public class JListAmisController implements ListSelectionListener {
 			east.getJListPersonneSalons(salon);
 		} else if("Amis".equals(west.getSwap().getText())){
 			String personne = lsm.getModel().getElementAt(Index).toString();
-			east.getJListPersonneSalons(personne);
+			east.getPersonnePrive(personne);
 		}
 
 	}
