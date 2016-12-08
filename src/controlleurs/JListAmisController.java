@@ -4,6 +4,7 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import domaine.Personne;
 import vue.East;
 import vue.West;
 
@@ -29,8 +30,9 @@ public class JListAmisController implements ListSelectionListener {
 			String salon = lsm.getModel().getElementAt(Index).toString();
 			east.getJListPersonneSalons(salon);
 		} else if("Amis".equals(west.getSwap().getText())){
-			String personne = lsm.getModel().getElementAt(Index).toString();
+			String personne = ""+((Personne) lsm.getModel().getElementAt(Index)).getLogin();
 			east.getPersonnePrive(personne);
+			
 		}
 		
 		east.updateUI();

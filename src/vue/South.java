@@ -21,6 +21,7 @@ public class South extends JPanel {
 	Message m;
 	JPanel message;
 	List<String> listeChoix;
+	Personne destinataire;
 	
 	public South(Personne p, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
@@ -32,7 +33,9 @@ public class South extends JPanel {
 		msg.setPreferredSize(new Dimension(400, 30));
 		JButton envoyer = new JButton("Envoyer");
 		listeChoix = new ArrayList<String>();
-		envoyer.addActionListener(new EnvoyerMessageListener(msg, listeChoix));
+		destinataire = interfaceChat.getEast().getDestinataire();
+
+		envoyer.addActionListener(new EnvoyerMessageListener(msg, listeChoix, interfaceChat.getEast(), p));
 		message.add(msg);
 		message.add(envoyer);
 
