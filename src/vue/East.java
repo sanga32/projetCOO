@@ -56,19 +56,4 @@ public class East extends JPanel {
 		this.add(jl);
 	}
 
-	public void init(){
-		this.removeAll();
-		JList<Salon> jl = new JList<Salon>();
-		DefaultListModel<Salon> lmodel = new DefaultListModel<Salon>();
-
-
-		jl.setModel(lmodel);
-
-		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		listScrollPane.setPreferredSize(new Dimension(115, 150));
-
-
-		this.add(listScrollPane);
-	}
-
 }
