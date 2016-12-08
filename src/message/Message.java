@@ -7,8 +7,22 @@ import domaine.Personne;
 public abstract class Message {
 	String contenu;
 	int id;
-	Date dateEnvoi;
+	String dateEnvoi;
+	Personne expediteur, destinataire;
+
 	
+	public Personne getExpediteur() {
+		return expediteur;
+	}
+	public void setExpediteur(Personne expediteur) {
+		this.expediteur = expediteur;
+	}
+	public Personne getDestinataire() {
+		return destinataire;
+	}
+	public void setDestinataire(Personne destinataire) {
+		this.destinataire = destinataire;
+	}
 	public abstract boolean isReception();
 	public abstract boolean isExpiration();
 	public abstract boolean isChiffre();
@@ -26,7 +40,7 @@ public abstract class Message {
 
 
 
-	public Date getDateEnvoi() {
+	public String getDateEnvoi() {
 		return dateEnvoi;
 	}
 		

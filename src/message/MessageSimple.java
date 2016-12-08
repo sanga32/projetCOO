@@ -7,7 +7,7 @@ import domaine.Salon;
 
 public class MessageSimple extends Message{
 	int idSalon, idPersonne;
-	public MessageSimple(Salon salon, Personne personne,String contenu, Date dateEnvoi) {
+	public MessageSimple(Salon salon, Personne personne,String contenu, String dateEnvoi) {
 		this.idSalon = salon.getId();
 		this.idPersonne = personne.getId();
 		this.contenu = contenu;

@@ -36,7 +36,7 @@ public class Main {
 		pm.insert(p2);
 		pm.insert(p3);
 
-		mm.insert(new MessagePrive(1, "Salut", p1, p2, Date.valueOf(LocalDate.now())));
+		mm.insert(new MessagePrive(1, "Salut", p1, p2," "));
 
 		System.out.println(mm.findByDestinataire(p2.getId()));
 		System.out.println(pm.findById(1));

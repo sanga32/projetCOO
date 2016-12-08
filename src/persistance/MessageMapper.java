@@ -76,25 +76,25 @@ public class MessageMapper {
 		
 			
 			
-			if(classeMessage.equals("class message.MessagePrive")==true){
+			//if(classeMessage.equals("class message.MessagePrive")==true){
 				
 			
 			ps.setString(1, m.getContenu());
-			ps.setInt(2,((MessagePrive) m).getExpediteur().getId());
-			ps.setInt(3,((MessagePrive) m).getDestinataire().getId());
+			ps.setInt(2,( m.getExpediteur().getId()));
+			ps.setInt(3,( m).getDestinataire().getId());
 			ps.setInt(5, (m.isReception())?1:0);
 			ps.setInt(6, (m.isExpiration())?1:0);
 			ps.setInt(7, (m.isChiffre())?1:0);
 			ps.setInt(8, (m.isPrioritaire())?1:0);
 			
-			}else{
+		/*	}else{
 				
 			ps.setInt(1, ((MessageSimple) m).getIdSalon());
 			ps.setInt(2, ((MessageSimple) m).getIdPersonne());
 			ps.setString(3, m.getContenu());
 			
-			}
-			ps.setDate(4, m.getDateEnvoi());
+			}*/
+			ps.setString(4, m.getDateEnvoi());
 			
 			ps.execute();
 			conn.commit();
@@ -141,7 +141,7 @@ public class MessageMapper {
 			String message = rs.getString("message");
 			Personne expediteur = new VirtualProxyPersonne(rs.getInt("expediteur"));
 			Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
-			Date date = rs.getDate("dateHeure");
+			String date = rs.getString("dateHeure");
 			Message m = new MessagePrive(id_message, message, expediteur, destinataire, date);
 			if (rs.getInt("isReception") == 1) {
 				m = new MessageAvecAccuseReception(m);
