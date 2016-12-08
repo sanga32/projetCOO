@@ -5,7 +5,6 @@ import java.sql.Date;
 import domaine.Personne;
 
 public class MessagePrive extends Message{
-	Personne expediteur, destinataire;
 	
 	
 	public MessagePrive(int id, String contenu, Personne expediteur, Personne destinataire, String dateEnvoi) {

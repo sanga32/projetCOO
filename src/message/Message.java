@@ -8,7 +8,20 @@ public abstract class Message {
 	String contenu;
 	int id;
 	String dateEnvoi;
-	
+	Personne expediteur, destinataire;
+
+	public Personne getExpediteur() {
+		return expediteur;
+	}
+	public void setExpediteur(Personne expediteur) {
+		this.expediteur = expediteur;
+	}
+	public Personne getDestinataire() {
+		return destinataire;
+	}
+	public void setDestinataire(Personne destinataire) {
+		this.destinataire = destinataire;
+	}
 	public abstract boolean isReception();
 	public abstract boolean isExpiration();
 	public abstract boolean isChiffre();

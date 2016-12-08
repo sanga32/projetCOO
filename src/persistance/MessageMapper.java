@@ -73,10 +73,10 @@ public class MessageMapper {
 
 			//if(classeMessage.equals("class message.MessagePrive")==true){
 
-
+			System.out.println(toSend.isReception());
 			ps.setString(1, toSend.getContenu());
-			ps.setInt(2,( ((MessagePrive) toSend).getExpediteur().getId()));
-			ps.setInt(3,( (MessagePrive) toSend).getDestinataire().getId());
+			ps.setInt(2,(toSend).getExpediteur().getId());
+			ps.setInt(3,(toSend).getDestinataire().getId());
 			ps.setInt(5, (toSend.isReception())?1:0);
 			ps.setInt(6, (toSend.isExpiration())?1:0);
 			ps.setInt(7, (toSend.isChiffre())?1:0);
