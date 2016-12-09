@@ -1,6 +1,7 @@
 package test;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import persistance.SalonMapper;
 
 public class Main {
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws SQLException {
 
 		PersonneMapper pm = PersonneMapper.getInstance();
 		MessageMapper mm = MessageMapper.getInstance();
