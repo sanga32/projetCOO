@@ -12,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import controlleurs.MyCellRenderer;
 import domaine.Personne;
 import message.Message;
 import persistance.PersonneMapper;
@@ -40,6 +41,7 @@ public class Center extends JPanel {
 		for ( Message mess : messages){
 			lmodel.addElement(mess);
 		}
+		jl.setCellRenderer(new MyCellRenderer());
 		jl.setModel(lmodel);
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
