@@ -75,6 +75,6 @@ public class VirtualProxyPersonne extends Personne{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return "Personne [id°" + personne.getId()+" | login = " + personne.getLogin()+ "]";
+		return personne.getNom();
 	}
 }
