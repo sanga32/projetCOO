@@ -29,12 +29,7 @@ public class JListAmisController implements ListSelectionListener {
 		int Index = lsm.getSelectionModel().getMinSelectionIndex();
 
 		System.out.println("\nChangement de la selection de liste! ");
-		if ("Salons".equals(interfaceChat.getWest().getSwap().getText())) {
-			System.out.println("yo");
-			System.out.println("Valeur de l'element: " + lsm.getModel().getElementAt(Index).toString());
-			String salon = lsm.getModel().getElementAt(Index).toString();
-			interfaceChat.getEast().getJListPersonneSalons(salon);
-		} else if("Amis".equals(interfaceChat.getWest().getSwap().getText())){
+		if("Amis".equals(interfaceChat.getWest().getSwap().getText())){
 			String personne = ""+((Personne) lsm.getModel().getElementAt(Index)).getLogin();
 			interfaceChat.getEast().getPersonnePrive(personne);
 			Personne utilisateur = interfaceChat.getWest().getPersonne();

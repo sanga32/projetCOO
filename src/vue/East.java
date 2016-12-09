@@ -58,7 +58,7 @@ public class East extends JPanel {
 		this.removeAll();
 		JList<Personne> jl = new JList<Personne>();
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
-		Salon s = SalonMapper.getInstance().findByNom(salon);
+		s = SalonMapper.getInstance().findByNom(salon);
 		for (int i =0; i<s.getPersonnes().size();i++) {
 			lmodel.addElement(s.getPersonnes().get(i));
 		}

@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import controlleurs.AddPersonneSalonListener;
 import controlleurs.CreerSalonListener;
 import controlleurs.JListAmisController;
+import controlleurs.JListSalonsController;
 import controlleurs.SwapSalonAmisListener;
 import domaine.Personne;
 import domaine.Salon;
@@ -32,6 +33,7 @@ public class West extends JPanel {
 		this.setLayout(boxLayout);
 		this.p = p;
 		this.interfaceChat = interfaceChat;
+		this.setPreferredSize(new Dimension(150, 150));
 		
 		getJListSalons();
 		
@@ -87,7 +89,7 @@ public class West extends JPanel {
 		}
 
 		jl.setModel(lmodel);
-		jl.addListSelectionListener(new JListAmisController(interfaceChat));
+		jl.addListSelectionListener(new JListSalonsController(interfaceChat));
 
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		listScrollPane.setPreferredSize(new Dimension(115, 150));

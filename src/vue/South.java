@@ -37,7 +37,8 @@ public class South extends JPanel {
 		listeChoix = new ArrayList<String>();
 		destinataire = interfaceChat.getEast().getDestinataire();
 
-		envoyer.addActionListener(new EnvoyerMessageListener(msg, listeChoix, interfaceChat.getEast(), p));
+		envoyer.addActionListener(new EnvoyerMessageListener(msg, listeChoix, interfaceChat.getEast(), interfaceChat.getWest(), p, interfaceChat.getCenter()));
+		msg.addActionListener(new EnvoyerMessageListener(msg, listeChoix, interfaceChat.getEast(), interfaceChat.getWest(), p, interfaceChat.getCenter()));
 		message.add(msg);
 		message.add(envoyer);
 

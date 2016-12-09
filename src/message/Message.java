@@ -1,6 +1,9 @@
 package message;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import domaine.Personne;
 import domaine.Salon;
@@ -30,6 +33,7 @@ public abstract class Message {
 	}
 	
 	public String toString() {
+	      
 		return "["+dateEnvoi+"]"+expediteur.getLogin()+ " : " + contenu;
 	}
 	

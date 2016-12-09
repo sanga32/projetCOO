@@ -208,8 +208,8 @@ public class MessageMapper {
 			ps.setInt(1, id_salon);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Salon salon = SalonMapper.getInstance().findById(rs.getInt("idMessage"));
-				Personne expediteur = new VirtualProxyPersonne(rs.getInt("expediteur"));
+				Salon salon = SalonMapper.getInstance().findById(rs.getInt("idSalon"));
+				Personne expediteur = new VirtualProxyPersonne(rs.getInt("idPersonne"));
 				String message = rs.getString("message");
 				String date = rs.getString("dateHeure");
 				Message m = new MessageSimple(salon, expediteur, message, date);
@@ -221,6 +221,39 @@ public class MessageMapper {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public void insert(Message toSend, Salon salon) {
+		// TODO Auto-generated method stub
+		try {
+			String req = "";
+			req = "insert into Projet_DiscussionSalon( idSalon, idPersonne, message, dateHeure ) values(?,?,?,?)";
+
+			PreparedStatement ps = conn.prepareStatement(req);
+
+			// if(classeMessage.equals("class message.MessagePrive")==true){
+
+			System.out.println(toSend.isReception());
+			ps.setInt(1, salon.getId());
+			ps.setInt(2, (toSend).getExpediteur().getId());
+			ps.setString(3, toSend.getContenu());
+			ps.setString(4, toSend.getDateEnvoi() );
+			
+
+			/*
+			 * }else{
+			 * 
+			 * ps.setInt(1, ((MessageSimple) m).getIdSalon()); ps.setInt(2,
+			 * ((MessageSimple) m).getIdPersonne()); ps.setString(3,
+			 * m.getContenu());
+			 * 
+			 * }
+			 */
+			ps.execute();
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
