@@ -40,6 +40,12 @@ public class West extends JPanel {
 	
 	
 	
+	public Personne getPersonne() {
+		return p;
+	}
+
+
+
 	public JButton getSwap() {
 		return swap;
 	}
@@ -54,7 +60,7 @@ public class West extends JPanel {
 		}
 
 		jl.setModel(lmodel);
-		jl.addListSelectionListener(new JListAmisController(this, interfaceChat.getEast()));
+		jl.addListSelectionListener(new JListAmisController(interfaceChat));
 
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
@@ -81,7 +87,7 @@ public class West extends JPanel {
 		}
 
 		jl.setModel(lmodel);
-		jl.addListSelectionListener(new JListAmisController(this, interfaceChat.getEast()));
+		jl.addListSelectionListener(new JListAmisController(interfaceChat));
 
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
