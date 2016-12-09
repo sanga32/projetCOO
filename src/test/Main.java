@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domaine.*;
+import message.Message;
 import message.MessagePrive;
 import persistance.AmiMapper;
 import persistance.MessageMapper;
@@ -27,7 +28,6 @@ public class Main {
 		Personne p3 = new Utilisateur(3, "lequette", "5748", "lequette", "teddy");
 		;
 
-		mm.clear();
 		am.clear();
 		pm.clear();
 		nm.clear();
@@ -36,7 +36,6 @@ public class Main {
 		pm.insert(p2);
 		pm.insert(p3);
 
-		mm.insert(new MessagePrive(1, "Salut", p1, p2," "));
 
 		System.out.println(mm.findByDestinataire(p2.getId()));
 		System.out.println(pm.findById(1));
@@ -74,6 +73,14 @@ public class Main {
 		for(int i=0; i<p1.getSalons().size();i++){
 			System.out.println(p1.getSalons().get(i).toString());
 		}
+		
+		List<Message> messages = mm.findListMessageByDestinataire(1,2);
+		System.out.println();
+		System.out.println("Discussion");
+		for(Message m : messages){
+			System.out.println(m.toString());
+		}
+		
 	}
 
 }

@@ -29,5 +29,9 @@ public abstract class MessageAvecOption extends Message {
 	public Salon getSalon() {
 		return message.getSalon();
 	}
+	
+	public String toString() {
+		return message.toString();
+	}
 
 }

@@ -30,7 +30,7 @@ public abstract class Message {
 	}
 	
 	public String toString() {
-		return "Message [id=" + id + ", contenu=" + contenu  + ", dateEnvoi=" + dateEnvoi + "]";
+		return "["+dateEnvoi+"]"+expediteur.getLogin()+ " : " + contenu;
 	}
 	
 	
