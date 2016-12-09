@@ -11,6 +11,7 @@ import java.sql.Date;
 
 import domaine.Administrateur;
 import domaine.Personne;
+import domaine.Salon;
 import domaine.Utilisateur;
 import message.*;
 import settings.ConnectionInfo;
@@ -158,7 +159,7 @@ public class MessageMapper {
 		return null;
 	}
 
-	public List<Message> findListMessageByDestinataire(int id_personne1,int id_personne2) {
+	public List<Message> findListMessagePrive(int id_personne1,int id_personne2) {
 		List<Message> messages = new ArrayList<Message>();
 		try {
 			String req = "SELECT idMessage, message, expediteur, destinataire, dateHeure, "
@@ -197,6 +198,29 @@ public class MessageMapper {
 		}
 		return null;
 	}
+	
+	public List<Message> findListMessageSalon(int id_salon) {
+		List<Message> messages = new ArrayList<Message>();
+		try {
+			String req = "SELECT idSalon, idPersonne, message, dateHeure FROM Projet_DiscussionSalon "
+					+ "WHERE idSalon=?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, id_salon);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Salon salon = SalonMapper.getInstance().findById(rs.getInt("idMessage"));
+				Personne expediteur = new VirtualProxyPersonne(rs.getInt("expediteur"));
+				String message = rs.getString("message");
+				String date = rs.getString("dateHeure");
+				Message m = new MessageSimple(salon, expediteur, message, date);
+				
+				messages.add(m);
+			}
+			return messages;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
-	// messageFindBySalon
 }

@@ -74,7 +74,7 @@ public class Main {
 			System.out.println(p1.getSalons().get(i).toString());
 		}
 		
-		List<Message> messages = mm.findListMessageByDestinataire(1,2);
+		List<Message> messages = mm.findListMessagePrive(1,2);
 		System.out.println();
 		System.out.println("Discussion");
 		for(Message m : messages){
