@@ -5,11 +5,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -65,7 +67,14 @@ public class CreerSalonListener implements ActionListener{
 				// TODO Auto-generated method stub
 				jf.setVisible(false);
 				Salon s = new Salon(4, tsalon.getText(), p);
-				SalonMapper.getInstance().insertSalon(s);
+				try {
+					SalonMapper.getInstance().insertSalon(s);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Ce nom de salon est deja pris", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
+
+					e1.printStackTrace();
+				}
 			}
 		});
 	}

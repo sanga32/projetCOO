@@ -44,18 +44,15 @@ public class SalonMapper {
 		}
 	}
 
-	public int insertSalon(Salon s) {
+	public int insertSalon(Salon s) throws SQLException {
 		int nbLigne = 0;
-		try {
 			String req = "insert into Projet_Salon( nom, modo) values(?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setString(1, s.getNom());
 			ps.setInt(2, s.getModo().getId());
 			nbLigne = ps.executeUpdate();
 			conn.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
 		return nbLigne;
 	}
 
