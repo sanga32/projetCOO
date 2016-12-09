@@ -6,10 +6,11 @@ import domaine.Personne;
 import domaine.Salon;
 
 public class MessageSimple extends Message{
-	int idSalon, idPersonne;
+	Salon idSalon;
+	
 	public MessageSimple(Salon salon, Personne personne,String contenu, String dateEnvoi) {
-		this.idSalon = salon.getId();
-		this.idPersonne = personne.getId();
+		this.idSalon = salon;
+		this.expediteur = personne;
 		this.contenu = contenu;
 		this.dateEnvoi = dateEnvoi;
 	}
@@ -46,11 +47,13 @@ public class MessageSimple extends Message{
 		return false;
 	}
 	
-	public int getIdSalon(){
+	public Salon getSalon(){
 		return this.idSalon;
 	}
-	
-	public int getIdPersonne(){
-		return this.idPersonne;
+
+	@Override
+	public Personne getDestinataire() {
+		return null;
 	}
+	
 }

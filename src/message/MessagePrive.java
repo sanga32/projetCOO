@@ -3,9 +3,12 @@ package message;
 import java.sql.Date;
 
 import domaine.Personne;
+import domaine.Salon;
 
 public class MessagePrive extends Message{
 	
+	
+	Personne destinataire;
 	
 	public MessagePrive(int id, String contenu, Personne expediteur, Personne destinataire, String dateEnvoi) {
 		this.id=id;
@@ -54,12 +57,18 @@ public class MessagePrive extends Message{
 		return false;
 	}
 	
-	public Personne getExpediteur() {
-		return expediteur;
-	}
-
+	
 	public Personne getDestinataire() {
 		return destinataire;
 	}
+	public void setDestinataire(Personne destinataire) {
+		this.destinataire = destinataire;
+	}
+	@Override
+	public Salon getSalon() {
+		return null;
+	}
+	
+	
 
 }
