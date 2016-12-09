@@ -47,11 +47,10 @@ public class SalonMapper {
 	public int insertSalon(Salon s) {
 		int nbLigne = 0;
 		try {
-			String req = "insert into Projet_Salon(idSalon, nom, modo) values(?,?,?)";
+			String req = "insert into Projet_Salon( nom, modo) values(?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, s.getId());
-			ps.setString(2, s.getNom());
-			ps.setInt(3, s.getModo().getId());
+			ps.setString(1, s.getNom());
+			ps.setInt(2, s.getModo().getId());
 			nbLigne = ps.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {
@@ -177,6 +176,19 @@ public class SalonMapper {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean isModo(Personne p, int id) throws SQLException {
+		// TODO Auto-generated method stub
+		String req = "SELECT idSalon, nom, modo  FROM   Projet_Salon  WHERE modo=? AND idSalon=?";
+		PreparedStatement ps = conn.prepareStatement(req);
+		ps.setInt(1, p.getId());
+		ps.setInt(2, id);
+		ResultSet rs = ps.executeQuery();
+		if (rs.next()) {
+			return true;
+		}
+		return false;
 	}
 
 }
