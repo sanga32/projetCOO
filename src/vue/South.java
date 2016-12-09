@@ -22,9 +22,11 @@ public class South extends JPanel {
 	JPanel message;
 	List<String> listeChoix;
 	Personne destinataire;
+	InterfaceChat interfaceChat;
 	
 	public South(Personne p, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
+		this.interfaceChat = interfaceChat;
 		this.setLayout(new GridLayout(2, 0));
 		m = new MessagePrive();
 		message = new JPanel();

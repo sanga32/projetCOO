@@ -10,8 +10,11 @@ import domaine.Personne;
 
 public class North extends JPanel {
 
+	InterfaceChat interfaceChat;
+
 	public North(Personne p, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
+		this.interfaceChat = interfaceChat;
 		JButton quitter = new JButton("Déconnecter");
 		quitter.addActionListener(new QuitterListener(interfaceChat));
 		JButton modifierInfos = new JButton("Editer");

@@ -23,9 +23,11 @@ public class East extends JPanel {
 	Salon s;
 	Personne p;
 	Personne destinataire;
+	InterfaceChat interfaceChat;
 	
 	public East(InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
+		this.interfaceChat = interfaceChat;
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS); // top to
 		// bottom
 		this.setLayout(boxLayout);
