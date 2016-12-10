@@ -8,7 +8,7 @@ import domaine.Salon;
 public abstract class MessageAvecOption extends Message {
 
 	Message message;
-
+	
 	public Personne getExpediteur() {
 		return message.getExpediteur();
 	}

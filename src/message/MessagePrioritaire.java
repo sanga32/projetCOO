@@ -43,4 +43,12 @@ public class MessagePrioritaire extends MessageAvecOption{
 		return true;
 	}
 
+	public String chiffrage() {
+		return message.chiffrage();
+	}
+
+	public String dechiffrage() {
+		return message.dechiffrage();
+	}
+
 }

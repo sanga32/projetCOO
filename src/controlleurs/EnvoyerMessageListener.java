@@ -48,8 +48,9 @@ public class EnvoyerMessageListener implements ActionListener{
 		// TODO Auto-generated method stub
 
 		//string containing date
+		SimpleDateFormat dateHeureFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 		java.util.Date date = new java.util.Date();
-		String strDate = date.toString();
+		String strDate = dateHeureFormat.format(date);
 
 		/*
 		 * To convert String to java.sql.Date, use
