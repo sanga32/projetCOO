@@ -266,6 +266,12 @@ public class MessageMapper {
 		}
 	}
 
+	/**
+	 * Appelé une fois un message avec accusé de reception lu. 
+	 * On renvoie un message disant que le message a bien été lu
+	 * @param message
+	 * 			accusé de reception
+	 */
 	public void messageLu(Message message) {
 		try {
 			String req = "UPDATE Projet_MessagePrive SET isReception = 0 WHERE idMessage=?";
