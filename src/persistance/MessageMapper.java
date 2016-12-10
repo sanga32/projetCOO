@@ -75,7 +75,7 @@ public class MessageMapper {
 
 			String contenu = "";
 			if(toSend.isChiffre()){
-				contenu = toSend.chiffrage();
+				contenu = Cryptage.chiffrage(toSend);
 			}else{
 				contenu = toSend.getContenu();
 			}
@@ -184,14 +184,16 @@ public class MessageMapper {
 				Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
 				String date = rs.getString("dateHeure");
 				Message m = new MessagePrive(id_message, message, expediteur, destinataire, date);
+				if (rs.getInt("isChiffre") == 1) {
+					m.setContenu(Cryptage.dechiffrage(m));
+					m = new MessageChiffre(m);
+					
+				}
 				if (rs.getInt("isReception") == 1) {
 					m = new MessageAvecAccuseReception(m);
 				}
 				if (rs.getInt("isExpiration") == 1) {
 					m = new MessageAvecExpiration(m);
-				}
-				if (rs.getInt("isChiffre") == 1) {
-					m = new MessageChiffre(m);
 				}
 				if (rs.getInt("isPrioritaire") == 1) {
 					m = new MessagePrioritaire(m);

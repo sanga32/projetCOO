@@ -68,16 +68,6 @@ public class MessagePrive extends Message{
 	public Salon getSalon() {
 		return null;
 	}
-	@Override
-	public String chiffrage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public String dechiffrage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	
 

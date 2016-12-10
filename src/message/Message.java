@@ -21,8 +21,6 @@ public abstract class Message {
 	public abstract boolean isPrioritaire();
 	public abstract Personne getDestinataire();
 	public abstract Salon getSalon();
-	public abstract String chiffrage();
-	public abstract String dechiffrage();
 
 	
 	public String getContenu() {
@@ -30,6 +28,9 @@ public abstract class Message {
 	}
 
 
+	public void setContenu(String contenu) {
+		this.contenu = contenu;
+	}
 	public String getDateEnvoi() {
 		return dateEnvoi;
 	}

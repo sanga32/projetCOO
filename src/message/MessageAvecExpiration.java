@@ -43,13 +43,6 @@ public class MessageAvecExpiration extends MessageAvecOption {
 		}
 		return false;
 	}
-	
-	public String chiffrage() {
-		return message.chiffrage();
-	}
 
-	public String dechiffrage() {
-		return message.dechiffrage();
-	}
 
 }

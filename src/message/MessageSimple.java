@@ -55,17 +55,4 @@ public class MessageSimple extends Message{
 	public Personne getDestinataire() {
 		return null;
 	}
-
-	@Override
-	public String chiffrage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String dechiffrage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

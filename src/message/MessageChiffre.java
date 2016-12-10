@@ -45,23 +45,4 @@ public class MessageChiffre extends MessageAvecOption{
 		return false;
 	}
 	
-	public String chiffrage(){
-		String messageChiffre = "";
-		String mess = message.getContenu();
-		for(int i = 0; i < mess.length(); i++){
-			messageChiffre = (char)((int)mess.charAt(i) + 1) + messageChiffre;
-		}
-		
-		return messageChiffre;
-	}
-	
-	public String dechiffrage(){
-		String messageDechiffre = "";
-		String mess = message.getContenu();
-		for(int i = 0; i < mess.length(); i++){
-			messageDechiffre = (char)((int)mess.charAt(i) - 1) + messageDechiffre;
-		}
-		
-		return messageDechiffre;
-	}
 }
