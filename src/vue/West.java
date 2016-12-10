@@ -14,6 +14,7 @@ import controlleurs.AddPersonneSalonListener;
 import controlleurs.CreerSalonListener;
 import controlleurs.JListAmisController;
 import controlleurs.JListSalonsController;
+import controlleurs.MySalonCellRenderer;
 import controlleurs.SwapSalonAmisListener;
 import domaine.Personne;
 import domaine.Salon;
@@ -83,6 +84,7 @@ public class West extends JPanel {
 		for ( Salon s : p.getSalons()){
 			lmodel.addElement(s);
 		}
+		jl.setCellRenderer(new MySalonCellRenderer());
 
 		jl.setModel(lmodel);
 		jl.addListSelectionListener(new JListSalonsController(interfaceChat, p));
