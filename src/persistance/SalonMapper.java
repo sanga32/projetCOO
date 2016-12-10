@@ -46,28 +46,26 @@ public class SalonMapper {
 
 	public int insertSalon(Salon s) throws SQLException {
 		int nbLigne = 0;
-			String req = "insert into Projet_Salon( nom, modo) values(?,?)";
-			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setString(1, s.getNom());
-			ps.setInt(2, s.getModo().getId());
-			nbLigne = ps.executeUpdate();
-			conn.commit();
-		
+		String req = "insert into Projet_Salon( nom, modo) values(?,?)";
+		PreparedStatement ps = conn.prepareStatement(req);
+		ps.setString(1, s.getNom());
+		ps.setInt(2, s.getModo().getId());
+		nbLigne = ps.executeUpdate();
+		conn.commit();
+
 		return nbLigne;
 	}
 
-	public int insertPersonne(Salon s, Personne p) {
+	public int insertPersonne(Salon s, Personne p) throws SQLException {
 		int nbLigne = 0;
-		try {
-			String req = "insert into Projet_OccupeSalon(idSalon, idPersonne) values(?,?)";
-			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, s.getId());
-			ps.setInt(2, p.getId());
-			nbLigne = ps.executeUpdate();
-			conn.commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+
+		String req = "insert into Projet_OccupeSalon(idSalon, idPersonne) values(?,?)";
+		PreparedStatement ps = conn.prepareStatement(req);
+		ps.setInt(1, s.getId());
+		ps.setInt(2, p.getId());
+		nbLigne = ps.executeUpdate();
+		conn.commit();
+
 		return nbLigne;
 	}
 
