@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
@@ -74,12 +75,12 @@ public class MessageMapper {
 			// if(classeMessage.equals("class message.MessagePrive")==true){
 
 			String contenu = "";
-			if(toSend.isChiffre()){
+			if (toSend.isChiffre()) {
 				contenu = Cryptage.chiffrage(toSend);
-			}else{
+			} else {
 				contenu = toSend.getContenu();
 			}
-			
+
 			ps.setString(1, contenu);
 			ps.setInt(2, (toSend).getExpediteur().getId());
 			ps.setInt(3, (toSend).getDestinataire().getId());
@@ -165,7 +166,7 @@ public class MessageMapper {
 		return null;
 	}
 
-	public List<Message> findListMessagePrive(int id_personne1,int id_personne2) {
+	public List<Message> findListMessagePrive(int id_personne1, int id_personne2) {
 		List<Message> messages = new ArrayList<Message>();
 		try {
 			String req = "SELECT idMessage, message, expediteur, destinataire, dateHeure, "
@@ -187,9 +188,11 @@ public class MessageMapper {
 				if (rs.getInt("isChiffre") == 1) {
 					m.setContenu(Cryptage.dechiffrage(m));
 					m = new MessageChiffre(m);
-					
+
 				}
 				if (rs.getInt("isReception") == 1) {
+					if (id_personne1 == destinataire.getId())
+						messageLu(m);
 					m = new MessageAvecAccuseReception(m);
 				}
 				if (rs.getInt("isExpiration") == 1) {
@@ -206,7 +209,7 @@ public class MessageMapper {
 		}
 		return null;
 	}
-	
+
 	public List<Message> findListMessageSalon(int id_salon) {
 		List<Message> messages = new ArrayList<Message>();
 		try {
@@ -221,7 +224,7 @@ public class MessageMapper {
 				String message = rs.getString("message");
 				String date = rs.getString("dateHeure");
 				Message m = new MessageSimple(salon, expediteur, message, date);
-				
+
 				messages.add(m);
 			}
 			return messages;
@@ -245,8 +248,7 @@ public class MessageMapper {
 			ps.setInt(1, salon.getId());
 			ps.setInt(2, (toSend).getExpediteur().getId());
 			ps.setString(3, toSend.getContenu());
-			ps.setString(4, toSend.getDateEnvoi() );
-			
+			ps.setString(4, toSend.getDateEnvoi());
 
 			/*
 			 * }else{
@@ -262,6 +264,29 @@ public class MessageMapper {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void messageLu(Message message) {
+		try {
+			String req = "UPDATE Projet_MessagePrive SET isReception = 0 WHERE idMessage=?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, message.getId());
+			ps.execute();
+
+			SimpleDateFormat dateHeureFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+			java.util.Date date = new java.util.Date();
+			String strDate = dateHeureFormat.format(date);
+			Personne expediteur = message.getDestinataire();
+			Personne destinataire = message.getExpediteur();
+			String reponse = "Message bien reçu !";
+			Message m = new MessagePrive(reponse, expediteur, destinataire, strDate);
+			insert(m);
+
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
