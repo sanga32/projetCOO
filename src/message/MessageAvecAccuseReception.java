@@ -49,4 +49,8 @@ public class MessageAvecAccuseReception extends MessageAvecOption {
 		return false;
 	}
 
+	public Boolean isExpire() {
+		return message.isExpire();
+	}
+	
 }

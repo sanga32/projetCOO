@@ -21,6 +21,8 @@ public abstract class Message {
 	public abstract boolean isPrioritaire();
 	public abstract Personne getDestinataire();
 	public abstract Salon getSalon();
+	public abstract Boolean isExpire();
+	
 
 	
 	public String getContenu() {

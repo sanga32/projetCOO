@@ -118,7 +118,8 @@ public class MessageMapper {
 		try {
 			String req = "delete from Projet_MessagePrive where idMessage =?";
 			PreparedStatement ps = conn.prepareStatement(req);
-			// ps.setInt(1, m.getId());
+			System.out.println("IDMessage" + m.getId());
+			ps.setInt(1, m.getId());
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {
@@ -185,6 +186,7 @@ public class MessageMapper {
 				Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
 				String date = rs.getString("dateHeure");
 				Message m = new MessagePrive(id_message, message, expediteur, destinataire, date);
+				System.out.println("id Message trouvé" + id_message);
 				if (rs.getInt("isChiffre") == 1) {
 					m.setContenu(Cryptage.dechiffrage(m));
 					m = new MessageChiffre(m);
@@ -195,13 +197,19 @@ public class MessageMapper {
 						messageLu(m);
 					m = new MessageAvecAccuseReception(m);
 				}
-				if (rs.getInt("isExpiration") == 1) {
-					m = new MessageAvecExpiration(m);
-				}
 				if (rs.getInt("isPrioritaire") == 1) {
 					m = new MessagePrioritaire(m);
 				}
-				messages.add(m);
+				if (rs.getInt("isExpiration") == 1) {
+					m = new MessageAvecExpiration(m);
+					if (m.isExpire()) {
+						delete(m);
+					}else{
+						messages.add(m);
+					}
+				} else {
+					messages.add(m);
+				}
 			}
 			return messages;
 		} catch (SQLException e) {
@@ -267,18 +275,22 @@ public class MessageMapper {
 	}
 
 	/**
-	 * Appelé une fois un message avec accusé de reception lu. 
-	 * On renvoie un message disant que le message a bien été lu
+	 * Appelé une fois un message avec accusé de reception lu. On renvoie un
+	 * message disant que le message a bien été lu
+	 * 
 	 * @param message
-	 * 			accusé de reception
+	 *            accusé de reception
 	 */
 	public void messageLu(Message message) {
 		try {
-			String req = "UPDATE Projet_MessagePrive SET isReception = 0 WHERE idMessage=?";
+			String req = "UPDATE Projet_MessagePrive SET isReception = 0, message = ? WHERE idMessage=?";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, message.getId());
+			String newMessage = message.getContenu() + "  [Vu]";
+			ps.setString(1, newMessage);
+			ps.setInt(2, message.getId());
 			ps.execute();
-
+			//Insert un message comme quoi le message est lu
+			/*
 			SimpleDateFormat dateHeureFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 			java.util.Date date = new java.util.Date();
 			String strDate = dateHeureFormat.format(date);
@@ -287,7 +299,7 @@ public class MessageMapper {
 			String reponse = "Message bien reçu !";
 			Message m = new MessagePrive(reponse, expediteur, destinataire, strDate);
 			insert(m);
-
+	*/
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();

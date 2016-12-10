@@ -1,5 +1,9 @@
 package message;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MessageAvecExpiration extends MessageAvecOption {
 
 	public MessageAvecExpiration(Message m) {
@@ -44,5 +48,26 @@ public class MessageAvecExpiration extends MessageAvecOption {
 		return false;
 	}
 
+	public Boolean isExpire() {
+		SimpleDateFormat dateHeureFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		Date dateEnvoi = new Date();
+		Date expiration = new Date();
+		Date dateCourante = new Date();
+		try {
+			dateEnvoi = dateHeureFormat.parse(message.getDateEnvoi());
+			expiration = dateHeureFormat.parse(message.getDateEnvoi());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		expiration.setHours(expiration.getHours()+ 12);
+		expiration.setSeconds(dateEnvoi.getSeconds()+ 20);
+		System.out.println("DateCourante" +dateCourante);
+		System.out.println("Date EXPI" +expiration);
+		if(dateCourante.before(expiration)){
+			return false;
+		}
+		
+		return true;
+	}
 
 }

@@ -43,4 +43,8 @@ public class MessagePrioritaire extends MessageAvecOption{
 		return true;
 	}
 
+	public Boolean isExpire() {
+		return message.isExpire();
+	}
+
 }

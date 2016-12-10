@@ -51,6 +51,7 @@ public class EnvoyerMessageListener implements ActionListener{
 		SimpleDateFormat dateHeureFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 		java.util.Date date = new java.util.Date();
 		String strDate = dateHeureFormat.format(date);
+		System.out.println("DAAAAAATE" + date);
 
 		/*
 		 * To convert String to java.sql.Date, use

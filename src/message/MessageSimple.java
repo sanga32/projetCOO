@@ -55,4 +55,10 @@ public class MessageSimple extends Message{
 	public Personne getDestinataire() {
 		return null;
 	}
+
+	@Override
+	public Boolean isExpire() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

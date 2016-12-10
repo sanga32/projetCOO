@@ -9,6 +9,11 @@ public abstract class MessageAvecOption extends Message {
 
 	Message message;
 	
+	public int getId() {
+		return message.getId();
+	}
+	
+	
 	public Personne getExpediteur() {
 		return message.getExpediteur();
 	}

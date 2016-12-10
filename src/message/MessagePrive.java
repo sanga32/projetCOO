@@ -68,6 +68,11 @@ public class MessagePrive extends Message{
 	public Salon getSalon() {
 		return null;
 	}
+	@Override
+	public Boolean isExpire() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 

@@ -45,4 +45,7 @@ public class MessageChiffre extends MessageAvecOption{
 		return false;
 	}
 	
+	public Boolean isExpire() {
+		return message.isExpire();
+	}
 }
