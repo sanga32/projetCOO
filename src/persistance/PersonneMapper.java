@@ -219,4 +219,36 @@ public class PersonneMapper {
 			e.printStackTrace();
 		}
 	}
+	
+	public List<Personne> findNewPersonne(int id){
+		List<Personne> personnes = new ArrayList<Personne>();
+		try {
+			String req = "SELECT idPersonne, login, mdp, prenom, nom, admin from Projet_Personne  WHERE idPersonne !=? and "
+					+ "idPersonne not in (select idPersonne1 from Projet_Ami where idPersonne2=?) and idPersonne not in "
+					+ "(select idPersonne2 from Projet_Ami where idPersonne1=?)";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, id);
+			ps.setInt(2, id);
+			ps.setInt(3, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				int id_personne = rs.getInt(1);
+				String login = rs.getString("login");
+				String mdp = rs.getString("mdp");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
+				Personne p;
+				if (rs.getInt("admin") == 0) {
+					p = new Utilisateur(id_personne, login, mdp, nom, prenom);
+				} else {
+					p = new Administrateur(id_personne, login, mdp, nom, prenom);
+				}
+				personnes.add(p);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return personnes;
+	}
 }
