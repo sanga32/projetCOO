@@ -42,7 +42,7 @@ public class JListSalonsController implements ListSelectionListener {
 				if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId())){
 					interfaceChat.getWest().getJListSalons();
 					JButton addPersonneSalon = new JButton("Ajouter une personne");
-					addPersonneSalon.addActionListener(new AddPersonneSalonListener(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()) ));
+					addPersonneSalon.addActionListener(new AddPersonneSalonListener(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()), interfaceChat.getEast() ));
 					interfaceChat.getWest().add(addPersonneSalon);
 					
 				}else{
@@ -55,6 +55,7 @@ public class JListSalonsController implements ListSelectionListener {
 			}
 		} 
 		interfaceChat.getCenter().updateUI();
+		interfaceChat.getEast().updateUI();
 	}
 
 }

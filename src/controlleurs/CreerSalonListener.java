@@ -18,18 +18,21 @@ import javax.swing.JTextField;
 import domaine.Personne;
 import domaine.Salon;
 import persistance.SalonMapper;
+import vue.West;
 
 public class CreerSalonListener implements ActionListener{
 
 	Personne p;
 	JPanel panel;
 	JFrame jf;
+	West west;
 	
-	public CreerSalonListener(Personne p) {
+	public CreerSalonListener(Personne p, West west) {
 		// TODO Auto-generated constructor stub
 		this.p=p;
 		panel = new JPanel();
 		jf = new JFrame("Création d'un salon");
+		this.west=west;
 	}
 	
 	@Override
@@ -75,6 +78,8 @@ public class CreerSalonListener implements ActionListener{
 
 					e1.printStackTrace();
 				}
+				west.getJListSalons();
+				west.updateUI();
 			}
 		});
 	}

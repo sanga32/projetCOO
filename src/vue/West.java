@@ -66,12 +66,10 @@ public class West extends JPanel {
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
 		swap = new JButton("Amis");
 		swap.addActionListener(new SwapSalonAmisListener(this));
-		creerSalon = new JButton("Creer un salon");
-		creerSalon.addActionListener(new CreerSalonListener(p));
+		
 		
 		this.add(swap);
 		this.add(listScrollPane);
-		this.add(creerSalon);
 
 	}
 	
@@ -94,7 +92,7 @@ public class West extends JPanel {
 		swap = new JButton("Salons");
 		swap.addActionListener(new SwapSalonAmisListener(this));
 		creerSalon = new JButton("Creer un salon");
-		creerSalon.addActionListener(new CreerSalonListener(p));
+		creerSalon.addActionListener(new CreerSalonListener(p, this));
 		
 		this.add(swap);
 		this.add(listScrollPane);

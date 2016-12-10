@@ -23,6 +23,7 @@ import domaine.Salon;
 import persistance.AmiMapper;
 import persistance.PersonneMapper;
 import persistance.SalonMapper;
+import vue.East;
 
 public class AddPersonneSalonListener implements ActionListener {
 
@@ -30,13 +31,15 @@ public class AddPersonneSalonListener implements ActionListener {
 	JPanel panel;
 	Salon salon;
 	JFrame jf;
+	East east2;
 
-	public AddPersonneSalonListener(Personne p, Salon salon) {
+	public AddPersonneSalonListener(Personne p, Salon salon, East east) {
 		this.p = p;
 		this.p = p;
 		panel= new JPanel();
 		jf = new JFrame("Modification de vos informations");
 		this.salon = salon;
+		this.east2 = east;
 	}
 
 
@@ -112,6 +115,12 @@ public class AddPersonneSalonListener implements ActionListener {
 						sm.insertPersonne(salon, lmodel2.getElementAt(i));
 
 					}
+					
+					JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Validation",  JOptionPane.INFORMATION_MESSAGE);
+					jf.setVisible(false);
+					east2.getJListPersonneSalons(salon.getNom());
+					east2.updateUI();
+
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "Cet utilisateur est déjà présent dans le salon", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
