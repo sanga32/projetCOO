@@ -86,13 +86,12 @@ public class NotificationListener implements ActionListener{
 							NotificationMapper.getInstance().insert(rep);
 							NotificationMapper.getInstance().delete((DemandeAmi) notif);
 							AmiMapper.getInstance().insert(expediteur, destinataire);
-							lmodel.removeElement(e1.getSource());
+							lmodel.remove(index);
 
 							//RETIRER DE LA JLIST LA NOTIF
 							//J ARRIVE PAS A METTRE A JOUR LA PARTIE OUEST
 							//if ( interfaceChat.getWest().getSwap().getText().equals("Amis"))
-								interfaceChat.getWest().getJListAmis();
-							interfaceChat.getWest().updateUI();
+								
 							reponse.setVisible(false);
 							
 						}
@@ -107,8 +106,7 @@ public class NotificationListener implements ActionListener{
 							Reponse rep = new Reponse(false,expediteur,destinataire);
 							NotificationMapper.getInstance().insert(rep);
 							NotificationMapper.getInstance().delete((DemandeAmi) notif);
-							lmodel.removeElement(e1.getSource());
-							//RETIRER DE LA JLIST LA NOTIF
+							lmodel.remove(index);
 							reponse.setVisible(false);
 						}
 					});
@@ -132,7 +130,8 @@ public class NotificationListener implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jf.setVisible(false);
-				
+				interfaceChat.getWest().getJListAmis();
+				interfaceChat.getWest().updateUI();
 			}
 		});
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
