@@ -43,6 +43,21 @@ public class SalonMapper {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean isEmpty(Salon s) {
+		try {
+			String req = "Select idSalon from Projet_OccupeSalon where idSalon";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, s.getId());
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			rs.getInt("IdSalon");
+			return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 
 	public int insertSalon(Salon s) throws SQLException {
 		int nbLigne = 0;
