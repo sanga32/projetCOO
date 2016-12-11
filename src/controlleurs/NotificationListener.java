@@ -64,9 +64,9 @@ public class NotificationListener implements ActionListener{
 		jl.setModel(lmodel);
 		jl.addMouseListener(new MouseAdapter() {
 
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e1) {
 				// TODO Auto-generated method stub
-				JList lsm = (JList) e.getSource();
+				JList lsm = (JList) e1.getSource();
 				int index = lsm.getSelectionModel().getMinSelectionIndex();
 				Object notif = lsm.getModel().getElementAt(index);
 				System.out.println(notif.getClass());
@@ -86,8 +86,12 @@ public class NotificationListener implements ActionListener{
 							NotificationMapper.getInstance().insert(rep);
 							NotificationMapper.getInstance().delete((DemandeAmi) notif);
 							AmiMapper.getInstance().insert(expediteur, destinataire);
+							lmodel.removeElement(e1.getSource());
+
 							//RETIRER DE LA JLIST LA NOTIF
 							//J ARRIVE PAS A METTRE A JOUR LA PARTIE OUEST
+							//if ( interfaceChat.getWest().getSwap().getText().equals("Amis"))
+								interfaceChat.getWest().getJListAmis();
 							interfaceChat.getWest().updateUI();
 							reponse.setVisible(false);
 							
@@ -103,7 +107,7 @@ public class NotificationListener implements ActionListener{
 							Reponse rep = new Reponse(false,expediteur,destinataire);
 							NotificationMapper.getInstance().insert(rep);
 							NotificationMapper.getInstance().delete((DemandeAmi) notif);
-						
+							lmodel.removeElement(e1.getSource());
 							//RETIRER DE LA JLIST LA NOTIF
 							reponse.setVisible(false);
 						}

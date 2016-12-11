@@ -84,7 +84,6 @@ public class West extends JPanel {
 		for ( Salon s : p.getSalons()){
 			lmodel.addElement(s);
 		}
-		jl.setCellRenderer(new MySalonCellRenderer());
 
 		jl.setModel(lmodel);
 		jl.addListSelectionListener(new JListSalonsController(interfaceChat, p));
@@ -95,7 +94,8 @@ public class West extends JPanel {
 		swap.addActionListener(new SwapSalonAmisListener(this));
 		creerSalon = new JButton("Creer un salon");
 		creerSalon.addActionListener(new CreerSalonListener(p, this));
-		
+		jl.setCellRenderer(new MySalonCellRenderer());
+
 		this.add(swap);
 		this.add(listScrollPane);
 		this.add(creerSalon);

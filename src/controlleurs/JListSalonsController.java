@@ -1,5 +1,7 @@
 package controlleurs;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -41,12 +43,31 @@ public class JListSalonsController implements ListSelectionListener {
 			try {
 				if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId())){
 					interfaceChat.getWest().getJListSalons();
-					JButton addPersonneSalon = new JButton("Ajouter une personne");
+					JButton addPersonneSalon = new JButton("+");
+					JButton supprPersonneSalon = new JButton("-");
+
 					addPersonneSalon.addActionListener(new AddPersonneSalonListener(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()), interfaceChat.getEast() ));
+					supprPersonneSalon.addActionListener(new SupprPersonneSalonListener(p, sm.findByNom(salon), interfaceChat.getEast()));
 					interfaceChat.getWest().add(addPersonneSalon);
+					interfaceChat.getWest().add(supprPersonneSalon);
+
 					
 				}else{
 					interfaceChat.getWest().getJListSalons();
+					JButton quitter = new JButton("Quitter "+sm.findByNom(salon).getNom() );
+					quitter.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// TODO Auto-generated method stub
+							sm.leaveSalon(p, sm.findByNom(salon));
+							interfaceChat.getWest().getJListSalons();
+							interfaceChat.getWest().updateUI();
+
+						}
+					});
+					interfaceChat.getWest().add(quitter);
+
 				}
 				interfaceChat.getWest().updateUI();
 			} catch (SQLException e1) {

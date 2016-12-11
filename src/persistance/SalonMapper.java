@@ -80,6 +80,20 @@ public class SalonMapper {
 			e.printStackTrace();
 		}
 	}
+	
+	public void leaveSalon(Personne p, Salon s){
+		try {
+			String req = "delete from Projet_OccupeSalon where idSalon=? AND idPersonne=? ";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, s.getId());
+			ps.setInt(2, p.getId());
+
+			ps.execute();
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public Salon findById(int id_salon) {
 		try {
