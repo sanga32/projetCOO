@@ -285,7 +285,7 @@ public class MessageMapper {
 		try {
 			String req = "UPDATE Projet_MessagePrive SET isReception = 0, message = ? WHERE idMessage=?";
 			PreparedStatement ps = conn.prepareStatement(req);
-			String newMessage = message.getContenu() + "  [Vu]";
+			String newMessage = message.getContenu() + "  [Vu par " + message.getDestinataire() + "]";
 			ps.setString(1, newMessage);
 			ps.setInt(2, message.getId());
 			ps.execute();
