@@ -99,15 +99,16 @@ public class NotificationMapper {
 		int nbLigne1 = 0;
 		int nbLigne2 = 0;
 		try {
-			String req = "insert into Projet_Notification(idNotification,message,destinataire) values(?,?,?)";
+			String req = "insert into Projet_Notification(idNotification, message,destinataire) values(?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, n.getId());
+			int idNotif = idMax() + 1;
+			ps.setInt(1, idNotif);
 			ps.setString(2, n.getMessage());
 			ps.setInt(3, n.getDestinataire().getId());
 			nbLigne1 = ps.executeUpdate();
-			String req2 = "insert into Projet_Reponse(idNotification,reponse,expediteur) values(?,?,?)";
+			String req2 = "insert into Projet_Reponse(idNotification, reponse,expediteur) values(?,?,?)";
 			PreparedStatement ps2 = conn.prepareStatement(req2);
-			ps2.setInt(1, n.getId());
+			ps2.setInt(1, idNotif);
 			ps2.setInt(2, (n.isReponse()) ? 1 : 0);
 			ps2.setInt(3, n.getExpediteur().getId());
 			nbLigne2 = ps2.executeUpdate();
@@ -121,18 +122,53 @@ public class NotificationMapper {
 
 	}
 
+	public int idMax() {
+		int idMax = 0;
+		try {
+			String req = "Select max(idNotification) as idMax from Projet_Notification ";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			idMax = rs.getInt("idMax");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return idMax;
+	}
+
 	/**
 	 * Delete un couple d'ami
 	 * 
 	 * @param p
 	 *            personne à supprimer de la BDD
 	 */
-	public void delete(Notification n) {
+	public void delete(DemandeAmi n) {
 		try {
 			String req = "delete from Projet_Notification where idNotification=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, n.getId());
 			ps.execute();
+			String req2 = "delete from Projet_DemandeAmi where idNotification=?";
+			PreparedStatement ps2 = conn.prepareStatement(req2);
+			ps2.setInt(1, n.getId());
+			ps2.execute();
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete(Reponse n) {
+		try {
+			String req = "delete from Projet_Notification where idNotification=?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, n.getId());
+			ps.execute();
+			
+			String req2 = "delete from Projet_Reponse where idNotification=?";
+			PreparedStatement ps2 = conn.prepareStatement(req2);
+			ps2.setInt(1, n.getId());
+			ps2.execute();
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -175,7 +211,7 @@ public class NotificationMapper {
 					Personne expediteur = new VirtualProxyPersonne(rs2.getInt("expediteur"));
 					Notification notif;
 					Boolean reponse = (rs2.getInt("reponse") == 0) ? false : true;
-					notif = new Reponse(id_notification, reponse, expediteur,destinataire);
+					notif = new Reponse(id_notification, reponse, expediteur, destinataire);
 					notifs.add(notif);
 				} catch (SQLException e) {
 					e.printStackTrace();

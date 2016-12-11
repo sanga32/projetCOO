@@ -12,6 +12,17 @@ public class Reponse extends Notification{
 			this.message = expediteur.getLogin() + " a refusé votre demande !";
 		}
 	}
+	
+	public Reponse(boolean rep, Personne expediteur, Personne destinataire) {
+		super(expediteur, destinataire);
+		this.reponse = rep;
+		if(rep){
+			this.message = expediteur.getLogin() + " a accepté votre demande !"; 
+		}else{
+			this.message = expediteur.getLogin() + " a refusé votre demande !";
+		}
+	}
+	
 	public boolean isReponse() {
 		return reponse;
 	}

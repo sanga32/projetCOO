@@ -24,7 +24,7 @@ public class North extends JPanel {
 		JButton demandeAmi = new JButton("Recherche");
 		demandeAmi.addActionListener(new AjouterEnAmiListener(p));
 		modifierInfos.addActionListener(new ModifierProfilListener(p));
-		notification.addActionListener(new NotificationListener(p));
+		notification.addActionListener(new NotificationListener(p,interfaceChat));
 		
 		
 		this.add(quitter);

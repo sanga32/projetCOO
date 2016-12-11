@@ -13,6 +13,11 @@ public abstract class Notification {
 		this.expediteur = expediteur;
 		this.destinataire = destinataire;
 	}
+	
+	public Notification(Personne expediteur, Personne destinataire){
+		this.expediteur = expediteur;
+		this.destinataire = destinataire;
+	}
 
 	public String toString(){
 		return message;
