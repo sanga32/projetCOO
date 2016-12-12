@@ -214,5 +214,18 @@ public class SalonMapper {
 		}
 		return false;
 	}
+	
+	public void updateModo(Salon s, Personne p){
+		try {
+			String req = "UPDATE Projet_Salon SET  modo=? WHERE idSalon=?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, p.getId());
+			ps.setInt(2, s.getId());
+			ps.executeUpdate();
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
