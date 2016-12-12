@@ -118,6 +118,7 @@ public class NotificationListener implements ActionListener{
 					reponse.setLocationRelativeTo(null);
 					reponse.setVisible(true);
 				}else if(notif instanceof Reponse){
+					lmodel.remove(index);
 					NotificationMapper.getInstance().delete((Reponse) notif);
 					//RETIRER DE LA JLIST LA NOTIF
 				}

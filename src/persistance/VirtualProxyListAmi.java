@@ -153,12 +153,22 @@ public class VirtualProxyListAmi implements List<Personne> {
 
 	@Override
 	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			verifieInitilisation();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		amis.remove(o);
+		return true;
 	}
 
 	@Override
 	public Personne remove(int index) {
+		try {
+			verifieInitilisation();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return amis.remove(index);
 	}
 

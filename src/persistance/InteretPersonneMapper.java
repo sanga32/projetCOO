@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import domaine.Interet;
 import domaine.Personne;
+import domaine.SousInteret;
 import message.Message;
 import message.MessageAvecAccuseReception;
 import message.MessageAvecExpiration;
@@ -17,14 +18,14 @@ import message.MessagePrioritaire;
 import message.MessagePrive;
 import settings.ConnectionInfo;
 
-public class InteretMapper {
+public class InteretPersonneMapper {
 	private Connection conn;
-	static InteretMapper inst;
+	static InteretPersonneMapper inst;
 
 	/**
 	 * Permet d'initialiser le PersonneMapper
 	 */
-	public InteretMapper() {
+	public InteretPersonneMapper() {
 		try {
 			conn = DriverManager.getConnection(ConnectionInfo.DB_URL, ConnectionInfo.COMPTE, ConnectionInfo.MDP);
 			conn.setAutoCommit(false);
@@ -37,9 +38,9 @@ public class InteretMapper {
 	 * Retourne l'instance de PersonneMapper
 	 */
 
-	public static InteretMapper getInstance() {
+	public static InteretPersonneMapper getInstance() {
 		if (inst == null)
-			inst = new InteretMapper();
+			inst = new InteretPersonneMapper();
 		return inst;
 	}
 
@@ -49,7 +50,7 @@ public class InteretMapper {
 
 	public void clear() {
 		try {
-			String req = "delete from Projet_Interet";
+			String req = "delete from Projet_InteretPersonne";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.execute();
 			conn.commit();
@@ -64,12 +65,12 @@ public class InteretMapper {
 	 * @param p
 	 *            personne à insérer en BDD
 	 */
-	public void insert(Interet i) {
+	public void insert(Personne p, Interet i) {
 		try {
-			String req = "insert into Projet_Interet(idInteret, description) values(?,?)";
+			String req = "insert into Projet_InteretPersonne(idPersonne, idInteret) values(?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, i.getId());
-			ps.setString(2, i.getNom());
+			ps.setInt(1, p.getId());
+			ps.setInt(2, i.getId());
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {
@@ -77,23 +78,20 @@ public class InteretMapper {
 		}
 
 	}
-
-	/**
-	 * Delete la personne de la table
-	 * 
-	 * @param p
-	 *            personne à supprimer de la BDD
-	 */
-	public void delete(Interet i) {
+	
+	public void insert(Personne p, SousInteret si) {
 		try {
-			String req = "delete from Projet_Interet where idInteret =?";
+			String req = "insert into Projet_InteretPersonne(idPersonne, idInteret,idSousInteret) values(?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, i.getId());
+			ps.setInt(1, p.getId());
+			ps.setInt(2, si.getInteret().getId());
+			ps.setInt(3, si.getId());
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -103,7 +101,8 @@ public class InteretMapper {
 	 *            id de la personne à trouver en BDD
 	 * @return une personne
 	 */
-	public Interet findById(int id) {
+	/*
+	public Interet find(int id) {
 		try {
 			// on va chercher la personne
 			String req = "SELECT idInteret, message FROM Projet_Interet WHERE idInteret=?";
@@ -120,4 +119,5 @@ public class InteretMapper {
 		}
 		return null;
 	}
+	*/
 }

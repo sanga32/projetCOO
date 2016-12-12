@@ -3,8 +3,8 @@ package domaine;
 public class Utilisateur extends Personne{
 
 	
-	public Utilisateur(int id, String login, String mdp, String prenom, String nom) {
-		super(id, login, mdp, prenom, nom);
+	public Utilisateur(int id, String login, String mdp, String nom, String prenom) {
+		super(id, login, mdp, nom, prenom);
 	}
 
 	public boolean isAdmin() {

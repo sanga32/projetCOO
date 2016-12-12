@@ -25,7 +25,7 @@ public abstract class Personne {
 		this.salons = new ArrayList<Salon>();
 	}
 	
-	public Personne(int id, String login, String mdp, String prenom, String nom) {
+	public Personne(int id, String login, String mdp, String nom, String prenom) {
 		super();
 		this.id = id;
 		this.login = login;
