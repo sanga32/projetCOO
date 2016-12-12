@@ -139,5 +139,9 @@ public abstract class Personne {
 		amis.remove(destinataire);
 	}
 	
+	public void addAmi(Personne p){
+		amis.add(p);
+	}
+	
 	
 }
