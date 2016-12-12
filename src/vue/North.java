@@ -1,5 +1,7 @@
 package vue;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,6 +11,7 @@ import controlleurs.ModifierProfilListener;
 import controlleurs.NotificationListener;
 import controlleurs.QuitterListener;
 import domaine.Personne;
+import persistance.NotificationMapper;
 
 public class North extends JPanel {
 
@@ -26,6 +29,9 @@ public class North extends JPanel {
 		modifierInfos.addActionListener(new ModifierProfilListener(p));
 		notification.addActionListener(new NotificationListener(p,interfaceChat));
 		
+		if(NotificationMapper.getInstance().newNotification(p)){
+			notification.setBackground(Color.RED);
+		}
 		
 		this.add(quitter);
 		this.add(new JLabel("     "+p.getLogin()+"     "));

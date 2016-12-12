@@ -225,5 +225,21 @@ public class NotificationMapper {
 
 		return null;
 	}
+	
+	public boolean newNotification(Personne p){
+		try {
+			String req = "SELECT idNotification FROM Projet_Notification WHERE destinataire=?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, p.getId());
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			rs.getInt("IdNotification");
+			return true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		return false;
+	}
 
 }
