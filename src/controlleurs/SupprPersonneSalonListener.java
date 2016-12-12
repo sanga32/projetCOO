@@ -125,7 +125,7 @@ public class SupprPersonneSalonListener implements ActionListener{
 
 		west.add(new JLabel("     "+p.getLogin()+"     "));
 		west.add(listScrollPane);
-		east.add(new JLabel("     "+"Ajouter"+"     "));
+		east.add(new JLabel("     "+"Supprimer"+"     "));
 		east.add(listScrollPane2);
 		south.add(valider);
 		panel.add(east, BorderLayout.EAST);

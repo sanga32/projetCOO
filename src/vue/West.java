@@ -34,7 +34,7 @@ public class West extends JPanel {
 		this.setLayout(boxLayout);
 		this.p = p;
 		this.interfaceChat = interfaceChat;
-		this.setPreferredSize(new Dimension(150, 150));
+		//this.setPreferredSize(new Dimension(150, 150));
 				
 		getJListAmis();
 	}

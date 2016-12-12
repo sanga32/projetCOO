@@ -1,11 +1,15 @@
 package controlleurs;
 
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -43,13 +47,32 @@ public class JListSalonsController implements ListSelectionListener {
 			try {
 				if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId())){
 					interfaceChat.getWest().getJListSalons();
-					JButton addPersonneSalon = new JButton("+");
-					JButton supprPersonneSalon = new JButton("-");
+					JButton addPersonneSalon = new JButton("Ajouter");
+					JButton supprPersonneSalon = new JButton("Supprimer");
+					JPanel pane = new JPanel();
+					
+					JButton quitter = new JButton("Quitter");
 
 					addPersonneSalon.addActionListener(new AddPersonneSalonListener(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()), interfaceChat.getEast() ));
 					supprPersonneSalon.addActionListener(new SupprPersonneSalonListener(p, sm.findByNom(salon), interfaceChat.getEast()));
 					interfaceChat.getWest().add(addPersonneSalon);
 					interfaceChat.getWest().add(supprPersonneSalon);
+					quitter.addActionListener(new ActionListener() {
+						
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							// TODO Auto-generated method stub
+							if( sm.findByNom(salon).isEmpty()){
+								sm.delete(sm.findByNom(salon));
+							} else {
+								JOptionPane.showMessageDialog(null, "Ce salon n'est pas vide !", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
+
+							}
+							interfaceChat.getWest().getJListSalons();
+							interfaceChat.getWest().updateUI();
+						}
+					});
+					interfaceChat.getWest().add(quitter);
 
 					
 				}else{

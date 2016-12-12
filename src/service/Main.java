@@ -14,7 +14,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
-			MyFrame l = new MyFrame("Login", new Dimension(700,550));
+			MyFrame l = new MyFrame("Login", new Dimension(800,650));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
