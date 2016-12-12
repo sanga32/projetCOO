@@ -87,11 +87,12 @@ public class NotificationListener implements ActionListener{
 							NotificationMapper.getInstance().delete((DemandeAmi) notif);
 							AmiMapper.getInstance().insert(expediteur, destinataire);
 							lmodel.remove(index);
-
+							p.addAmi(destinataire);
 							//RETIRER DE LA JLIST LA NOTIF
 							//J ARRIVE PAS A METTRE A JOUR LA PARTIE OUEST
 							//if ( interfaceChat.getWest().getSwap().getText().equals("Amis"))
-								
+							interfaceChat.getWest().getJListAmis();
+							interfaceChat.getWest().updateUI();
 							reponse.setVisible(false);
 							
 						}
