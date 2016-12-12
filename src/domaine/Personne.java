@@ -133,4 +133,11 @@ public abstract class Personne {
 	public String toString(){
 		return login ;
 	}
+
+	public void deleteAmi(Personne destinataire) {
+		// TODO Auto-generated method stub
+		amis.remove(destinataire);
+	}
+	
+	
 }
