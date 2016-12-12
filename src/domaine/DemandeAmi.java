@@ -6,5 +6,10 @@ public class DemandeAmi extends Notification{
 		super(id, expediteur, destinataire);
 		this.message = expediteur.getLogin() + " vous demande en ami !";
 	}
+	
+	public DemandeAmi(Personne expediteur, Personne destinataire) {
+		super(expediteur, destinataire);
+		this.message = expediteur.getLogin() + " vous demande en ami !";
+	}
 
 }

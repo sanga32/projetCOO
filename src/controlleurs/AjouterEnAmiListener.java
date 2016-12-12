@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import domaine.DemandeAmi;
 import domaine.Notification;
 import domaine.Personne;
 import persistance.AmiMapper;
@@ -80,7 +81,8 @@ public class AjouterEnAmiListener implements ActionListener {
 				if(amiLogin != ""){
 					System.out.println("yo");
 					Personne newAmi = PersonneMapper.getInstance().findByLogin(amiLogin);
-					AmiMapper.getInstance().insert(p, newAmi);
+					DemandeAmi da = new DemandeAmi(p,newAmi);
+					NotificationMapper.getInstance().insert(da);
 				}
 			}
 		});

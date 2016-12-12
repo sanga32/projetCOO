@@ -76,13 +76,14 @@ public class NotificationMapper {
 		try {
 			String req = "insert into Projet_Notification(idNotification,message,destinataire) values(?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, n.getId());
+			int idNotif = idMax() + 1;
+			ps.setInt(1, idNotif);
 			ps.setString(2, n.getMessage());
 			ps.setInt(3, n.getDestinataire().getId());
 			nbLigne1 = ps.executeUpdate();
 			String req2 = "insert into Projet_DemandeAmi(idNotification,expediteur) values(?,?)";
 			PreparedStatement ps2 = conn.prepareStatement(req2);
-			ps2.setInt(1, n.getId());
+			ps2.setInt(1, idNotif);
 			ps2.setInt(2, n.getExpediteur().getId());
 			nbLigne2 = ps2.executeUpdate();
 			conn.commit();
@@ -92,7 +93,6 @@ public class NotificationMapper {
 		if (nbLigne1 * nbLigne2 > 0)
 			return (nbLigne1 + nbLigne2);
 		return 0;
-
 	}
 
 	public int insert(Reponse n) {
