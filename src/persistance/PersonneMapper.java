@@ -225,11 +225,13 @@ public class PersonneMapper {
 		try {
 			String req = "SELECT idPersonne, login, mdp, prenom, nom, admin from Projet_Personne  WHERE idPersonne !=? and "
 					+ "idPersonne not in (select idPersonne1 from Projet_Ami where idPersonne2=?) and idPersonne not in "
-					+ "(select idPersonne2 from Projet_Ami where idPersonne1=?)";
+					+ "(select idPersonne2 from Projet_Ami where idPersonne1=?) and idPersonne not"
+					+ " in (select destinataire from Projet_DemandeAmi pd join Projet_Notification pn on pd.idNotification = pn.idNotification where expediteur = ? )";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id);
 			ps.setInt(2, id);
 			ps.setInt(3, id);
+			ps.setInt(4, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				int id_personne = rs.getInt(1);

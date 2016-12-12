@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -36,10 +37,12 @@ public class AjouterEnAmiListener implements ActionListener {
 		this.p = p;
 		panel= new JPanel();
 		jf = new JFrame("Recherche Personne");
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		panel.removeAll();
 		panel.setLayout(new BorderLayout());
 		JButton valider = new JButton("Ok");
@@ -79,10 +82,15 @@ public class AjouterEnAmiListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(amiLogin != ""){
+					
 					System.out.println("yo");
 					Personne newAmi = PersonneMapper.getInstance().findByLogin(amiLogin);
 					DemandeAmi da = new DemandeAmi(p,newAmi);
 					NotificationMapper.getInstance().insert(da);
+					JOptionPane.showMessageDialog(null, "Demande d'ami envoyé", "Message d'information",  JOptionPane.INFORMATION_MESSAGE);
+					
+					
+					jf.setVisible(false);
 				}
 			}
 		});
@@ -91,6 +99,7 @@ public class AjouterEnAmiListener implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				lmodel.removeAllElements();
 				for(Personne p : personnes){
 					lmodel.addElement(p);
 				}
