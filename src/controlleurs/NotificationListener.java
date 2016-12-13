@@ -1,6 +1,7 @@
 package controlleurs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,6 +54,9 @@ public class NotificationListener implements ActionListener{
 																		// bottom
 		center.setLayout(boxLayout);
 
+		JButton jb = (JButton) e.getSource();
+		jb.setBackground(null);
+		
 		JList<Notification> jl = new JList<Notification>();
 		DefaultListModel<Notification> lmodel = new DefaultListModel<Notification>();
 
@@ -71,7 +75,7 @@ public class NotificationListener implements ActionListener{
 				Object notif = lsm.getModel().getElementAt(index);
 				System.out.println(notif.getClass());
 				if(notif instanceof DemandeAmi){
-					JFrame reponse = new JFrame("Donner votre réponse");
+					JFrame reponse = new JFrame("Donner votre rï¿½ponse");
 					JPanel pan = new JPanel();
 					pan.removeAll();
 					JButton accepter = new JButton("Accepter");
