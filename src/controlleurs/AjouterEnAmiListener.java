@@ -213,7 +213,7 @@ public class AjouterEnAmiListener implements ActionListener {
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
 
 		north.add(new JLabel("     " + p.getLogin() + "     "));
-		// north.add(rechercheParNom);
+		north.add(rechercheParNom);
 		north.add(rechercheParInteret);
 		center.add(listScrollPane);
 		south.add(actualiser);

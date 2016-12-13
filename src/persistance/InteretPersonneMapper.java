@@ -165,9 +165,9 @@ public class InteretPersonneMapper {
 	public List<SousInteret> findSousInteretByPersonne(int id_personne) {
 		List<SousInteret> sousInterets = new ArrayList<SousInteret>();
 		try {
-			String req = "SELECT si.idSousInteret, description, ip.idInteret FROM Projet_SousInteret si join "
-					+ "Projet_InteretPersonne ip on si.idInteret = ip.idInteret"
-					+ " where idPersonne=?";
+			String req = "SELECT ip.idSousInteret, description, ip.idInteret "
+					+ "FROM Projet_InteretPersonne ip left join Projet_SousInteret si "
+					+ "on ip.idSousInteret = si.idSousInteret where idPersonne=? ";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id_personne);
 			ResultSet rs = ps.executeQuery();
