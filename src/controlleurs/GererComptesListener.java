@@ -198,15 +198,9 @@ public class GererComptesListener implements ActionListener {
 									public void actionPerformed(ActionEvent e) {
 										// TODO Auto-generated method stub
 										jf.setVisible(false);
-										if (!tlogin.getText().equals(""))
-											pc.setLogin(tlogin.getText());
-										if (!tmdp.getText().equals(""))
-											pc.setMdp(tmdp.getText());
-										if (!tnom.getText().equals(""))
-											pc.setNom(tnom.getText());
-										if (!tprenom.getText().equals(""))
-											pc.setPrenom(tprenom.getText());
+										
 										PersonneMapper.getInstance().delete(pc);
+										System.out.println("-------------------------------------------");
 										JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Information",  JOptionPane.INFORMATION_MESSAGE);
 
 										jf.setVisible(false);
