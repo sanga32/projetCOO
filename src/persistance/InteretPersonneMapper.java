@@ -143,7 +143,7 @@ public class InteretPersonneMapper {
 	public List<Interet> findInteretByPersonne(int id_personne) {
 		List<Interet> interets = new ArrayList<Interet>();
 		try {
-			String req = "SELECT i.idInteret, description FROM Projet_Interet i join "
+			String req = "SELECT DISTINCT i.idInteret, description FROM Projet_Interet i join "
 					+ "Projet_InteretPersonne ip on i.idInteret = ip.idInteret"
 					+ " where idPersonne=?";
 			PreparedStatement ps = conn.prepareStatement(req);
@@ -165,7 +165,7 @@ public class InteretPersonneMapper {
 	public List<SousInteret> findSousInteretByPersonne(int id_personne) {
 		List<SousInteret> sousInterets = new ArrayList<SousInteret>();
 		try {
-			String req = "SELECT ip.idSousInteret, description, ip.idInteret "
+			String req = "SELECT  ip.idSousInteret, description, ip.idInteret "
 					+ "FROM Projet_InteretPersonne ip left join Projet_SousInteret si "
 					+ "on ip.idSousInteret = si.idSousInteret where idPersonne=? ";
 			PreparedStatement ps = conn.prepareStatement(req);
