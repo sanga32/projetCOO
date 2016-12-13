@@ -279,7 +279,7 @@ public class GererComptesListener implements ActionListener {
 						Personne pc;
 						if (!tlogin.getText().equals("") &&!tmdp.getText().equals("")&&!tnom.getText().equals("")&&!tprenom.getText().equals("")){
 							pc = new Utilisateur(3000, tlogin.getText(), tmdp.getText(), tnom.getText(), tprenom.getText());
-
+							System.out.println(pc+"--------------");
 							PersonneMapper.getInstance().insert(pc);
 							JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Information",  JOptionPane.INFORMATION_MESSAGE);
 
@@ -288,7 +288,7 @@ public class GererComptesListener implements ActionListener {
 							JOptionPane.showMessageDialog(null, "Un des champs est vide", "Erreur",  JOptionPane.ERROR_MESSAGE);
 
 						}
-						
+
 					}
 				});
 				center.add(valider);

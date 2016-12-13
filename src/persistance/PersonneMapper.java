@@ -68,13 +68,12 @@ public class PersonneMapper {
 	public int insert(Personne p) {
 		int nbLigne = 0;
 		try {
-			String req = "insert into Projet_Personne(idPersonne,login,mdp,nom,prenom) values(?,?,?,?,?)";
+			String req = "insert into Projet_Personne(login,mdp,nom,prenom) values(?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, p.getId());
-			ps.setString(2, p.getLogin());
-			ps.setString(3, p.getMdp());
-			ps.setString(4, p.getNom());
-			ps.setString(5, p.getPrenom());
+			ps.setString(1, p.getLogin());
+			ps.setString(2, p.getMdp());
+			ps.setString(3, p.getNom());
+			ps.setString(4, p.getPrenom());
 			nbLigne = ps.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {
