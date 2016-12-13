@@ -95,6 +95,7 @@ public class PersonneMapper {
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, p.getId());
 			ps.execute();
+			AmiMapper.getInstance().delete(p);
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();

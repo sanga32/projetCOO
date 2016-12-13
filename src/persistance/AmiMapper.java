@@ -98,6 +98,19 @@ public class AmiMapper {
 			e.printStackTrace();
 		}
 	}
+	
+	public void delete(Personne p) {
+		try {
+			String req = "delete from Projet_Ami where idPersonne1 =? || idPersonne2 =?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, p.getId());
+			ps.setInt(2, p.getId());
+			ps.execute();
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Vérifie si 2 personnes sont amis
