@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import controlleurs.AddInteret;
 import controlleurs.AjouterEnAmiListener;
 import controlleurs.GererComptesListener;
 import controlleurs.ModifierProfilListener;
@@ -27,11 +28,13 @@ public class North extends JPanel {
 		JButton notification = new JButton("Notification");
 		JButton demandeAmi = new JButton("Recherche");
 		JButton gererComptes = new JButton("Gérer les comptes");
+		JButton addInteret = new JButton("Intérêts");
 		demandeAmi.addActionListener(new AjouterEnAmiListener(p));
 		modifierInfos.addActionListener(new ModifierProfilListener(p));
 		gererComptes.addActionListener(new GererComptesListener());
 		notification.addActionListener(new NotificationListener(p,interfaceChat));
 
+		addInteret.addActionListener(new AddInteret(p));
 		if(NotificationMapper.getInstance().newNotification(p)){
 			notification.setBackground(Color.RED);
 		}
@@ -44,6 +47,7 @@ public class North extends JPanel {
 			this.add(modifierInfos);
 		}
 		this.add(demandeAmi);
+		this.add(addInteret);
 		this.add(notification);
 	}
 
