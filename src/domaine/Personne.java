@@ -39,6 +39,20 @@ public abstract class Personne {
 		this.notifications = new ArrayList<Notification>();
 	}
 	
+	public Personne(int id, String login, String mdp, String nom, String prenom, List<Interet>  interets, List<SousInteret> sousInterets) {
+		super();
+		this.id = id;
+		this.login = login;
+		this.mdp = mdp;
+		this.prenom = prenom;
+		this.nom = nom;
+		this.amis = new VirtualProxyListAmi(id);
+		this.interets = interets;
+		this.sousInterets = sousInterets;
+		this.salons = new ArrayList<Salon>();
+		this.notifications = new ArrayList<Notification>();
+	}
+	
 	public abstract boolean isAdmin();
 	
 	public abstract boolean isModo(Salon s) throws SQLException;

@@ -4,11 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BoxLayout;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -20,9 +24,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import domaine.DemandeAmi;
+import domaine.Interet;
 import domaine.Notification;
 import domaine.Personne;
+import domaine.SousInteret;
 import persistance.AmiMapper;
+import persistance.InteretPersonneMapper;
 import persistance.NotificationMapper;
 import persistance.PersonneMapper;
 
@@ -30,12 +37,12 @@ public class AjouterEnAmiListener implements ActionListener {
 	Personne p;
 	JPanel panel;
 	JFrame jf;
-	String amiLogin="";
+	String amiLogin = "";
 
 	public AjouterEnAmiListener(Personne p) {
 		this.p = p;
 		this.p = p;
-		panel= new JPanel();
+		panel = new JPanel();
 		jf = new JFrame("Recherche Personne");
 
 	}
@@ -48,6 +55,7 @@ public class AjouterEnAmiListener implements ActionListener {
 		JButton valider = new JButton("Ok");
 		JButton actualiser = new JButton("Actualiser");
 		JButton rechercheParNom = new JButton("Recherche par nom/prenom");
+		JButton rechercheParInteret = new JButton("Recherche par Interet");
 		JPanel north = new JPanel();
 		JPanel center = new JPanel();
 		JPanel south = new JPanel();
@@ -59,12 +67,12 @@ public class AjouterEnAmiListener implements ActionListener {
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
 
 		List<Personne> personnes = PersonneMapper.getInstance().findNewPersonne(p.getId());
-		for(Personne p : personnes){
+		for (Personne p : personnes) {
 			lmodel.addElement(p);
 		}
 
 		jl.setModel(lmodel);
-		
+
 		jl.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
@@ -76,36 +84,36 @@ public class AjouterEnAmiListener implements ActionListener {
 
 			}
 		});
-		
+
 		valider.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(amiLogin != ""){
-					
+				if (amiLogin != "") {
+
 					System.out.println("yo");
 					Personne newAmi = PersonneMapper.getInstance().findByLogin(amiLogin);
-					DemandeAmi da = new DemandeAmi(p,newAmi);
+					DemandeAmi da = new DemandeAmi(p, newAmi);
 					NotificationMapper.getInstance().insert(da);
-					JOptionPane.showMessageDialog(null, "Demande d'ami envoyé", "Message d'information",  JOptionPane.INFORMATION_MESSAGE);
-					
-					
+					JOptionPane.showMessageDialog(null, "Demande d'ami envoyé", "Message d'information",
+							JOptionPane.INFORMATION_MESSAGE);
+
 					jf.setVisible(false);
 				}
 			}
 		});
-		
+
 		actualiser.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				lmodel.removeAllElements();
-				for(Personne p : personnes){
+				for (Personne p : personnes) {
 					lmodel.addElement(p);
 				}
 			}
 		});
-		
+
 		rechercheParNom.addActionListener(new ActionListener() {
 
 			@Override
@@ -121,10 +129,8 @@ public class AjouterEnAmiListener implements ActionListener {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						for(Personne p : personnes){ 
-							System.out.println(nom.getText() +  "   " + prenom.getText());
-							System.out.println(p.getNom() + "   " + p.getPrenom());
-							if(!nom.getText().equals(p.getNom()) || !prenom.getText().equals(p.getPrenom()))
+						for (Personne p : personnes) {
+							if (!nom.getText().equals(p.getNom()) || !prenom.getText().equals(p.getPrenom()))
 								lmodel.removeElement(p);
 						}
 						recherche.setVisible(false);
@@ -140,13 +146,68 @@ public class AjouterEnAmiListener implements ActionListener {
 				recherche.setVisible(true);
 			}
 		});
-		
+
+		rechercheParInteret.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame recherche = new JFrame("Recherche par Interet");
+				JPanel pan = new JPanel();
+				JButton validerRecherche = new JButton("Rechercher");
+				JComboBox cb = new JComboBox();
+				cb.setPreferredSize(new Dimension(300, 30));
+
+				List<Interet> listeInteret = new ArrayList<Interet>();
+				listeInteret = InteretPersonneMapper.getInstance().findInteret();
+
+				DefaultComboBoxModel<Interet> cbm = new DefaultComboBoxModel<Interet>();
+				for (Interet i : listeInteret) {
+					System.out.println(i.toString());
+					cbm.addElement(i);
+				}
+				cb.setModel(cbm);
+				validerRecherche.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						Interet interetRecherche;
+						if (cb.getSelectedItem() instanceof Interet) {
+							interetRecherche = (Interet) cb.getSelectedItem();
+							for (Personne p : personnes) {
+								for (Interet i : p.getInterets()) {
+									if (i.getIdInteret() != interetRecherche.getIdInteret())
+										lmodel.removeElement(p);
+								}
+							}
+						} else {
+							interetRecherche = (SousInteret) cb.getSelectedItem();
+							for (Personne p : personnes) {
+								for (SousInteret i : p.getSousInterets()) {
+									if (i.getIdSousInteret() != interetRecherche.getIdInteret())
+										lmodel.removeElement(p);
+								}
+							}
+						}
+						recherche.setVisible(false);
+					}
+				});
+				pan.add(cb);
+				pan.add(validerRecherche);
+				recherche.getContentPane().add(pan);
+				recherche.setSize(350, 150);
+				recherche.setResizable(false);
+				recherche.setLocationRelativeTo(null);
+				recherche.setVisible(true);
+			}
+		});
+
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
 
 		north.add(new JLabel("     " + p.getLogin() + "     "));
-		north.add(rechercheParNom);
+		// north.add(rechercheParNom);
+		north.add(rechercheParInteret);
 		center.add(listScrollPane);
 		south.add(actualiser);
 		south.add(valider);

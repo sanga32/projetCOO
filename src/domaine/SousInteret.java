@@ -1,39 +1,32 @@
 package domaine;
 
-public class SousInteret {
-	int id;
-	String nom;
-	Interet interet;
+public class SousInteret extends Interet{
+	int idSousInteret;
+	String nomSousInteret;
 	
-	public SousInteret(int id, String nom, Interet interet) {
-		this.id = id;
-		this.nom = nom;
-		this.interet = interet;
+	public SousInteret(int id, String nomSousInteret, Interet interet) {
+		super(interet.getIdInteret(),interet.getNomInteret());
+		this.idSousInteret = id;
+		this.nomSousInteret = nomSousInteret;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdSousInteret() {
+		return idSousInteret;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdSousInteret(int id) {
+		this.idSousInteret = id;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getNomSousInteret() {
+		return nomSousInteret;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public Interet getInteret() {
-		return interet;
-	}
-
-	public void setInteret(Interet interet) {
-		this.interet = interet;
+	public void setNomSousInteret(String nom) {
+		this.nomSousInteret = nom;
 	}
 	
-	
+	public String toString(){
+		return "     " + nomSousInteret;
+	}
 }

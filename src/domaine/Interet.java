@@ -1,25 +1,29 @@
 package domaine;
 
 public class Interet {
-	int id;
-	String nom;
+	int idInteret;
+	String nomInteret;
 	
 	public Interet(int id,String nom){
-		
+		this.idInteret = id;
+		this.nomInteret = nom;
 	}
 	
-	public int getId() {
-		return id;
+	public int getIdInteret() {
+		return idInteret;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setIdInteret(int id) {
+		this.idInteret = id;
 	}
-	public String getNom() {
-		return nom;
+	public String getNomInteret() {
+		return nomInteret;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNomInteret(String nom) {
+		this.nomInteret = nom;
 	}
 	
+	public String toString(){
+		return nomInteret;
+	}
 	
 }

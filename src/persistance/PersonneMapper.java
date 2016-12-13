@@ -141,16 +141,18 @@ public class PersonneMapper {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			int id_personne = rs.getInt(1);
+			int id_personne = rs.getInt("idPersonne");
 			String login = rs.getString("login");
 			String mdp = rs.getString("mdp");
 			String nom = rs.getString("nom");
 			String prenom = rs.getString("prenom");
+			List<Interet> interets = InteretPersonneMapper.getInstance().findInteretByPersonne(id_personne);
+			List<SousInteret> sousInterets = InteretPersonneMapper.getInstance().findSousInteretByPersonne(id_personne);
 			Personne p;
 			if (rs.getInt("admin") == 0) {
-				p = new Utilisateur(id_personne, login, mdp, nom, prenom);
+				p = new Utilisateur(id_personne, login, mdp, nom, prenom, interets, sousInterets);
 			} else {
-				p = new Administrateur(id_personne, login, mdp, nom, prenom);
+				p = new Administrateur(id_personne, login, mdp, nom, prenom, interets, sousInterets);
 			}
 			return p;
 		} catch (SQLException e) {
@@ -172,11 +174,13 @@ public class PersonneMapper {
 			String mdp = rs.getString("mdp");
 			String nom = rs.getString("nom");
 			String prenom = rs.getString("prenom");
+			List<Interet> interets = InteretPersonneMapper.getInstance().findInteretByPersonne(id_personne);
+			List<SousInteret> sousInterets = InteretPersonneMapper.getInstance().findSousInteretByPersonne(id_personne);
 			Personne p;
 			if (rs.getInt("admin") == 0) {
-				p = new Utilisateur(id_personne, l, mdp, nom, prenom);
+				p = new Utilisateur(id_personne, login, mdp, nom, prenom, interets, sousInterets);
 			} else {
-				p = new Administrateur(id_personne, l, mdp, nom, prenom);
+				p = new Administrateur(id_personne, login, mdp, nom, prenom, interets, sousInterets);
 			}
 			return p;
 		} catch (SQLException e) {
