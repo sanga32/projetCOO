@@ -39,21 +39,23 @@ public class AddInteret implements ActionListener{
 		panel= new JPanel();
 		jf = new JFrame("Modification de vos informations");
 	}
-	
+
 	public boolean compareInterets(Interet interet){
-		
-		for (SousInteret inte : p.getSousInterets()){
-			if(interet.getNomInteret().equals(inte.getNomInteret()))
-				return true;
+
+		if ( interet instanceof SousInteret){
+			for (Interet inte : p.getSousInterets()){
+				if((((SousInteret) interet).getNomSousInteret()).equals(((SousInteret) inte).getNomSousInteret()))
+					return true;
+			}
+		}else{
+			for (Interet inte : p.getInterets()){
+				if(interet.getNomInteret().equals(inte.getNomInteret()))
+					return true;
+			}
 		}
-		for (Interet inte : p.getInterets()){
-			if(interet.getNomInteret().equals(inte.getNomInteret()))
-				return true;
-		}
-		
-		
+
 		return false;
-		
+
 	}
 
 	@Override
