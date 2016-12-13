@@ -45,7 +45,8 @@ public class JListSalonsController implements ListSelectionListener {
 			SalonMapper sm = SalonMapper.getInstance();
 			interfaceChat.getCenter().getDiscussion(mp.findListMessageSalon(sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId()));
 			try {
-				if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId())){
+				System.out.println("ISADMIN"+p.isAdmin()+"ISMODO"+p.isModo(sm.findByNom(lsm.getModel().getElementAt(Index).toString())));
+				if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId()) || p.isAdmin()){
 					interfaceChat.getWest().getJListSalons();
 					JButton addPersonneSalon = new JButton("Ajouter");
 					JButton supprPersonneSalon = new JButton("Supprimer");
