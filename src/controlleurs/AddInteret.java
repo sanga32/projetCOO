@@ -79,9 +79,15 @@ public class AddInteret implements ActionListener{
 				JList lsm = (JList) e.getSource();
 				int index = lsm.getSelectionModel().getMinSelectionIndex();
 				jl2.clearSelection();
-				if(! lmodel2.contains((Interet) lsm.getModel().getElementAt(index)))
-					lmodel2.addElement((Interet) lsm.getModel().getElementAt(index));
+				if (lsm.getModel().getElementAt(index) instanceof SousInteret){
+					if(! lmodel2.contains((SousInteret) lsm.getModel().getElementAt(index)))
+						lmodel2.addElement((SousInteret) lsm.getModel().getElementAt(index));
+				}else {
+					if(! lmodel2.contains((Interet) lsm.getModel().getElementAt(index)))
+						lmodel2.addElement((Interet) lsm.getModel().getElementAt(index));
 
+				}
+						
 			}
 		});
 
