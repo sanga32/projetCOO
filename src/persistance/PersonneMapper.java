@@ -153,6 +153,7 @@ public class PersonneMapper {
 			} else {
 				p = new Administrateur(id_personne, login, mdp, nom, prenom, interets, sousInterets);
 			}
+			SalonMapper.getInstance().setSalons(p); //init salon de la personne
 			return p;
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -174,18 +174,25 @@ public class AjouterEnAmiListener implements ActionListener {
 						if (cb.getSelectedItem() instanceof Interet) {
 							interetRecherche = (Interet) cb.getSelectedItem();
 							for (Personne p : personnes) {
+								boolean inSousInteret = false;
 								for (Interet i : p.getInterets()) {
 									if (i.getIdInteret() != interetRecherche.getIdInteret())
-										lmodel.removeElement(p);
+										inSousInteret = true;
 								}
+								if(!inSousInteret)
+									lmodel.removeElement(p);
 							}
 						} else {
 							interetRecherche = (SousInteret) cb.getSelectedItem();
 							for (Personne p : personnes) {
+								boolean inSousInteret = false;
 								for (SousInteret i : p.getSousInterets()) {
-									if (i.getIdSousInteret() != interetRecherche.getIdInteret())
-										lmodel.removeElement(p);
+									if (i.getIdSousInteret() == interetRecherche.getIdInteret()){
+										inSousInteret = true;
+									}
 								}
+								if(!inSousInteret)
+									lmodel.removeElement(p);
 							}
 						}
 						recherche.setVisible(false);
