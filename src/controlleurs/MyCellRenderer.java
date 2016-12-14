@@ -26,7 +26,6 @@ public class MyCellRenderer extends JLabel implements ListCellRenderer {
 
 		Message m = (Message) value;
 
-		System.out.println(m.isPrioritaire());
 		/* if (isSelected) 
 	         {
 	             setBackground(Color.red);
@@ -39,7 +38,7 @@ public class MyCellRenderer extends JLabel implements ListCellRenderer {
 	         }
 		 */
 		if ( m.isPrioritaire()){
-			setBackground(Color.magenta);
+			setBackground(Color.orange);
 			setForeground(list.getSelectionForeground());
 		}else 
 		{
