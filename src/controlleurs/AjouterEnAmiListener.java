@@ -19,6 +19,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -67,6 +68,7 @@ public class AjouterEnAmiListener implements ActionListener {
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
 
 		List<Personne> personnes = PersonneMapper.getInstance().findNewPersonne(p.getId());
+		System.out.println(personnes.get(0).getInterets());
 		for (Personne p : personnes) {
 			lmodel.addElement(p);
 		}
@@ -120,7 +122,9 @@ public class AjouterEnAmiListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				JFrame recherche = new JFrame("Recherche par Nom/Prenom");
 				JPanel pan = new JPanel();
+				JTextArea n = new JTextArea("Nom :");
 				JTextField nom = new JTextField();
+				JTextArea p = new JTextArea("Prenom :");
 				JTextField prenom = new JTextField();
 				JButton validerRecherche = new JButton("Rechercher");
 				nom.setPreferredSize(new Dimension(100, 30));
@@ -136,7 +140,9 @@ public class AjouterEnAmiListener implements ActionListener {
 						recherche.setVisible(false);
 					}
 				});
+				pan.add(n);
 				pan.add(nom);
+				pan.add(p);
 				pan.add(prenom);
 				pan.add(validerRecherche);
 				recherche.getContentPane().add(pan);
@@ -162,7 +168,6 @@ public class AjouterEnAmiListener implements ActionListener {
 
 				DefaultComboBoxModel<Interet> cbm = new DefaultComboBoxModel<Interet>();
 				for (Interet i : listeInteret) {
-					System.out.println(i.toString());
 					cbm.addElement(i);
 				}
 				cb.setModel(cbm);
@@ -171,25 +176,27 @@ public class AjouterEnAmiListener implements ActionListener {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						Interet interetRecherche;
-						if (cb.getSelectedItem() instanceof Interet) {
+						if (cb.getSelectedItem() instanceof SousInteret) {
+							interetRecherche = (SousInteret) cb.getSelectedItem();
+							for (Personne p : personnes) {
+								boolean inSousInteret = false;
+								for (SousInteret i : p.getSousInterets()) {
+									System.out.println();
+									if (i.getIdSousInteret() == ((SousInteret) interetRecherche).getIdSousInteret()){
+										inSousInteret = true;
+									}
+								}
+								if(!inSousInteret)
+									lmodel.removeElement(p);
+							}
+							
+						} else {
 							interetRecherche = (Interet) cb.getSelectedItem();
 							for (Personne p : personnes) {
 								boolean inSousInteret = false;
 								for (Interet i : p.getInterets()) {
 									if (i.getIdInteret() != interetRecherche.getIdInteret())
 										inSousInteret = true;
-								}
-								if(!inSousInteret)
-									lmodel.removeElement(p);
-							}
-						} else {
-							interetRecherche = (SousInteret) cb.getSelectedItem();
-							for (Personne p : personnes) {
-								boolean inSousInteret = false;
-								for (SousInteret i : p.getSousInterets()) {
-									if (i.getIdSousInteret() == interetRecherche.getIdInteret()){
-										inSousInteret = true;
-									}
 								}
 								if(!inSousInteret)
 									lmodel.removeElement(p);
