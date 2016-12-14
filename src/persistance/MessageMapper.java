@@ -118,7 +118,6 @@ public class MessageMapper {
 		try {
 			String req = "delete from Projet_MessagePrive where idMessage =?";
 			PreparedStatement ps = conn.prepareStatement(req);
-			System.out.println("IDMessage" + m.getId());
 			ps.setInt(1, m.getId());
 			ps.execute();
 			conn.commit();
@@ -186,7 +185,6 @@ public class MessageMapper {
 				Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
 				String date = rs.getString("dateHeure");
 				Message m = new MessagePrive(id_message, message, expediteur, destinataire, date);
-				System.out.println("id Message trouvé" + id_message);
 				if (rs.getInt("isChiffre") == 1) {
 					m.setContenu(Cryptage.dechiffrage(m));
 					m = new MessageChiffre(m);
@@ -249,7 +247,6 @@ public class MessageMapper {
 
 			PreparedStatement ps = conn.prepareStatement(req);
 
-			System.out.println(toSend.isReception());
 			ps.setInt(1, salon.getId());
 			ps.setInt(2, (toSend).getExpediteur().getId());
 			ps.setString(3, toSend.getContenu());
@@ -267,7 +264,6 @@ public class MessageMapper {
 			PreparedStatement ps = conn.prepareStatement(req);
 			String newMessage = message.getContenu() + "  [Vu par " + message.getDestinataire() + "]";
 			if(message.isChiffre()){
-				System.out.println("dslfhosfhs");
 				newMessage = Cryptage.chiffrage(newMessage);
 			}
 			ps.setString(1, newMessage);
