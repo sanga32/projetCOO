@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -21,11 +22,13 @@ import vue.InterfaceChat;
 public class ValiderLoginListener implements ActionListener{
 
 	private JTextField saisieID;
+	private JTextField saisieMDP;
 	private JPanel j;
 
-	public ValiderLoginListener(JTextField id, JPanel f) {
+	public ValiderLoginListener(JTextField id, JTextField pass, JPanel f) {
 		// TODO Auto-generated constructor stub
 		saisieID = id;
+		saisieMDP = pass;
 		j = f;
 	}
 
@@ -33,33 +36,32 @@ public class ValiderLoginListener implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		Personne p;
-		if ( saisieID.getText().equals("")){
-			JOptionPane.showMessageDialog(null, "Veuillez entrer un ID", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
+		if ( saisieID.getText().equals("") || saisieMDP.getText().equals("")){
+			JOptionPane.showMessageDialog(null, "Veuillez entrer un login et un mot de passe correct", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
 
 
 		}else{
 
+
+			String login = saisieID.getText();
+			String mdp = saisieMDP.getText();
+
+			p = PersonneMapper.getInstance().findByLogMdp(login, mdp);
+
+
 			try {
-				
-				int id = Integer.parseInt(saisieID.getText());
-				p = PersonneMapper.getInstance().findById(id);
 
-
-				try {
-					
-					InterfaceChat ip = null;
-					ip = new InterfaceChat(p);
-					j.removeAll();
-					j.add(ip);
-					j.updateUI();
-				} catch (NullPointerException e) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "Aucune personne avec cet ID", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
-					e.printStackTrace();
-				}
-			} catch (NumberFormatException e ){
-				JOptionPane.showMessageDialog(null, "Veuillez entrer un ID correct !", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
+				InterfaceChat ip = null;
+				ip = new InterfaceChat(p);
+				j.removeAll();
+				j.add(ip);
+				j.updateUI();
+			} catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Aucune personne avec ces identifiants", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
 			}
+
 		}
 
 	}

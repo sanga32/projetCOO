@@ -260,4 +260,34 @@ public class PersonneMapper {
 		}
 		return personnes;
 	}
+	
+	public Personne findByLogMdp(String login, String mdp) {
+		// TODO Auto-generated method stub
+		try {
+			// on va chercher la personne
+			String req = "SELECT idPersonne, login, mdp, nom, prenom, admin  FROM Projet_Personne WHERE login=? AND mdp=?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setString(1, login);
+			ps.setString(2, mdp);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			int id_personne = rs.getInt(1);
+			String l = rs.getString("login");
+			String pass = rs.getString("mdp");
+			String nom = rs.getString("nom");
+			String prenom = rs.getString("prenom");
+			List<Interet> interets = InteretPersonneMapper.getInstance().findInteretByPersonne(id_personne);
+			List<SousInteret> sousInterets = InteretPersonneMapper.getInstance().findSousInteretByPersonne(id_personne);
+			Personne p;
+			if (rs.getInt("admin") == 0) {
+				p = new Utilisateur(id_personne, login, pass, nom, prenom, interets, sousInterets);
+			} else {
+				p = new Administrateur(id_personne, login, pass, nom, prenom, interets, sousInterets);
+			}
+			return p;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
