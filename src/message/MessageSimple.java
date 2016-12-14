@@ -61,4 +61,9 @@ public class MessageSimple extends Message{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void setContenu(String contenu) {
+		this.contenu = contenu;		
+	}
 }

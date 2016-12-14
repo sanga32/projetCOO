@@ -4,11 +4,10 @@ import message.Message;
 
 public class Cryptage {
 	
-	public static String chiffrage(Message message){
+	public static String chiffrage(String message){
 		String messageChiffre = "";
-		String mess = message.getContenu();
-		for(int i = 0; i < mess.length(); i++){
-			messageChiffre = (char)((int)mess.charAt(i) + 1) + messageChiffre;
+		for(int i = 0; i < message.length(); i++){
+			messageChiffre = (char)((int)message.charAt(i) + 1) + messageChiffre;
 		}
 		
 		return messageChiffre;

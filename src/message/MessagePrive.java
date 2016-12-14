@@ -74,6 +74,9 @@ public class MessagePrive extends Message{
 		return null;
 	}
 	
+	public void setContenu(String contenu) {
+		this.contenu = contenu;
+	}
 	
 
 }

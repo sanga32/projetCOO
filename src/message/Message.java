@@ -20,6 +20,7 @@ public abstract class Message {
 	public abstract boolean isChiffre();
 	public abstract boolean isPrioritaire();
 	public abstract Personne getDestinataire();
+	public abstract void setContenu(String contenu);
 	public abstract Salon getSalon();
 	public abstract Boolean isExpire();
 	
@@ -30,9 +31,6 @@ public abstract class Message {
 	}
 
 
-	public void setContenu(String contenu) {
-		this.contenu = contenu;
-	}
 	public String getDateEnvoi() {
 		return dateEnvoi;
 	}

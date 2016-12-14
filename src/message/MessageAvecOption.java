@@ -39,4 +39,12 @@ public abstract class MessageAvecOption extends Message {
 		return message.toString();
 	}
 
+	public void setMessage(Message message) {
+		this.message = message;
+	}
+	
+	public void setContenu(String contenu) {
+		message.setContenu(contenu);
+	}
+
 }

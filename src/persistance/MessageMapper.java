@@ -76,7 +76,7 @@ public class MessageMapper {
 
 			String contenu = "";
 			if (toSend.isChiffre()) {
-				contenu = Cryptage.chiffrage(toSend);
+				contenu = Cryptage.chiffrage(toSend.getContenu());
 			} else {
 				contenu = toSend.getContenu();
 			}
@@ -243,30 +243,17 @@ public class MessageMapper {
 	}
 
 	public void insert(Message toSend, Salon salon) {
-		// TODO Auto-generated method stub
 		try {
 			String req = "";
 			req = "insert into Projet_DiscussionSalon( idSalon, idPersonne, message, dateHeure ) values(?,?,?,?)";
 
 			PreparedStatement ps = conn.prepareStatement(req);
 
-			// if(classeMessage.equals("class message.MessagePrive")==true){
-
 			System.out.println(toSend.isReception());
 			ps.setInt(1, salon.getId());
 			ps.setInt(2, (toSend).getExpediteur().getId());
 			ps.setString(3, toSend.getContenu());
 			ps.setString(4, toSend.getDateEnvoi());
-
-			/*
-			 * }else{
-			 * 
-			 * ps.setInt(1, ((MessageSimple) m).getIdSalon()); ps.setInt(2,
-			 * ((MessageSimple) m).getIdPersonne()); ps.setString(3,
-			 * m.getContenu());
-			 * 
-			 * }
-			 */
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {
@@ -274,32 +261,18 @@ public class MessageMapper {
 		}
 	}
 
-	/**
-	 * Appelé une fois un message avec accusé de reception lu. On renvoie un
-	 * message disant que le message a bien été lu
-	 * 
-	 * @param message
-	 *            accusé de reception
-	 */
 	public void messageLu(Message message) {
 		try {
 			String req = "UPDATE Projet_MessagePrive SET isReception = 0, message = ? WHERE idMessage=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			String newMessage = message.getContenu() + "  [Vu par " + message.getDestinataire() + "]";
+			if(message.isChiffre()){
+				System.out.println("dslfhosfhs");
+				newMessage = Cryptage.chiffrage(newMessage);
+			}
 			ps.setString(1, newMessage);
 			ps.setInt(2, message.getId());
 			ps.execute();
-			//Insert un message comme quoi le message est lu
-			/*
-			SimpleDateFormat dateHeureFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-			java.util.Date date = new java.util.Date();
-			String strDate = dateHeureFormat.format(date);
-			Personne expediteur = message.getDestinataire();
-			Personne destinataire = message.getExpediteur();
-			String reponse = "Message bien reçu !";
-			Message m = new MessagePrive(reponse, expediteur, destinataire, strDate);
-			insert(m);
-	*/
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
