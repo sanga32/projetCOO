@@ -5,6 +5,11 @@ import java.sql.Date;
 import domaine.Personne;
 import domaine.Salon;
 
+/**
+ * Classe qui hérite de Message et qui représente le décorateur
+ * @author Kevin delporte, alexandre godon, teddy lequette 
+ *
+ */
 public abstract class MessageAvecOption extends Message {
 
 	Message message;

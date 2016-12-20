@@ -4,6 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Classe qui hérite de MessageAvecOption et qui représente un message avec un temps d'expiration
+ * @author Kevin delporte, alexandre godon, teddy lequette 
+ *
+ */
+
 public class MessageAvecExpiration extends MessageAvecOption {
 
 	public MessageAvecExpiration(Message m) {

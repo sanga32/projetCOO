@@ -4,6 +4,12 @@ import java.sql.Date;
 
 import domaine.Personne;
 
+/**
+ * Classe qui hérite de MessageAvecOption et qui représente un message avec accusé de réception
+ * @author Kevin delporte, alexandre godon, teddy lequette 
+ *
+ */
+
 public class MessageAvecAccuseReception extends MessageAvecOption {
 
 	public MessageAvecAccuseReception(Message m) {
