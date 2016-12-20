@@ -25,6 +25,12 @@ import persistance.PersonneMapper;
 import persistance.SalonMapper;
 import sun.security.x509.IssuerAlternativeNameExtension;
 
+/**
+ * panel représentant soit la liste des personnes d'un salon selectionné, soit l'ami selectionné
+ * @author Kevin delporte, alexandre godon, teddy lequette
+ *
+ */
+
 public class East extends JPanel {
 
 	Salon s;

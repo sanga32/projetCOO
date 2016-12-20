@@ -17,6 +17,12 @@ import domaine.Personne;
 import message.Message;
 import persistance.PersonneMapper;
 
+/**
+ * Panel représentant l'historique d'une discussion 
+ * @author Kevin Delporte, Alexandre Godon, Teddy Lequette
+ *
+ */
+
 public class Center extends JPanel {
 
 	InterfaceChat interfaceChat;

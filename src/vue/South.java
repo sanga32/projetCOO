@@ -16,6 +16,12 @@ import domaine.Personne;
 import message.Message;
 import message.MessagePrive;
 
+/**
+ * Panel permettant d'envoyer un message à un autre utilisateur ou a un salon
+ * @author Kevin
+ *
+ */
+
 public class South extends JPanel {
 
 	Message m;

@@ -16,6 +16,12 @@ import controlleurs.QuitterListener;
 import domaine.Personne;
 import persistance.NotificationMapper;
 
+
+/**
+ * Panel représentant la partie permettant de gérer ses informations
+ * @author Kevin delporte, alexandre godon, teddy lequette
+ *
+ */
 public class North extends JPanel {
 
 	InterfaceChat interfaceChat;

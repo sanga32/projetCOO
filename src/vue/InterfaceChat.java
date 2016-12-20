@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import domaine.Personne;
 
 /**
- * 
+ * Interface principale contenant tous les panels
  * @author Kevin Delporte, Alexandre Godon, Teddy lequette
  *
  */

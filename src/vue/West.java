@@ -20,6 +20,13 @@ import domaine.Personne;
 import domaine.Salon;
 import persistance.SalonMapper;
 
+/**
+ * Panel permettant de gérer sa liste d'amis et de salons
+ * @author Kevin delporte, alexandre godon, teddy lequette 
+ *
+ */
+
+
 public class West extends JPanel {
 
 	Personne p;
