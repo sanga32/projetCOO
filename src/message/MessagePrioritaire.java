@@ -1,5 +1,11 @@
 package message;
 
+/**
+ * Classe qui hérite de MessageAvecOption et qui représente un message prioritaire
+ * @author Kevin delporte, alexandre godon, teddy lequette 
+ *
+ */
+
 public class MessagePrioritaire extends MessageAvecOption{
 
 	public MessagePrioritaire(Message m){

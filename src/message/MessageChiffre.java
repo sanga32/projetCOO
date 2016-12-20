@@ -1,5 +1,11 @@
 package message;
 
+/**
+ * Classe qui hérite de MessageAvecOption et qui représente un message chiffré
+ * @author Kevin delporte, alexandre godon, teddy lequette 
+ *
+ */
+
 public class MessageChiffre extends MessageAvecOption{
 
 	public MessageChiffre(Message m){

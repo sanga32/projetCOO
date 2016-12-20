@@ -23,6 +23,9 @@ public class Utilisateur extends Personne{
 		return false;
 	}
 
+	/**
+	 * retourne true si l'utilisateur est le modérateur du salon passé en paramètre
+	 */
 	public boolean isModo(Salon s){
 		if(s.getModo() == this) return true;
 		return false;
