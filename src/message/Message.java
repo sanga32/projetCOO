@@ -8,6 +8,11 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 import domaine.Personne;
 import domaine.Salon;
 
+/**
+ * Classe abstraite représentant un message
+ * @author Kevin delporte, alexandre godon, teddy lequette
+ *
+ */
 public abstract class Message {
 
 	String contenu;
@@ -21,6 +26,10 @@ public abstract class Message {
 
 	public abstract Salon getSalon();
 
+	/**
+	 * Permet de tester si un message a expiré ou non
+	 * @return false si le message n'a pas expiré et retourne true si il a expiré
+	 */
 	public abstract Boolean isExpire();
 
 	public String getContenu() {
@@ -48,21 +57,37 @@ public abstract class Message {
 		this.expediteur = expediteur;
 	}
 
+	/**
+	 * 
+	 * @return true si c'est un message avec accusé de réception
+	 */
 	public boolean isReception() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * 
+	 * @return true si c'est un message avec expiration
+	 */
 	public boolean isExpiration() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * 
+	 * @return true si c'est un message chiffré
+	 */
 	public boolean isChiffre() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * 
+	 * @return true si c'est un message prioritaire
+	 */
 	public boolean isPrioritaire() {
 		// TODO Auto-generated method stub
 		return false;

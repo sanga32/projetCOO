@@ -48,6 +48,10 @@ public class MessageAvecExpiration extends MessageAvecOption {
 		return false;
 	}
 
+	/**
+	 * Permet de tester si un message a expiré ou non
+	 * @return false si le message n'a pas expiré et retourne true si il a expiré
+	 */
 	public Boolean isExpire() {
 		SimpleDateFormat dateHeureFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 		Date dateEnvoi = new Date();
