@@ -89,20 +89,14 @@ public class EnvoyerMessageListener implements ActionListener{
 		for (String s : listeChoix){
 			if (s.equals("Prioritaire")){
 				toSend = new MessagePrioritaire(toSend);
-				System.out.println(s);
 			} else if (s.equals("Chiffre")){
 				toSend = new MessageChiffre(toSend);
-				System.out.println(s);
 
 			}else if (s.equals("Expiration")) {
 				toSend = new MessageAvecExpiration(toSend);
-				System.out.println(s);
 
 			} else if (s.equals("ACK")) {
 				toSend = new MessageAvecAccuseReception(toSend);
-				System.out.println(s);
-
-			} else {
 
 			}
 		}
@@ -123,20 +117,14 @@ public class EnvoyerMessageListener implements ActionListener{
 		for (String s : listeChoix){
 			if (s.equals("Prioritaire")){
 				toSend = new MessagePrioritaire(toSend);
-				System.out.println(s);
 			} else if (s.equals("Chiffre")){
 				toSend = new MessageChiffre(toSend);
-				System.out.println(s);
 
 			}else if (s.equals("Expiration")) {
 				toSend = new MessageAvecExpiration(toSend);
-				System.out.println(s);
 
 			} else if (s.equals("ACK")) {
 				toSend = new MessageAvecAccuseReception(toSend);
-				System.out.println(s);
-
-			} else {
 
 			}
 		}

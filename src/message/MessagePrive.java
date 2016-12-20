@@ -29,34 +29,6 @@ public class MessagePrive extends Message{
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
-	public
-	boolean isReception() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public
-	boolean isExpiration() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public
-	boolean isChiffre() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public
-	boolean isPrioritaire() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
 	
 	public Personne getDestinataire() {
 		return destinataire;

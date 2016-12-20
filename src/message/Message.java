@@ -9,48 +9,63 @@ import domaine.Personne;
 import domaine.Salon;
 
 public abstract class Message {
-	
+
 	String contenu;
 	int id;
 	String dateEnvoi;
 	Personne expediteur;
-	
-	public abstract boolean isReception();
-	public abstract boolean isExpiration();
-	public abstract boolean isChiffre();
-	public abstract boolean isPrioritaire();
-	public abstract Personne getDestinataire();
-	public abstract void setContenu(String contenu);
-	public abstract Salon getSalon();
-	public abstract Boolean isExpire();
-	
 
-	
+	public abstract Personne getDestinataire();
+
+	public abstract void setContenu(String contenu);
+
+	public abstract Salon getSalon();
+
+	public abstract Boolean isExpire();
+
 	public String getContenu() {
 		return contenu;
 	}
 
-
 	public String getDateEnvoi() {
 		return dateEnvoi;
 	}
-	
+
 	public String toString() {
-	      
-		return "["+dateEnvoi+"]"+expediteur.getLogin()+ " : " + contenu;
+		System.out.println(contenu);
+		return "[" + dateEnvoi + "]" + expediteur.getLogin() + " : " + contenu;
 	}
-	
-	
+
 	public int getId() {
 		return this.id;
 	}
-	
+
 	public Personne getExpediteur() {
 		return expediteur;
 	}
+
 	public void setExpediteur(Personne expediteur) {
 		this.expediteur = expediteur;
 	}
 
-	
+	public boolean isReception() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isExpiration() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isChiffre() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean isPrioritaire() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

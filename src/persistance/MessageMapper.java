@@ -89,15 +89,6 @@ public class MessageMapper {
 			ps.setInt(7, (toSend.isChiffre()) ? 1 : 0);
 			ps.setInt(8, (toSend.isPrioritaire()) ? 1 : 0);
 
-			/*
-			 * }else{
-			 * 
-			 * ps.setInt(1, ((MessageSimple) m).getIdSalon()); ps.setInt(2,
-			 * ((MessageSimple) m).getIdPersonne()); ps.setString(3,
-			 * m.getContenu());
-			 * 
-			 * }
-			 */
 			ps.setString(4, toSend.getDateEnvoi());
 
 			ps.execute();
@@ -216,10 +207,11 @@ public class MessageMapper {
 		return null;
 	}
 
-	public List<Message> findListMessageSalon(int id_salon) {
+	public List<Message> findListMessageSalon(int id_salon, Personne utilisateur) {
 		List<Message> messages = new ArrayList<Message>();
 		try {
-			String req = "SELECT idSalon, idPersonne, message, dateHeure FROM Projet_DiscussionSalon "
+			String req = "SELECT idSalon, idPersonne, message, isReception, "
+					+ "isExpiration, isChiffre, isPrioritaire, dateHeure FROM Projet_DiscussionSalon "
 					+ "WHERE idSalon=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id_salon);
@@ -230,8 +222,30 @@ public class MessageMapper {
 				String message = rs.getString("message");
 				String date = rs.getString("dateHeure");
 				Message m = new MessageSimple(salon, expediteur, message, date);
+				if (rs.getInt("isChiffre") == 1) {
+					m.setContenu(Cryptage.dechiffrage(m));
+					m = new MessageChiffre(m);
 
-				messages.add(m);
+				}
+				if (rs.getInt("isReception") == 1) {
+					if (utilisateur.getId() != expediteur.getId())
+						messageLu(m);
+					m = new MessageAvecAccuseReception(m);
+				}
+				if (rs.getInt("isPrioritaire") == 1) {
+					m = new MessagePrioritaire(m);
+				}
+				if (rs.getInt("isExpiration") == 1) {
+					m = new MessageAvecExpiration(m);
+					if (m.isExpire()) {
+						delete(m);
+					}else{
+						messages.add(m);
+					}
+				} else {
+					messages.add(m);
+				}
+
 			}
 			return messages;
 		} catch (SQLException e) {
@@ -243,14 +257,26 @@ public class MessageMapper {
 	public void insert(Message toSend, Salon salon) {
 		try {
 			String req = "";
-			req = "insert into Projet_DiscussionSalon( idSalon, idPersonne, message, dateHeure ) values(?,?,?,?)";
+			req = "insert into Projet_DiscussionSalon( idSalon, idPersonne, message, isReception, "
+					+ "isExpiration, isChiffre, isPrioritaire, dateHeure ) values(?,?,?,?,?,?,?,?)";
 
 			PreparedStatement ps = conn.prepareStatement(req);
 
+			String contenu = "";
+			if (toSend.isChiffre()) {
+				contenu = Cryptage.chiffrage(toSend.getContenu());
+			} else {
+				contenu = toSend.getContenu();
+			}
+			
 			ps.setInt(1, salon.getId());
 			ps.setInt(2, (toSend).getExpediteur().getId());
-			ps.setString(3, toSend.getContenu());
-			ps.setString(4, toSend.getDateEnvoi());
+			ps.setString(3, contenu);
+			ps.setInt(4, (toSend.isReception()) ? 1 : 0);
+			ps.setInt(5, (toSend.isExpiration()) ? 1 : 0);
+			ps.setInt(6, (toSend.isChiffre()) ? 1 : 0);
+			ps.setInt(7, (toSend.isPrioritaire()) ? 1 : 0);
+			ps.setString(8, toSend.getDateEnvoi());
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {
@@ -260,9 +286,16 @@ public class MessageMapper {
 
 	public void messageLu(Message message) {
 		try {
-			String req = "UPDATE Projet_MessagePrive SET isReception = 0, message = ? WHERE idMessage=?";
+			String req = "";
+			String newMessage = "";
+			if(message.getDestinataire() != null){
+				req = "UPDATE Projet_MessagePrive SET isReception = 0, message = ? WHERE idMessage=?";
+				newMessage = message.getContenu() + "  [Vu par " + message.getDestinataire() + "]";
+			}else{
+				req = "UPDATE Projet_DiscussionSalon SET isReception = 0, message = ? WHERE idSalon=?";
+				newMessage = message.getContenu() + "  [Vu]";
+			}
 			PreparedStatement ps = conn.prepareStatement(req);
-			String newMessage = message.getContenu() + "  [Vu par " + message.getDestinataire() + "]";
 			if(message.isChiffre()){
 				newMessage = Cryptage.chiffrage(newMessage);
 			}
