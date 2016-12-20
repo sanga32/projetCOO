@@ -8,8 +8,9 @@ import domaine.Salon;
 public class MessageSimple extends Message{
 	Salon idSalon;
 	
-	public MessageSimple(Salon salon, Personne personne,String contenu, String dateEnvoi) {
+	public MessageSimple(int idMessage, Salon salon, Personne personne,String contenu, String dateEnvoi) {
 		this.idSalon = salon;
+		this.id = idMessage;
 		this.expediteur = personne;
 		this.contenu = contenu;
 		this.dateEnvoi = dateEnvoi;

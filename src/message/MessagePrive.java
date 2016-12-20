@@ -36,6 +36,7 @@ public class MessagePrive extends Message{
 	public void setDestinataire(Personne destinataire) {
 		this.destinataire = destinataire;
 	}
+	
 	@Override
 	public Salon getSalon() {
 		return null;

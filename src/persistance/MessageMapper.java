@@ -210,26 +210,30 @@ public class MessageMapper {
 	public List<Message> findListMessageSalon(int id_salon, Personne utilisateur) {
 		List<Message> messages = new ArrayList<Message>();
 		try {
-			String req = "SELECT idSalon, idPersonne, message, isReception, "
+			String req = "SELECT idMessage, idSalon, idPersonne, message, isReception, "
 					+ "isExpiration, isChiffre, isPrioritaire, dateHeure FROM Projet_DiscussionSalon "
 					+ "WHERE idSalon=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id_salon);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
+				int idMessage = rs.getInt("idMessage");
 				Salon salon = SalonMapper.getInstance().findById(rs.getInt("idSalon"));
 				Personne expediteur = new VirtualProxyPersonne(rs.getInt("idPersonne"));
 				String message = rs.getString("message");
 				String date = rs.getString("dateHeure");
-				Message m = new MessageSimple(salon, expediteur, message, date);
+				Message m = new MessageSimple(idMessage, salon, expediteur, message, date);
 				if (rs.getInt("isChiffre") == 1) {
 					m.setContenu(Cryptage.dechiffrage(m));
 					m = new MessageChiffre(m);
 
 				}
 				if (rs.getInt("isReception") == 1) {
-					if (utilisateur.getId() != expediteur.getId())
+					System.out.println("1");
+					if (utilisateur.getId() != expediteur.getId()){
+						System.out.println("2");
 						messageLu(m);
+					}
 					m = new MessageAvecAccuseReception(m);
 				}
 				if (rs.getInt("isPrioritaire") == 1) {
@@ -289,10 +293,12 @@ public class MessageMapper {
 			String req = "";
 			String newMessage = "";
 			if(message.getDestinataire() != null){
+				System.out.println("3");
 				req = "UPDATE Projet_MessagePrive SET isReception = 0, message = ? WHERE idMessage=?";
 				newMessage = message.getContenu() + "  [Vu par " + message.getDestinataire() + "]";
 			}else{
-				req = "UPDATE Projet_DiscussionSalon SET isReception = 0, message = ? WHERE idSalon=?";
+				System.out.println("4");
+				req = "UPDATE Projet_DiscussionSalon SET isReception = 0, message = ? WHERE idMessage=?";
 				newMessage = message.getContenu() + "  [Vu]";
 			}
 			PreparedStatement ps = conn.prepareStatement(req);
@@ -300,6 +306,7 @@ public class MessageMapper {
 				newMessage = Cryptage.chiffrage(newMessage);
 			}
 			ps.setString(1, newMessage);
+			System.out.println(message.getId());
 			ps.setInt(2, message.getId());
 			ps.execute();
 			conn.commit();
