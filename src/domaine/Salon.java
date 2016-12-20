@@ -3,6 +3,12 @@ package domaine;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui représente un salon
+ * @author Kevin delporte, alexandre godon, teddy lequette 
+ *
+ */
+
 public class Salon {
 	int id;
 	String nom;

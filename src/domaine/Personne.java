@@ -6,6 +6,12 @@ import java.util.List;
 
 import persistance.VirtualProxyListAmi;
 
+/**
+ * Classe abtraite représentant une personne
+ * @author Kevin delporte, alexandre godon, teddy lequette
+ *
+ */
+
 public abstract class Personne {
 	int id;
 	String login;

@@ -1,5 +1,11 @@
 package domaine;
 
+/** 
+ * Classe qui hérite de Interet et qui représente un sous intérêt
+ * @author Kevin delporte, alexandre godon, teddy lequette
+ *
+ */
+
 public class SousInteret extends Interet{
 	int idSousInteret;
 	String nomSousInteret;

@@ -1,5 +1,11 @@
 package domaine;
 
+/** 
+ * Classe que hérite de Notification et qui représente la réponse à une demande d'ami
+ * @author Kevin delporte, alexandre godon, teddy lequette 
+ *
+ */
+
 public class Reponse extends Notification{
 
 	boolean reponse;

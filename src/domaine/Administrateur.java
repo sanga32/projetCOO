@@ -2,6 +2,12 @@ package domaine;
 
 import java.util.List;
 
+/** 
+ * Classe qui hérite de Personne et qui représente un administrateur
+ * @author Kevin delporte, alexandre godon, teddy lequetet
+ *
+ */
+
 public class Administrateur extends Personne{
 
 	

@@ -2,6 +2,12 @@ package domaine;
 
 import persistance.VirtualProxyPersonne;
 
+/**
+ * Classe abstraite représentant une notification
+ * @author Kevin delporte, alexandre godon, teddy lequette
+ *
+ */
+
 public abstract class Notification {
 	int id;
 	String message;

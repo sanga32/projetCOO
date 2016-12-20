@@ -1,5 +1,11 @@
 package domaine;
 
+/**
+ * Classe représentant un interet
+ * @author Kevin delporte, alexandre godon, teddy lequette
+ *
+ */
+
 public class Interet {
 	int idInteret;
 	String nomInteret;
