@@ -11,7 +11,8 @@ import java.util.ListIterator;
 import domaine.Personne;
 
 /**
- * 
+ * ProxyListAmi permet de charger la liste d'ami d'une personne
+ * lorsqu'on lui demande
  * @author Alexandre Godon, Kevin Delporte, Teddy Lequette
  *
  */
@@ -20,11 +21,20 @@ public class VirtualProxyListAmi implements List<Personne> {
 	private List<Personne> amis = null;
 
 
+	/**
+	 * Contructeur du VirtualProxyListAmi qui 
+	 * récupère l'id de la personne à qui on récupèrera les amis en BDD plus tard
+	 * @param id_personne
+	 */
 	public VirtualProxyListAmi(int id_personne) {
 		this.id_personne = id_personne;
 	}
 
-
+	/**
+	 * On vérifie si on a déja récupéré la liste d'ami en base
+	 * Sinon on la récupère
+	 * @throws SQLException
+	 */
 	public void verifieInitilisation() throws SQLException {
 		if (amis == null) {
 			amis = new ArrayList<Personne>();
@@ -33,12 +43,19 @@ public class VirtualProxyListAmi implements List<Personne> {
 
 	}
 
-
+	/**
+	 * C'est ici qu'on récupère la liste d'ami en BDD
+	 * @throws SQLException
+	 */
 	public void initialisation() throws SQLException {
 		amis = AmiMapper.getInstance().getAmis(id_personne);
 	}
 
-
+	/**
+	 * On va chercher la liste d'ami en BDD si ça n'est pas déja fait et on la retourne 
+	 * @return la liste d'ami
+	 * @throws SQLException
+	 */
 	public List<Personne> getAmis() {
 		try {
 			verifieInitilisation();

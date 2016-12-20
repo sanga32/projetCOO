@@ -3,6 +3,7 @@ package controlleurs;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -56,7 +57,7 @@ public class ValiderLoginListener implements ActionListener{
 				j.removeAll();
 				j.add(ip);
 				j.updateUI();
-			} catch (NullPointerException e) {
+			} catch (NullPointerException | SQLException e) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(null, "Aucune personne avec ces identifiants", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();

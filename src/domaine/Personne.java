@@ -53,7 +53,7 @@ public abstract class Personne {
 		this.notifications = new ArrayList<Notification>();
 	}
 	
-	public abstract boolean isAdmin();
+	public abstract boolean isAdmin() throws SQLException;
 	
 	public abstract boolean isModo(Salon s) throws SQLException;
 	

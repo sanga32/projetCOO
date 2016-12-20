@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.Color;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,7 +20,7 @@ public class North extends JPanel {
 
 	InterfaceChat interfaceChat;
 
-	public North(Personne p, InterfaceChat interfaceChat) {
+	public North(Personne p, InterfaceChat interfaceChat) throws SQLException {
 		// TODO Auto-generated constructor stub
 		this.interfaceChat = interfaceChat;
 		JButton quitter = new JButton("Déconnecter");

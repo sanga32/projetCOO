@@ -1,6 +1,7 @@
 package vue;
 
 import java.awt.BorderLayout;
+import java.sql.SQLException;
 
 import javax.swing.JPanel;
 
@@ -20,7 +21,7 @@ public class InterfaceChat extends JPanel {
 	South south;
 	Center center;
 	
-	public InterfaceChat(Personne p) {
+	public InterfaceChat(Personne p) throws SQLException {
 		// TODO Auto-generated constructor stub
 		super();
 		this.setLayout(new BorderLayout());
