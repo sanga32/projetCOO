@@ -20,12 +20,19 @@ import message.MessagePrioritaire;
 import message.MessagePrive;
 import settings.ConnectionInfo;
 
+/**
+ * InteretPersonneMapper est la classe permettant de faire le lien avec la BDD Elle
+ * permet d'insérer, modifier, supprimer ou chercher un interet à une personne
+ * 
+ * @author Alexandre Godon, Kevin Delporte, Teddy Lequette
+ *
+ */
 public class InteretPersonneMapper {
 	private Connection conn;
 	static InteretPersonneMapper inst;
 
 	/**
-	 * Permet d'initialiser le PersonneMapper
+	 * Permet d'initialiser le InteretPersonneMapper
 	 */
 	public InteretPersonneMapper() {
 		try {
@@ -37,7 +44,7 @@ public class InteretPersonneMapper {
 	}
 
 	/**
-	 * Retourne l'instance de PersonneMapper
+	 * Retourne l'instance de InteretPersonneMapper
 	 */
 
 	public static InteretPersonneMapper getInstance() {
@@ -47,7 +54,7 @@ public class InteretPersonneMapper {
 	}
 
 	/**
-	 * Supprime le contenue de la table Projet_Interet
+	 * Supprime le contenue de la table Projet_InteretPersonne
 	 */
 
 	public void clear() {
@@ -62,10 +69,12 @@ public class InteretPersonneMapper {
 	}
 
 	/**
-	 * Insert en BDD une personne
+	 * Insert en BDD un interet à une personne
 	 * 
 	 * @param p
-	 *            personne à insérer en BDD
+	 *            personne
+	 * @param i
+	 * 				le nouvelle interet de la personne
 	 */
 	public void insert(Personne p, Interet i) {
 		try {
@@ -81,6 +90,14 @@ public class InteretPersonneMapper {
 
 	}
 
+	/**
+	 * Insert en BDD un sous interet à une personne
+	 * 
+	 * @param p
+	 *            personne
+	 * @param si
+	 * 				le nouvelle sous interet de la personne
+	 */
 	public void insert(Personne p, SousInteret si) {
 		try {
 			String req = "insert into Projet_InteretPersonne(idPersonne, idInteret,idSousInteret) values(?,?,?)";
@@ -97,11 +114,9 @@ public class InteretPersonneMapper {
 	}
 
 	/**
-	 * Recherche une personne à partir de son ID
-	 * 
-	 * @param id
-	 *            id de la personne à trouver en BDD
-	 * @return une personne
+	 * Recherche la liste de tout les interets et sous interet situé en base
+	 *
+	 * @return la liste des interets et des sous interets
 	 */
 	public List<Interet> findInteret() {
 		List<Interet> listeInteret = new ArrayList<Interet>();
@@ -139,7 +154,13 @@ public class InteretPersonneMapper {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * Recherche la liste des interets d'une personne
+	 * @param id_personne
+	 * 				id de la personne
+	 * @return la liste des interet de la personne
+	 */
 	public List<Interet> findInteretByPersonne(int id_personne) {
 		List<Interet> interets = new ArrayList<Interet>();
 		try {
@@ -162,6 +183,12 @@ public class InteretPersonneMapper {
 		return interets;
 	}
 
+	/**
+	 * Recherche la liste des sous interets d'une personne
+	 * @param id_personne
+	 * 				id de la personne
+	 * @return la liste des sous interet de la personne
+	 */
 	public List<SousInteret> findSousInteretByPersonne(int id_personne) {
 		List<SousInteret> sousInterets = new ArrayList<SousInteret>();
 		try {
@@ -185,6 +212,12 @@ public class InteretPersonneMapper {
 		return sousInterets;
 	}
 
+	/**
+	 * Recherche l'interet d'un sous interet
+	 * @param id
+	 * 				id du sous interet
+	 * @return l'interet du sous interet
+	 */
 	public Interet findBySousInteret(int id) {
 		try {
 			String req = "SELECT idInteret, description FROM Projet_Interet where idInteret=?";

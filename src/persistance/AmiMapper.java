@@ -11,6 +11,14 @@ import java.util.List;
 import domaine.Personne;
 import settings.ConnectionInfo;
 
+
+/**
+ * AmiMapper est la classe permettant de faire le lien avec la BDD Elle
+ * permet d'insérer, modifier, supprimer ou chercher un ami
+ * 
+ * @author Alexandre Godon, Kevin Delporte, Teddy Lequette
+ *
+ */
 public class AmiMapper {
 	private Connection conn;
 	static AmiMapper inst;
@@ -58,6 +66,7 @@ public class AmiMapper {
 	 * @param p1
 	 * @param p2
 	 *            p1 et p2 sont les deux nouveau ami à insérer en bdd
+	 * @return le nombre de ligne inséré en BDD
 	 */
 	public int insert(Personne p1, Personne p2) {
 		int nbLigne = 0;
@@ -81,8 +90,9 @@ public class AmiMapper {
 	/**
 	 * Delete un couple d'ami
 	 * 
-	 * @param p
-	 *            personne à supprimer de la BDD
+	 * @param p1
+	 * @param p2
+	 *           p1 et p2 sont les 2 amis à supprimer en BDD
 	 */
 	public void delete(Personne p1, Personne p2) {
 		try {
@@ -99,6 +109,11 @@ public class AmiMapper {
 		}
 	}
 	
+	/**
+	 * on delete tout les amis de la personne passé en paramètre
+	 * @param p
+	 * 			personne
+	 */
 	public void delete(Personne p) {
 		try {
 			String req = "delete from Projet_Ami where idPersonne1 =? || idPersonne2 =?";
@@ -138,6 +153,12 @@ public class AmiMapper {
 		}
 	}
 	
+	/**
+	 * récupère les amis de la personne passé en paramètre
+	 * @param id_personne
+	 * 					id de la personne
+	 * @return la liste d'ami de la personne
+	 */
 	public List<Personne> getAmis(int id_personne) {
 		try {
 			List<Personne> amis = new ArrayList<Personne>();

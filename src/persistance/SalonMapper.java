@@ -11,10 +11,21 @@ import java.util.List;
 import domaine.*;
 import settings.ConnectionInfo;
 
+
+/**
+ * SalonMapper est la classe permettant de faire le lien avec la BDD 
+ * Elle permet d'insérer, modifier, supprimer ou chercher un salon
+ * 
+ * @author Alexandre Godon, Kevin Delporte, Teddy Lequette
+ *
+ */
 public class SalonMapper {
 	private Connection conn;
 	static SalonMapper inst;
 
+	/**
+	 * Permet d'initialiser le SalonMapper
+	 */
 	public SalonMapper() {
 		try {
 			conn = DriverManager.getConnection(ConnectionInfo.DB_URL, ConnectionInfo.COMPTE, ConnectionInfo.MDP);
@@ -24,12 +35,18 @@ public class SalonMapper {
 		}
 	}
 
+	/**
+	 * Retourne l'instance de SalonMapper
+	 */
 	public static SalonMapper getInstance() {
 		if (inst == null)
 			inst = new SalonMapper();
 		return inst;
 	}
 
+	/**
+	 * Supprime le contenue de la table Projet_Salon et Projet_OccupeSalon
+	 */
 	public void clear() {
 		try {
 			String req = "delete from Projet_Salon";
@@ -44,6 +61,10 @@ public class SalonMapper {
 		}
 	}
 	
+	/**
+	 * Regarde si le salon ne contient personne
+	 * @return True si le modo est le seul occupant du salon
+	 */
 	public boolean isEmpty(Salon s) {
 		try {
 			String req = "Select idSalon from Projet_OccupeSalon where idSalon";
@@ -59,6 +80,12 @@ public class SalonMapper {
 		return true;
 	}
 
+	/**
+	 * insert un salon en BDD (Projet_Salon)
+	 * @param s
+	 * 		 le salon a mettre en base
+	 * @return le nombre de ligne inséré en base
+	 */
 	public int insertSalon(Salon s) throws SQLException {
 		int nbLigne = 0;
 		String req = "insert into Projet_Salon( nom, modo) values(?,?)";
@@ -71,6 +98,14 @@ public class SalonMapper {
 		return nbLigne;
 	}
 
+	/**
+	 * insert une personne dans le salon passé en paramètre en BDD (Projet_OccupeSalon)
+	 * @param s
+	 * 		 le salon 
+	 * @param p
+	 * 		 la personne à mettre dans le salon
+	 * @return le nombre de ligne inséré en base
+	 */
 	public int insertPersonne(Salon s, Personne p) throws SQLException {
 		int nbLigne = 0;
 
@@ -84,6 +119,11 @@ public class SalonMapper {
 		return nbLigne;
 	}
 
+	/**
+	 * delete le salon passé en paramètre
+	 * @param s
+	 * 		salon à delete de la BDD
+	 */
 	public void delete(Salon s) {
 		try {
 			String req = "delete from Projet_Salon where idSalon=? ";
@@ -96,6 +136,13 @@ public class SalonMapper {
 		}
 	}
 	
+	/**
+	 * une personne quitte le salon
+	 * @param p
+	 * 		personne qui quitte le salon
+	 * @param s
+	 * 		salon que le personne quitte
+	 */
 	public void leaveSalon(Personne p, Salon s){
 		try {
 			String req = "delete from Projet_OccupeSalon where idSalon=? AND idPersonne=? ";
@@ -109,7 +156,13 @@ public class SalonMapper {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * récupère un salon en BDD à partir de son ID
+	 * @param id_salon
+	 * 			id du salon à récupérer
+	 * @return
+	 */
 	public Salon findById(int id_salon) {
 		try {
 			String req = "SELECT idSalon, nom, modo  FROM Projet_Salon WHERE idSalon=?";
@@ -129,6 +182,12 @@ public class SalonMapper {
 		return null;
 	}
 
+	/**
+	 * recupère un salon en BDD à partir de son nom
+	 * @param nom
+	 * 		nom du salon à récupérer
+	 * @return un salon
+	 */
 	public Salon findByNom(String nom) {
 		try {
 			String req = "SELECT idSalon, nom, modo  FROM Projet_Salon WHERE nom=?";
@@ -148,6 +207,12 @@ public class SalonMapper {
 		return null;
 	}
 
+	/**
+	 * Récupère les personnes d'un salon en BDD 
+	 * @param id_salon
+	 * 			id du salon 
+	 * @return la liste de personne dans le salon passé en paramètre
+	 */
 	public List<Personne> getPersonnes(int id_salon) {
 		List<Personne> personnes = new ArrayList<Personne>();
 		try {
@@ -167,7 +232,11 @@ public class SalonMapper {
 		return null;
 	}
 
-	// init les salons d'une personne
+	/**
+	 * Récupère les salons d'une personne et initialise ses salons
+	 * @param p
+	 * 		Personne à qui on récupère les salons
+	 */
 	public void setSalons(Personne p) {
 		List<Salon> salons = new ArrayList<Salon>();
 		try {
@@ -201,7 +270,16 @@ public class SalonMapper {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * vérifie si une personne est modo d'un salon
+	 * @param p
+	 * 		personne 
+	 * @param id
+	 * 		id du salon
+	 * @return True si la personne est modo du salon
+	 * @throws SQLException
+	 */
 	public boolean isModo(Personne p, int id) throws SQLException {
 		// TODO Auto-generated method stub
 		String req = "SELECT idSalon, nom, modo  FROM   Projet_Salon  WHERE modo=? AND idSalon=?";
@@ -215,6 +293,13 @@ public class SalonMapper {
 		return false;
 	}
 	
+	/**
+	 * Modifie le modo d'un salon
+	 * @param s
+	 * 		salon
+	 * @param p
+	 * 		le nouveau modo
+	 */
 	public void updateModo(Salon s, Personne p){
 		try {
 			String req = "UPDATE Projet_Salon SET  modo=? WHERE idSalon=?";

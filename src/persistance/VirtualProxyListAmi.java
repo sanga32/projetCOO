@@ -65,6 +65,13 @@ public class VirtualProxyListAmi implements List<Personne> {
 		return amis;
 	}
 	
+	/**
+	 * On va chercher la personne en BDD si ça n'est pas déja fait et on ajoute la personne passé en paramètre à la liste
+	 * @param e 
+	 * 		personne à ajouter aux amis
+	 * @return true si l'ajout a bien été fait
+	 * @throws SQLException
+	 */
 	@Override
 	public boolean add(Personne e) {
 		try {
@@ -94,6 +101,10 @@ public class VirtualProxyListAmi implements List<Personne> {
 		return false;
 	}
 
+	/**
+	 * On va chercher la personne en BDD si ça n'est pas déja fait et on vide la liste
+	 * @throws SQLException
+	 */
 	@Override
 	public void clear() {
 		try {
@@ -116,6 +127,14 @@ public class VirtualProxyListAmi implements List<Personne> {
 		return false;
 	}
 
+	/**
+	 * On va chercher la personne en BDD si ça n'est pas déja fait et on retourne l'ami qui se situe
+	 * à l'index passé en paramètre
+	 * @param index 
+	 * 		index de la liste d'ami qu'on veut retourner
+	 * @return Une personne
+	 * @throws SQLException
+	 */
 	@Override
 	public Personne get(int index) {
 		try {
@@ -132,6 +151,11 @@ public class VirtualProxyListAmi implements List<Personne> {
 		return 0;
 	}
 
+	/**
+	 * On va chercher la personne en BDD si ça n'est pas déja fait et on retourne True si la liste d'ami est vide
+	 * @return True si la liste d'ami est vide
+	 * @throws SQLException
+	 */
 	@Override
 	public boolean isEmpty() {
 		try {

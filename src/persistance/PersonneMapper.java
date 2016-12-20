@@ -162,6 +162,13 @@ public class PersonneMapper {
 		return null;
 	}
 	
+	/**
+	 * Recherche une personne à partir de son login
+	 * 
+	 * @param login
+	 *            login de la personne à trouver en BDD
+	 * @return une personne
+	 */
 	public Personne findByLogin(String login) {
 		try {
 			// on va chercher la personne
@@ -189,42 +196,13 @@ public class PersonneMapper {
 		}
 		return null;
 	}
-
-
-	public void setSalons(Personne p) {
-		List<Salon> salons = new ArrayList<Salon>();
-		try {
-			String req = "SELECT s.idSalon, nom, modo  FROM "
-					+ "Projet_OccupeSalon o join Projet_Salon s on o.idSalon=s.idSalon  WHERE idPersonne=?";
-			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, p.getId());
-			ResultSet rs = ps.executeQuery();
-			while (rs.next()) {
-				int id = rs.getInt("idSalon");
-				String nom = rs.getString("nom");
-				Personne modo = new VirtualProxyPersonne(rs.getInt("modo"));
-				List<Personne> personnes = SalonMapper.getInstance().getPersonnes(id);
-				Salon s = new Salon(id, nom, p,personnes);
-				salons.add(s);
-			}
-			String req2 = "SELECT idSalon, nom, modo  FROM Projet_Salon  WHERE modo=?";
-			PreparedStatement ps2 = conn.prepareStatement(req2);
-			ps2.setInt(1, p.getId());
-			ResultSet rs2 = ps2.executeQuery();
-			while (rs2.next()) {
-				int id = rs2.getInt("idSalon");
-				String nom = rs2.getString("nom");
-				Personne modo = new VirtualProxyPersonne(rs2.getInt("modo"));
-				List<Personne> personnes = SalonMapper.getInstance().getPersonnes(id);
-				Salon s = new Salon(id, nom, p,personnes);
-				salons.add(s);
-			}
-			p.setSalons(salons);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	
+	/**
+	 * Recherche toute les personnes qui ne sont pas ami avec la personne passé en paramètre
+	 * @param id
+	 * 				id de la personne
+	 * @return liste de personne qui ne sont pas ami avec l'utilisateur
+	 */
 	public List<Personne> findNewPersonne(int id){
 		List<Personne> personnes = new ArrayList<Personne>();
 		try {
@@ -261,6 +239,14 @@ public class PersonneMapper {
 		return personnes;
 	}
 	
+	/**
+	 * On va cherche en BDD une personne à partir de son login et mot de passe
+	 * @param login
+	 * 				login de la personne
+	 * @param mdp
+	 * 				mot de passe de la personne
+	 * @return Une personne
+	 */
 	public Personne findByLogMdp(String login, String mdp) {
 		// TODO Auto-generated method stub
 		try {

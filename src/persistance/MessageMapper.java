@@ -17,12 +17,20 @@ import domaine.Utilisateur;
 import message.*;
 import settings.ConnectionInfo;
 
+
+/**
+ * MessageMapper est la classe permettant de faire le lien avec la BDD Elle
+ * permet d'insérer, modifier, supprimer ou chercher un ou plusieurs messages
+ * 
+ * @author Alexandre Godon, Kevin Delporte, Teddy Lequette
+ *
+ */
 public class MessageMapper {
 	private Connection conn;
 	static MessageMapper inst;
 
 	/**
-	 * Permet d'initialiser le PersonneMapper
+	 * Permet d'initialiser le MessageMapper
 	 */
 	public MessageMapper() {
 		try {
@@ -34,7 +42,7 @@ public class MessageMapper {
 	}
 
 	/**
-	 * Retourne l'instance de PersonneMapper
+	 * Retourne l'instance de MessageMapper
 	 */
 
 	public static MessageMapper getInstance() {
@@ -59,10 +67,10 @@ public class MessageMapper {
 	}
 
 	/**
-	 * Insert en BDD une personne
+	 * Insert en BDD un message
 	 * 
-	 * @param p
-	 *            personne à insérer en BDD
+	 * @param toSend
+	 *            message à insérer en BDD
 	 */
 	public void insert(Message toSend) {
 		try {
@@ -71,8 +79,6 @@ public class MessageMapper {
 					+ "dateHeure, isReception, isExpiration, isChiffre, isPrioritaire) values(?,?,?,?,?,?,?,?)";
 
 			PreparedStatement ps = conn.prepareStatement(req);
-
-			// if(classeMessage.equals("class message.MessagePrive")==true){
 
 			String contenu = "";
 			if (toSend.isChiffre()) {
@@ -100,7 +106,7 @@ public class MessageMapper {
 	}
 
 	/**
-	 * Delete la personne de la table
+	 * Delete le message de la table Projet_MessagePrive
 	 * 
 	 * @param p
 	 *            personne à supprimer de la BDD
@@ -118,45 +124,13 @@ public class MessageMapper {
 	}
 
 	/**
-	 * Recherche une personne à partir de son ID
-	 * 
-	 * @param id
-	 *            id de la personne à trouver en BDD
-	 * @return une personne
+	 * Récupère en BDD la list des message privé entre 2 personnes
+	 * @param id_personne1
+	 * 			id de l'utilisateur courant
+	 * @param id_personne2
+	 * 			id de la personne avec qui l'utilisateur veux parler
+	 * @return la liste des messages
 	 */
-	public Message findByDestinataire(int id) {
-		try {
-			String req = "SELECT idMessage, message, expediteur, destinataire, dateHeure, "
-					+ "isReception, isExpiration, isChiffre, isPrioritaire  FROM Projet_MessagePrive WHERE destinataire=?";
-			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			int id_message = rs.getInt("idMessage");
-			String message = rs.getString("message");
-			Personne expediteur = new VirtualProxyPersonne(rs.getInt("expediteur"));
-			Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
-			String date = rs.getString("dateHeure");
-			Message m = new MessagePrive(id_message, message, expediteur, destinataire, date);
-			if (rs.getInt("isReception") == 1) {
-				m = new MessageAvecAccuseReception(m);
-			}
-			if (rs.getInt("isExpiration") == 1) {
-				m = new MessageAvecExpiration(m);
-			}
-			if (rs.getInt("isChiffre") == 1) {
-				m = new MessageChiffre(m);
-			}
-			if (rs.getInt("isPrioritaire") == 1) {
-				m = new MessagePrioritaire(m);
-			}
-			return m;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
 	public List<Message> findListMessagePrive(int id_personne1, int id_personne2) {
 		List<Message> messages = new ArrayList<Message>();
 		try {
@@ -207,6 +181,14 @@ public class MessageMapper {
 		return null;
 	}
 
+	/**
+	 * Récupère en BDD les messaeges d'un salon
+	 * @param id_salon
+	 * 			id du salon
+	 * @param utilisateur
+	 * 		 	l'utilisateur courant
+	 * @return la liste des messages du salon
+	 */
 	public List<Message> findListMessageSalon(int id_salon, Personne utilisateur) {
 		List<Message> messages = new ArrayList<Message>();
 		try {
@@ -258,6 +240,13 @@ public class MessageMapper {
 		return null;
 	}
 
+	/**
+	 * insert en BDD un message dans un salon dans Projet_DiscussionSalon
+	 * @param toSend
+	 * 			message à envoyer
+	 * @param salon
+	 * 			salon
+	 */
 	public void insert(Message toSend, Salon salon) {
 		try {
 			String req = "";
@@ -288,6 +277,11 @@ public class MessageMapper {
 		}
 	}
 
+	/**
+	 * Permet à un message avec accusé de reception d'avoir le sigle [Vu] une fois vu par le destinataire
+	 * @param message
+	 * 			message à accusé de reception
+	 */
 	public void messageLu(Message message) {
 		try {
 			String req = "";

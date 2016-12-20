@@ -16,6 +16,13 @@ import domaine.Reponse;
 import domaine.Utilisateur;
 import settings.ConnectionInfo;
 
+/**
+ * NotificationMapper est la classe permettant de faire le lien avec la BDD Elle
+ * permet d'insérer, supprimer ou chercher une notification
+ * 
+ * @author Alexandre Godon, Kevin Delporte, Teddy Lequette
+ *
+ */
 public class NotificationMapper {
 	private Connection conn;
 	static NotificationMapper inst;
@@ -64,11 +71,10 @@ public class NotificationMapper {
 	}
 
 	/**
-	 * Insère 2 personne dans la table Projet_Notification
-	 * 
-	 * @param p1
-	 * @param p2
-	 *            p1 et p2 sont les deux nouveau ami à insérer en bdd
+	 * Crée une notification demande d'ami
+	 * @param n
+	 *          la demande d'ami à insérer en BDD
+	 * @return le nombre de ligne inséré en BDD
 	 */
 	public int insert(DemandeAmi n) {
 		int nbLigne1 = 0;
@@ -95,6 +101,12 @@ public class NotificationMapper {
 		return 0;
 	}
 
+	/**
+	 * Crée une notification réponse
+	 * @param n
+	 * 			la réponse à insérer en BDD
+	 * @return le nombre de ligne inséré en BDD
+	 */
 	public int insert(Reponse n) {
 		int nbLigne1 = 0;
 		int nbLigne2 = 0;
@@ -122,6 +134,10 @@ public class NotificationMapper {
 
 	}
 
+	/**
+	 * l'id le plus grand dans la table Projet_Notification
+	 * @return l'id le plus grand
+	 */
 	public int idMax() {
 		int idMax = 0;
 		try {
@@ -137,10 +153,10 @@ public class NotificationMapper {
 	}
 
 	/**
-	 * Delete un couple d'ami
+	 * Supprime la notification de demande d'ami
 	 * 
-	 * @param p
-	 *            personne à supprimer de la BDD
+	 * @param n
+	 *            notification à supprimer
 	 */
 	public void delete(DemandeAmi n) {
 		try {
@@ -158,6 +174,12 @@ public class NotificationMapper {
 		}
 	}
 	
+	/**
+	 * Supprime la notification de reponse
+	 * 
+	 * @param n
+	 *            notification à supprimer
+	 */
 	public void delete(Reponse n) {
 		try {
 			String req = "delete from Projet_Notification where idNotification=?";
@@ -175,6 +197,12 @@ public class NotificationMapper {
 		}
 	}
 
+	/**
+	 * Récupère la liste des notifications d'une personne 
+	 * @param id_personne
+	 * 						id de la personne 
+	 * @return la liste des notification de la personne
+	 */
 	public List<Notification> findByPersonne(int id_personne) {
 		List<Notification> notifs = new ArrayList<Notification>();
 		try {
@@ -226,6 +254,12 @@ public class NotificationMapper {
 		return null;
 	}
 	
+	/**
+	 * Vérifie si une personne a de nouvelle notification
+	 * @param p
+	 * 			personne
+	 * @return true si la personne a de nouvelle notification
+	 */
 	public boolean newNotification(Personne p){
 		try {
 			String req = "SELECT idNotification FROM Projet_Notification WHERE destinataire=?";
