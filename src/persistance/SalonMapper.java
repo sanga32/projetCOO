@@ -52,9 +52,6 @@ public class SalonMapper {
 			String req = "delete from Projet_Salon";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.execute();
-			String req2 = "delete from Projet_OccupeSalon";
-			PreparedStatement ps2 = conn.prepareStatement(req2);
-			ps2.execute();
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();

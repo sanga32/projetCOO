@@ -82,6 +82,22 @@ public class PersonneMapper {
 		return nbLigne;
 
 	}
+	
+	/**
+	 * Crée l'administrateur si celui ci n'existe pas déjà
+	 * @return
+	 */
+	public void creationAdmin() {
+		try {
+			String req = "insert into Projet_Personne(idPersonne,login,mdp,nom,prenom) values(1,'admin','admin','admin','admin')";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.execute();
+			conn.commit();
+		} catch (SQLException e) {
+			//existe déja
+		}
+
+	}
 
 	/**
 	 * Delete la personne de la table
@@ -95,7 +111,6 @@ public class PersonneMapper {
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, p.getId());
 			ps.execute();
-			AmiMapper.getInstance().delete(p);
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();

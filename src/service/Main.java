@@ -2,6 +2,7 @@ package service;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
+import persistance.PersonneMapper;
 import vue.MyFrame;
 
 public class Main {
@@ -12,7 +13,10 @@ public class Main {
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		//on crée un admin si jamais n'y en a pas déja un en base (admin : IDPersonne = 1)
+		// pseudo = "admin" par default
+		// mdp = "admin" par default
+		PersonneMapper.getInstance().creationAdmin(); 
 		try {
 			MyFrame l = new MyFrame("Login", new Dimension(800,650));
 		} catch (SQLException e) {
