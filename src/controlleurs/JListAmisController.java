@@ -29,7 +29,6 @@ public class JListAmisController implements ListSelectionListener {
 		JList lsm = (JList) e.getSource();
 		int Index = lsm.getSelectionModel().getMinSelectionIndex();
 		
-		System.out.println("\nChangement de la selection de liste! ");
 		if("Amis".equals(interfaceChat.getWest().getSwap().getText())){
 
 			String personne = ""+((Personne) lsm.getModel().getElementAt(Index)).getLogin();
@@ -37,7 +36,6 @@ public class JListAmisController implements ListSelectionListener {
 			Personne utilisateur = interfaceChat.getWest().getPersonne();
 			Personne destinataire = (((Personne) lsm.getModel().getElementAt(Index)));
 			List<Message> messages = MessageMapper.getInstance().findListMessagePrive(utilisateur.getId(),destinataire.getId());
-			System.out.println("yo");
 			interfaceChat.getCenter().getDiscussion(messages);
 			JButton supprAmi = new JButton("Supprimer "+destinataire.getLogin());
 			interfaceChat.getWest().removeAll();

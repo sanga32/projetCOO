@@ -24,28 +24,22 @@ public class JListSalonsController implements ListSelectionListener {
 	Personne p;
 
 	public JListSalonsController(InterfaceChat interfaceChat, Personne p) {
-		// TODO Auto-generated constructor stub
 		this.interfaceChat = interfaceChat;
 		this.p = p;
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		// TODO Auto-generated method stub
 		JList lsm = (JList) e.getSource();
 		int Index = lsm.getSelectionModel().getMinSelectionIndex();
 
-		System.out.println("\nChangement de la selection de liste! ");
 		if ("Salons".equals(interfaceChat.getWest().getSwap().getText())) {
-			System.out.println("yo");
-			System.out.println("Valeur de l'element: " + lsm.getModel().getElementAt(Index).toString());
 			String salon = lsm.getModel().getElementAt(Index).toString();
 			interfaceChat.getEast().getJListPersonneSalons(salon);
 			MessageMapper mp = MessageMapper.getInstance();
 			SalonMapper sm = SalonMapper.getInstance();
 			interfaceChat.getCenter().getDiscussion(mp.findListMessageSalon(sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId(), p));
 			try {
-				System.out.println("ISADMIN"+p.isAdmin()+"ISMODO"+p.isModo(sm.findByNom(lsm.getModel().getElementAt(Index).toString())));
 				if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId()) || p.isAdmin()){
 					interfaceChat.getWest().getJListSalons();
 					JButton addPersonneSalon = new JButton("Ajouter");

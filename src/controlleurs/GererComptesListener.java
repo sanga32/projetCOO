@@ -24,14 +24,11 @@ public class GererComptesListener implements ActionListener {
 	JFrame jf;
 
 	public GererComptesListener() {
-		// TODO Auto-generated constructor stub
 		panel = new JPanel();
 		jf = new JFrame("Gestion des comptes");
 	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 		panel.removeAll();
 		panel.setLayout(new FlowLayout());
 
@@ -200,7 +197,6 @@ public class GererComptesListener implements ActionListener {
 										jf.setVisible(false);
 										
 										PersonneMapper.getInstance().delete(pc);
-										System.out.println("-------------------------------------------");
 										JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Information",  JOptionPane.INFORMATION_MESSAGE);
 
 										jf.setVisible(false);
@@ -273,7 +269,6 @@ public class GererComptesListener implements ActionListener {
 						Personne pc;
 						if (!tlogin.getText().equals("") &&!tmdp.getText().equals("")&&!tnom.getText().equals("")&&!tprenom.getText().equals("")){
 							pc = new Utilisateur(3000, tlogin.getText(), tmdp.getText(), tnom.getText(), tprenom.getText());
-							System.out.println(pc+"--------------");
 							PersonneMapper.getInstance().insert(pc);
 							JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Information",  JOptionPane.INFORMATION_MESSAGE);
 

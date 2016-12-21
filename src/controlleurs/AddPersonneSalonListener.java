@@ -111,7 +111,6 @@ public class AddPersonneSalonListener implements ActionListener {
 				try {
 
 					for (int i = 0; i< lmodel2.size(); i++){
-						System.out.println(lmodel2.getElementAt(i));
 						sm.insertPersonne(salon, lmodel2.getElementAt(i));
 
 					}

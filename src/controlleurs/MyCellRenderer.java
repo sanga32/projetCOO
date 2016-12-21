@@ -26,17 +26,6 @@ public class MyCellRenderer extends JLabel implements ListCellRenderer {
 
 		Message m = (Message) value;
 
-		/* if (isSelected) 
-	         {
-	             setBackground(Color.red);
-		setForeground(list.getSelectionForeground());
-	         }
-	         else 
-	         {
-		setBackground(list.getBackground());
-		setForeground(list.getForeground());
-	         }
-		 */
 		if ( m.isPrioritaire()){
 			setBackground(Color.orange);
 			setForeground(list.getSelectionForeground());

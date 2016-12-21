@@ -105,7 +105,6 @@ public class SupprPersonneSalonListener implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for (int i = 0; i< lmodel2.size(); i++){
-					System.out.println(lmodel2.getElementAt(i));
 					sm.leaveSalon( lmodel2.getElementAt(i), salon);
 
 				}

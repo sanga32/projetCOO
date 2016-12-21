@@ -51,35 +51,13 @@ public class EnvoyerMessageListener implements ActionListener{
 		SimpleDateFormat dateHeureFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 		java.util.Date date = new java.util.Date();
 		String strDate = dateHeureFormat.format(date);
-		System.out.println("DAAAAAATE" + date);
 
-		/*
-		 * To convert String to java.sql.Date, use
-		 * Date (long date) constructor.
-		 *
-		 * It creates java.sql.Date object from the milliseconds provided.
-		 */
-
-		//first convert string to java.util.Date object using SimpleDateFormat
-
-
-		/* java.sql.Date sqlDate = new Date(date.getTime());
-
-        System.out.println("String converted to java.sql.Date :" + sqlDate);
-		 */
 		System.out.println(strDate);
 		if (west.getSwap().getText().equals("Amis")){
 			envoiMessagePrive(new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate));
 		} else {
 			envoiMessageSalon(new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate), east.getSalon());
 		}
-
-
-		/*System.out.println(east.getDestinataire());
-		System.out.println(expediteur);
-		System.out.println(j.getText());
-		System.out.println(listeChoix);
-		 */
 
 	}
 

@@ -73,7 +73,6 @@ public class NotificationListener implements ActionListener{
 				JList lsm = (JList) e1.getSource();
 				int index = lsm.getSelectionModel().getMinSelectionIndex();
 				Object notif = lsm.getModel().getElementAt(index);
-				System.out.println(notif.getClass());
 				if(notif instanceof DemandeAmi){
 					JFrame reponse = new JFrame("Donner votre r�ponse");
 					JPanel pan = new JPanel();
@@ -92,9 +91,6 @@ public class NotificationListener implements ActionListener{
 							AmiMapper.getInstance().insert(expediteur, destinataire);
 							lmodel.remove(index);
 							p.addAmi(destinataire);
-							//RETIRER DE LA JLIST LA NOTIF
-							//J ARRIVE PAS A METTRE A JOUR LA PARTIE OUEST
-							//if ( interfaceChat.getWest().getSwap().getText().equals("Amis"))
 							interfaceChat.getWest().getJListAmis();
 							interfaceChat.getWest().updateUI();
 							reponse.setVisible(false);
@@ -125,7 +121,6 @@ public class NotificationListener implements ActionListener{
 				}else if(notif instanceof Reponse){
 					lmodel.remove(index);
 					NotificationMapper.getInstance().delete((Reponse) notif);
-					//RETIRER DE LA JLIST LA NOTIF
 				}
 			}
 		});

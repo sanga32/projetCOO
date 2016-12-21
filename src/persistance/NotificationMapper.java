@@ -164,10 +164,6 @@ public class NotificationMapper {
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, n.getId());
 			ps.execute();
-			String req2 = "delete from Projet_DemandeAmi where idNotification=?";
-			PreparedStatement ps2 = conn.prepareStatement(req2);
-			ps2.setInt(1, n.getId());
-			ps2.execute();
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -186,11 +182,6 @@ public class NotificationMapper {
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, n.getId());
 			ps.execute();
-			
-			String req2 = "delete from Projet_Reponse where idNotification=?";
-			PreparedStatement ps2 = conn.prepareStatement(req2);
-			ps2.setInt(1, n.getId());
-			ps2.execute();
 			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();

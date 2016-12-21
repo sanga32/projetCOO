@@ -68,7 +68,6 @@ public class AjouterEnAmiListener implements ActionListener {
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
 
 		List<Personne> personnes = PersonneMapper.getInstance().findNewPersonne(p.getId());
-		System.out.println(personnes.get(0).getInterets());
 		for (Personne p : personnes) {
 			lmodel.addElement(p);
 		}
@@ -93,7 +92,6 @@ public class AjouterEnAmiListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (amiLogin != "") {
 
-					System.out.println("yo");
 					Personne newAmi = PersonneMapper.getInstance().findByLogin(amiLogin);
 					DemandeAmi da = new DemandeAmi(p, newAmi);
 					NotificationMapper.getInstance().insert(da);
@@ -181,7 +179,6 @@ public class AjouterEnAmiListener implements ActionListener {
 							for (Personne p : personnes) {
 								boolean inSousInteret = false;
 								for (SousInteret i : p.getSousInterets()) {
-									System.out.println();
 									if (i.getIdSousInteret() == ((SousInteret) interetRecherche).getIdSousInteret()){
 										inSousInteret = true;
 									}

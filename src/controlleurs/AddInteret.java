@@ -81,8 +81,6 @@ public class AddInteret implements ActionListener{
 		DefaultListModel<Interet> lmodel2 = new DefaultListModel<Interet>();
 
 		List<Interet> listInterets = ipm.findInteret();
-		System.out.println(p.getInterets());
-		System.out.println(p.getSousInterets());
 		for ( Interet i : listInterets){
 			if ( !compareInterets(i))
 				lmodel.addElement(i);
@@ -102,11 +100,9 @@ public class AddInteret implements ActionListener{
 				if (lsm.getModel().getElementAt(index) instanceof SousInteret){
 					if(! lmodel2.contains((SousInteret) lsm.getModel().getElementAt(index)))
 						lmodel2.addElement((SousInteret) lsm.getModel().getElementAt(index));
-					System.out.println("eeeeeee");
 				}else {
 					if(! lmodel2.contains((Interet) lsm.getModel().getElementAt(index)))
 						lmodel2.addElement((Interet) lsm.getModel().getElementAt(index));
-					System.out.println("ffffffff");
 				}
 
 			}
@@ -135,10 +131,8 @@ public class AddInteret implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for (int i = 0; i< lmodel2.size(); i++){
-					System.out.println(lmodel2.getElementAt(i));
 					if ( lmodel2.getElementAt(i) instanceof SousInteret){
 						ipm.insert(p, (SousInteret)lmodel2.getElementAt(i));
-						System.out.println("!!!!!!!!!!!!!!!!!!!");
 					}else {
 						ipm.insert(p, lmodel2.getElementAt(i));
 					}
