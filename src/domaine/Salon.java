@@ -3,6 +3,8 @@ package domaine;
 import java.util.ArrayList;
 import java.util.List;
 
+import message.Message;
+
 /**
  * Classe qui représente un salon
  * @author Kevin delporte, alexandre godon, teddy lequette 
@@ -14,6 +16,7 @@ public class Salon {
 	String nom;
 	Personne modo;
 	List<Personne> personnes;
+	List<Message> messages;
 	public Salon(int id, String nom, Personne modo, List<Personne> personnes) {
 		super();
 		this.id = id;

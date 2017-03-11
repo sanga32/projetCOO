@@ -87,6 +87,7 @@ public class PersonneMapper {
 	 * Crée l'administrateur si celui ci n'existe pas déjà
 	 * @return
 	 */
+	/*
 	public void creationAdmin() {
 		try {
 			String req = "insert into Projet_Personne(idPersonne,login,mdp,nom,prenom) values(1,'admin','admin','admin','admin')";
@@ -97,7 +98,7 @@ public class PersonneMapper {
 			//existe déja
 		}
 
-	}
+	}*/
 
 	/**
 	 * Delete la personne de la table
