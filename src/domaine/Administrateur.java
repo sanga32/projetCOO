@@ -10,6 +10,9 @@ import java.util.List;
 
 public class Administrateur extends Personne{
 
+	public Administrateur(int id, String login, String mdp) {
+		super(id, login, mdp);
+	}
 	
 	public Administrateur(int id, String login, String mdp, String nom, String prenom) {
 		super(id, login, mdp, nom, prenom);

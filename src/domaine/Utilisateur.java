@@ -11,6 +11,10 @@ import java.util.List;
 public class Utilisateur extends Personne{
 
 	
+	public Utilisateur(int id, String login, String mdp) {
+		super(id, login, mdp);
+	}
+	
 	public Utilisateur(int id, String login, String mdp, String nom, String prenom) {
 		super(id, login, mdp, nom, prenom);
 	}

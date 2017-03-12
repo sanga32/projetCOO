@@ -30,6 +30,17 @@ public abstract class Personne {
 		this.sousInterets = new ArrayList<SousInteret>();
 		this.salons = new ArrayList<Salon>();
 	}
+	public Personne(int id, String login, String mdp) {
+		super();
+		this.id = id;
+		this.login = login;
+		this.mdp = mdp;
+		this.amis = new VirtualProxyListAmi(id);
+		this.interets = new ArrayList<Interet>();
+		this.sousInterets = new ArrayList<SousInteret>();
+		this.salons = new ArrayList<Salon>();
+		this.notifications = new ArrayList<Notification>();
+	}
 
 	public Personne(int id, String login, String mdp, String nom, String prenom) {
 		super();
