@@ -32,6 +32,7 @@ public class InterfaceChat extends JPanel {
 		north = new North(info,p, this);
 		center = new Center(info,p, this);
 		south = new South(info,p, this);
+		p.setInterfaceChat(this);
 
 		this.add(east, BorderLayout.EAST);
 		this.add(west, BorderLayout.WEST);
