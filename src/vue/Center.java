@@ -29,6 +29,7 @@ public class Center extends JPanel {
 	InterfaceChat interfaceChat;
 	JList<Message> jl;
 	DefaultListModel<Message> lmodel;
+	InfoInterface info;
 
 	public Center(InfoInterface info, Personne p, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
@@ -38,6 +39,7 @@ public class Center extends JPanel {
 		this.setLayout(boxLayout);
 		this.setPreferredSize(new Dimension(120, 300));
 		this.setBackground(Color.GRAY);
+		this.info = info;
 	}
 
 	

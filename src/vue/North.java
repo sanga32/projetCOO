@@ -26,9 +26,10 @@ import persistance.NotificationMapper;
 public class North extends JPanel {
 
 	InterfaceChat interfaceChat;
-
+	InfoInterface info;
+	
 	public North(InfoInterface info, Personne p, InterfaceChat interfaceChat) throws SQLException {
-		// TODO Auto-generated constructor stub
+		this.info = info;
 		this.interfaceChat = interfaceChat;
 		JButton quitter = new JButton("Déconnecter");
 		quitter.addActionListener(new QuitterListener(interfaceChat));

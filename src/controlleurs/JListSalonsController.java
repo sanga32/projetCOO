@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -41,7 +42,12 @@ public class JListSalonsController implements ListSelectionListener {
 			interfaceChat.getCenter().getDiscussion(mp.findListMessageSalon(sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId(), p));
 			try {
 				if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId()) || p.isAdmin()){
-					interfaceChat.getWest().getJListSalons();
+					try {
+						interfaceChat.getWest().getJListSalons();
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					JButton addPersonneSalon = new JButton("Ajouter");
 					JButton supprPersonneSalon = new JButton("Supprimer");
 					JPanel pane = new JPanel();
@@ -63,7 +69,12 @@ public class JListSalonsController implements ListSelectionListener {
 								JOptionPane.showMessageDialog(null, "Ce salon n'est pas vide !", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
 
 							}
-							interfaceChat.getWest().getJListSalons();
+							try {
+								interfaceChat.getWest().getJListSalons();
+							} catch (RemoteException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							interfaceChat.getWest().updateUI();
 						}
 					});
@@ -71,7 +82,12 @@ public class JListSalonsController implements ListSelectionListener {
 
 					
 				}else{
-					interfaceChat.getWest().getJListSalons();
+					try {
+						interfaceChat.getWest().getJListSalons();
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					JButton quitter = new JButton("Quitter "+sm.findByNom(salon).getNom() );
 					quitter.addActionListener(new ActionListener() {
 						
@@ -79,7 +95,12 @@ public class JListSalonsController implements ListSelectionListener {
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
 							sm.leaveSalon(p, sm.findByNom(salon));
-							interfaceChat.getWest().getJListSalons();
+							try {
+								interfaceChat.getWest().getJListSalons();
+							} catch (RemoteException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							interfaceChat.getWest().updateUI();
 
 						}

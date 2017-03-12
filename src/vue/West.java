@@ -1,6 +1,8 @@
 package vue;
 
 import java.awt.Dimension;
+import java.rmi.RemoteException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.BoxLayout;
@@ -33,12 +35,12 @@ public class West extends JPanel {
 	Personne p;
 	JButton swap;
 	JButton creerSalon;
-	
+	InfoInterface info;
 	
 	InterfaceChat interfaceChat;
 	
 	public West(InfoInterface info, Personne p, InterfaceChat interfaceChat) {
-		// TODO Auto-generated constructor stub
+		this.info = info;
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS); // top to bottom
 		this.setLayout(boxLayout);
 		this.p = p;
@@ -83,15 +85,14 @@ public class West extends JPanel {
 
 	}
 	
-	public void getJListSalons(){
+	public void getJListSalons() throws RemoteException{
 		this.removeAll();
 		JList<Salon> jl = new JList<Salon>();
 		DefaultListModel<Salon> lmodel = new DefaultListModel<Salon>();
 		
+		List<Salon> salons = info.getSalon(p);
 		
-		SalonMapper.getInstance().setSalons(p);
-		
-		for ( Salon s : p.getSalons()){
+		for ( Salon s : salons){
 			lmodel.addElement(s);
 		}
 

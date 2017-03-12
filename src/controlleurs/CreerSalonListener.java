@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
@@ -78,7 +79,12 @@ public class CreerSalonListener implements ActionListener{
 
 					e1.printStackTrace();
 				}
-				west.getJListSalons();
+				try {
+					west.getJListSalons();
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				west.updateUI();
 			}
 		});

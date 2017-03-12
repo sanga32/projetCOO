@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
@@ -38,9 +39,11 @@ public class East extends JPanel {
 	Personne p, p2;
 	Personne destinataire;
 	InterfaceChat interfaceChat;
+	InfoInterface info;
 	
 	public East(InfoInterface info, Personne p2, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
+		this.info = info;
 		this.interfaceChat = interfaceChat;
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS); // top to
 		// bottom
@@ -103,7 +106,12 @@ public class East extends JPanel {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
-								interfaceChat.getWest().getJListSalons();
+								try {
+									interfaceChat.getWest().getJListSalons();
+								} catch (RemoteException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 								interfaceChat.getWest().updateUI();
 								interfaceChat.getEast().getJListPersonneSalons(salon);
 								interfaceChat.getEast().updateUI();

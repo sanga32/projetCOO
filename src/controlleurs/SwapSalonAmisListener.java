@@ -2,6 +2,7 @@ package controlleurs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.JPanel;
 
@@ -25,7 +26,12 @@ public class SwapSalonAmisListener implements ActionListener{
 		if(e.getActionCommand().equals("Salons")){
 			west.getJListAmis();
 		} else {
-			west.getJListSalons();
+			try {
+				west.getJListSalons();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		west.updateUI();
 	}

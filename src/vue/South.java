@@ -30,9 +30,10 @@ public class South extends JPanel {
 	List<String> listeChoix;
 	Personne destinataire;
 	InterfaceChat interfaceChat;
+	InfoInterface info;
 	
 	public South(InfoInterface info, Personne p, InterfaceChat interfaceChat) {
-		// TODO Auto-generated constructor stub
+		this.info = info;
 		this.interfaceChat = interfaceChat;
 		this.setLayout(new GridLayout(2, 0));
 		m = new MessagePrive();

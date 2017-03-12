@@ -83,7 +83,7 @@ public class ValiderLoginListener implements ActionListener{
 					//p = PersonneMapper.getInstance().findByLogMdp(login, mdp);
 				}
 				InterfaceChat ip = null;
-				ip = new InterfaceChat(p);
+				ip = new InterfaceChat(p, info);
 				j.removeAll();
 				j.add(ip);
 				j.updateUI();
