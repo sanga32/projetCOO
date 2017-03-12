@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interface.MessageInterface;
 import Interface.PersonneInterface;
 import persistance.VirtualProxyListAmi;
 import vue.InterfaceChat;
@@ -220,5 +221,8 @@ public abstract class Personne implements PersonneInterface{
 		this.interfaceChat = interfaceChat;
 	}
 
-
+	public void receiveMessage(MessageInterface m)
+	{
+		interfaceChat.getCenter().addMessage(m.getMessage());
+	}
 }
