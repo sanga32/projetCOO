@@ -6,6 +6,7 @@ import java.util.List;
 
 import Interface.PersonneInterface;
 import persistance.VirtualProxyListAmi;
+import vue.InterfaceChat;
 
 /**
  * Classe abtraite représentant une personne
@@ -24,6 +25,7 @@ public abstract class Personne implements PersonneInterface{
 	List<SousInteret> sousInterets;
 	List<Salon> salons;
 	List<Notification> notifications;
+	private InterfaceChat interfaceChat;
 
 	public Personne(){
 		this.amis = new VirtualProxyListAmi(id);
@@ -212,6 +214,10 @@ public abstract class Personne implements PersonneInterface{
 	 */
 	public void addAmi(Personne p){
 		amis.add(p);
+	}
+	public void setInterfaceChat(InterfaceChat interfaceChat) {
+		// TODO Auto-generated method stub
+		this.interfaceChat = interfaceChat;
 	}
 
 
