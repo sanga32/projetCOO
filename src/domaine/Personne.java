@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interface.PersonneInterface;
 import persistance.VirtualProxyListAmi;
 
 /**
@@ -12,7 +13,7 @@ import persistance.VirtualProxyListAmi;
  *
  */
 
-public abstract class Personne {
+public abstract class Personne implements PersonneInterface{
 	int id;
 	String login;
 	String mdp;

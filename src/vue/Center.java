@@ -12,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Interface.InfoInterface;
 import controlleurs.MyCellRenderer;
 import domaine.Personne;
 import message.Message;
@@ -29,7 +30,7 @@ public class Center extends JPanel {
 	JList<Message> jl;
 	DefaultListModel<Message> lmodel;
 
-	public Center(Personne p, InterfaceChat interfaceChat) {
+	public Center(InfoInterface info, Personne p, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
 		this.interfaceChat = interfaceChat;
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS); // top to

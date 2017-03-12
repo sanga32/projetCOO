@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Interface.InfoInterface;
 import controlleurs.AddInteret;
 import controlleurs.AjouterEnAmiListener;
 import controlleurs.GererComptesListener;
@@ -26,7 +27,7 @@ public class North extends JPanel {
 
 	InterfaceChat interfaceChat;
 
-	public North(Personne p, InterfaceChat interfaceChat) throws SQLException {
+	public North(InfoInterface info, Personne p, InterfaceChat interfaceChat) throws SQLException {
 		// TODO Auto-generated constructor stub
 		this.interfaceChat = interfaceChat;
 		JButton quitter = new JButton("Déconnecter");

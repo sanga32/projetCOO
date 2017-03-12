@@ -10,6 +10,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Interface.InfoInterface;
 import controlleurs.ChoixTypeMessageListener;
 import controlleurs.EnvoyerMessageListener;
 import domaine.Personne;
@@ -30,7 +31,7 @@ public class South extends JPanel {
 	Personne destinataire;
 	InterfaceChat interfaceChat;
 	
-	public South(Personne p, InterfaceChat interfaceChat) {
+	public South(InfoInterface info, Personne p, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
 		this.interfaceChat = interfaceChat;
 		this.setLayout(new GridLayout(2, 0));

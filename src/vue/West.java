@@ -10,6 +10,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Interface.InfoInterface;
 import controlleurs.AddPersonneSalonListener;
 import controlleurs.CreerSalonListener;
 import controlleurs.JListAmisController;
@@ -33,9 +34,10 @@ public class West extends JPanel {
 	JButton swap;
 	JButton creerSalon;
 	
+	
 	InterfaceChat interfaceChat;
 	
-	public West(Personne p, InterfaceChat interfaceChat) {
+	public West(InfoInterface info, Personne p, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS); // top to bottom
 		this.setLayout(boxLayout);
@@ -85,7 +87,8 @@ public class West extends JPanel {
 		this.removeAll();
 		JList<Salon> jl = new JList<Salon>();
 		DefaultListModel<Salon> lmodel = new DefaultListModel<Salon>();
-
+		
+		
 		SalonMapper.getInstance().setSalons(p);
 		
 		for ( Salon s : p.getSalons()){

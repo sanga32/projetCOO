@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.swing.JPanel;
 
+import Interface.InfoInterface;
 import domaine.Personne;
 
 /**
@@ -21,16 +22,16 @@ public class InterfaceChat extends JPanel {
 	South south;
 	Center center;
 	
-	public InterfaceChat(Personne p) throws SQLException {
+	public InterfaceChat(Personne p, InfoInterface info) throws SQLException {
 		// TODO Auto-generated constructor stub
 		super();
 		this.setLayout(new BorderLayout());
 		
-		east = new East(p, this);
-		west = new West(p, this);
-		north = new North(p, this);
-		center = new Center(p, this);
-		south = new South(p, this);
+		east = new East(info, p, this);
+		west = new West(info,p, this);
+		north = new North(info,p, this);
+		center = new Center(info,p, this);
+		south = new South(info,p, this);
 
 		this.add(east, BorderLayout.EAST);
 		this.add(west, BorderLayout.WEST);

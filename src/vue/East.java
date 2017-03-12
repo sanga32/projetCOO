@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Interface.InfoInterface;
 import controlleurs.CreerSalonListener;
 import controlleurs.JListAmisController;
 import controlleurs.MySalonCellRenderer;
@@ -38,7 +39,7 @@ public class East extends JPanel {
 	Personne destinataire;
 	InterfaceChat interfaceChat;
 	
-	public East(Personne p2, InterfaceChat interfaceChat) {
+	public East(InfoInterface info, Personne p2, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
 		this.interfaceChat = interfaceChat;
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS); // top to
