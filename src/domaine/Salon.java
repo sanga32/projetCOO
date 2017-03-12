@@ -15,8 +15,8 @@ public class Salon {
 	int id;
 	String nom;
 	Personne modo;
-	List<Personne> personnes;
-	List<Message> messages;
+	private List<Personne> personnes;
+
 	public Salon(int id, String nom, Personne modo, List<Personne> personnes) {
 		super();
 		this.id = id;

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interface.PersonneInterface;
 import domaine.*;
 import settings.ConnectionInfo;
 
@@ -234,7 +235,7 @@ public class SalonMapper {
 	 * @param p
 	 * 		Personne à qui on récupère les salons
 	 */
-	public void setSalons(Personne p) {
+	public List<Salon> getSalons(PersonneInterface p) {
 		List<Salon> salons = new ArrayList<Salon>();
 		try {
 			String req = "SELECT s.idSalon, nom, modo  FROM "
@@ -247,7 +248,7 @@ public class SalonMapper {
 				String nom = rs.getString("nom");
 				Personne modo = new VirtualProxyPersonne(rs.getInt("modo"));
 				List<Personne> personnes = getPersonnes(id);
-				Salon s = new Salon(id, nom, p,personnes);
+				Salon s = new Salon(id, nom, modo,personnes);
 				salons.add(s);
 			}
 			String req2 = "SELECT idSalon, nom, modo  FROM Projet_Salon  WHERE modo=?";
@@ -259,13 +260,14 @@ public class SalonMapper {
 				String nom = rs2.getString("nom");
 				Personne modo = new VirtualProxyPersonne(rs2.getInt("modo"));
 				List<Personne> personnes = getPersonnes(id);
-				Salon s = new Salon(id, nom, p,personnes);
+				Salon s = new Salon(id, nom, modo,personnes);
 				salons.add(s);
 			}
-			p.setSalons(salons);
+			return salons;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	/**
