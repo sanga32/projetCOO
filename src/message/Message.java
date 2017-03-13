@@ -9,7 +9,7 @@ import domaine.Personne;
 import domaine.Salon;
 
 /**
- * Classe abstraite représentant un message
+ * Classe abstraite reprï¿½sentant un message
  * @author Kevin delporte, alexandre godon, teddy lequette
  *
  */
@@ -27,8 +27,8 @@ public abstract class Message {
 	public abstract Salon getSalon();
 
 	/**
-	 * Permet de tester si un message a expiré ou non
-	 * @return false si le message n'a pas expiré et retourne true si il a expiré
+	 * Permet de tester si un message a expirï¿½ ou non
+	 * @return false si le message n'a pas expirï¿½ et retourne true si il a expirï¿½
 	 */
 	public abstract Boolean isExpire();
 
@@ -59,7 +59,7 @@ public abstract class Message {
 
 	/**
 	 * 
-	 * @return true si c'est un message avec accusé de réception
+	 * @return true si c'est un message avec accusï¿½ de rï¿½ception
 	 */
 	public boolean isReception() {
 		// TODO Auto-generated method stub
@@ -77,7 +77,7 @@ public abstract class Message {
 
 	/**
 	 * 
-	 * @return true si c'est un message chiffré
+	 * @return true si c'est un message chiffrï¿½
 	 */
 	public boolean isChiffre() {
 		// TODO Auto-generated method stub

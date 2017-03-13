@@ -1,5 +1,7 @@
 package domaine;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +12,12 @@ import persistance.VirtualProxyListAmi;
 import vue.InterfaceChat;
 
 /**
- * Classe abtraite représentant une personne
+ * Classe abtraite reprï¿½sentant une personne
  * @author Kevin delporte, alexandre godon, teddy lequette
  *
  */
 
-public abstract class Personne implements PersonneInterface{
+public abstract class Personne extends UnicastRemoteObject implements PersonneInterface {
 	int id;
 	String login;
 	String mdp;
@@ -28,13 +30,13 @@ public abstract class Personne implements PersonneInterface{
 	List<Notification> notifications;
 	private InterfaceChat interfaceChat;
 
-	public Personne(){
+	public Personne() throws RemoteException{
 		this.amis = new VirtualProxyListAmi(id);
 		this.interets = new ArrayList<Interet>();
 		this.sousInterets = new ArrayList<SousInteret>();
 		this.salons = new ArrayList<Salon>();
 	}
-	public Personne(int id, String login, String mdp) {
+	public Personne(int id, String login, String mdp) throws RemoteException {
 		super();
 		this.id = id;
 		this.login = login;
@@ -46,7 +48,7 @@ public abstract class Personne implements PersonneInterface{
 		this.notifications = new ArrayList<Notification>();
 	}
 
-	public Personne(int id, String login, String mdp, String nom, String prenom) {
+	public Personne(int id, String login, String mdp, String nom, String prenom) throws RemoteException {
 		super();
 		this.id = id;
 		this.login = login;
@@ -60,7 +62,7 @@ public abstract class Personne implements PersonneInterface{
 		this.notifications = new ArrayList<Notification>();
 	}
 
-	public Personne(int id, String login, String mdp, String nom, String prenom, List<Interet>  interets, List<SousInteret> sousInterets) {
+	public Personne(int id, String login, String mdp, String nom, String prenom, List<Interet>  interets, List<SousInteret> sousInterets) throws RemoteException {
 		super();
 		this.id = id;
 		this.login = login;
@@ -77,7 +79,7 @@ public abstract class Personne implements PersonneInterface{
 	public abstract boolean isAdmin() throws SQLException;
 
 	/**
-	 * return true si la personne est modérateur du salon passé en paramètre
+	 * return true si la personne est modï¿½rateur du salon passï¿½ en paramï¿½tre
 	 * @param s
 	 * @return
 	 * @throws SQLException
@@ -93,7 +95,7 @@ public abstract class Personne implements PersonneInterface{
 	}
 
 	/**
-	 * Ajoute l'intérêt passé en paramètre de la liste d'intérets
+	 * Ajoute l'intï¿½rï¿½t passï¿½ en paramï¿½tre de la liste d'intï¿½rets
 	 * @param i
 	 */
 	public void addInteret(Interet i){
@@ -101,7 +103,7 @@ public abstract class Personne implements PersonneInterface{
 	}
 
 	/**
-	 * Supprime l'intérêt passé en paramètre de la liste d'intérêts
+	 * Supprime l'intï¿½rï¿½t passï¿½ en paramï¿½tre de la liste d'intï¿½rï¿½ts
 	 * @param i
 	 */
 	public void removeInteret(Interet i){
@@ -109,7 +111,7 @@ public abstract class Personne implements PersonneInterface{
 	}
 	
 	/**
-	 * Ajoute le sous intérêt passé en paramètre à la liste de sous intérêts
+	 * Ajoute le sous intï¿½rï¿½t passï¿½ en paramï¿½tre ï¿½ la liste de sous intï¿½rï¿½ts
 	 * @param si
 	 */
 	public void addSousInteret(SousInteret si){
@@ -117,14 +119,14 @@ public abstract class Personne implements PersonneInterface{
 	}
 
 	/** 
-	 * supprime le sous intérêts passé en paramètre de la liste de sous intérêts
+	 * supprime le sous intï¿½rï¿½ts passï¿½ en paramï¿½tre de la liste de sous intï¿½rï¿½ts
 	 * @param si
 	 */
 	public void removeSousInteret(SousInteret si){
 		this.sousInterets.remove(si);
 	}
 	/**
-	 * Ajoute le salon passé en paramètre a la liste des salons
+	 * Ajoute le salon passï¿½ en paramï¿½tre a la liste des salons
 	 * @param s
 	 */
 	public void addSalon(Salon s){
@@ -132,7 +134,7 @@ public abstract class Personne implements PersonneInterface{
 	}
 
 	/**
-	 * Supprime le salon passé en paramètre de la liste de salons 
+	 * Supprime le salon passï¿½ en paramï¿½tre de la liste de salons 
 	 * @param s
 	 */
 	public void removeSalon(Salon s){
@@ -201,7 +203,7 @@ public abstract class Personne implements PersonneInterface{
 	}
 
 	/**
-	 * supprime la personne passée en paramètre de la liste d'amis
+	 * supprime la personne passï¿½e en paramï¿½tre de la liste d'amis
 	 * @param destinataire
 	 */
 	public void deleteAmi(Personne destinataire) {
@@ -210,7 +212,7 @@ public abstract class Personne implements PersonneInterface{
 	}
 
 	/**
-	 * Ajoute la personne passée en paramètre dans la liste d'ami
+	 * Ajoute la personne passï¿½e en paramï¿½tre dans la liste d'ami
 	 * @param p
 	 */
 	public void addAmi(Personne p){
@@ -224,5 +226,6 @@ public abstract class Personne implements PersonneInterface{
 	public void receiveMessage(MessageInterface m)
 	{
 		interfaceChat.getCenter().addMessage(m.getMessage());
+		interfaceChat.getCenter().updateUI();
 	}
 }
