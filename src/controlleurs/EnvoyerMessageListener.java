@@ -54,37 +54,43 @@ public class EnvoyerMessageListener implements ActionListener{
 
 		System.out.println(strDate);
 		if (west.getSwap().getText().equals("Amis")){
-			envoiMessagePrive(new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate));
+			//envoiMessagePrive(new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate));
+			envoiMessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate);
 		} else {
-			envoiMessageSalon(new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate), east.getSalon());
+			//envoiMessageSalon(new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate), east.getSalon());
+			
 		}
 
 	}
 
-	public void envoiMessagePrive(Message toSend){
-		MessageMapper mp = MessageMapper.getInstance();
+	public void envoiMessagePrive(String s, Personne exped, Personne dest, String date){
+		//MessageMapper mp = MessageMapper.getInstance();
 
-		for (String s : listeChoix){
-			if (s.equals("Prioritaire")){
-				toSend = new MessagePrioritaire(toSend);
-			} else if (s.equals("Chiffre")){
-				toSend = new MessageChiffre(toSend);
+		boolean ack;
+		boolean exp;
+		boolean chiff;
+		boolean prio = chiff = exp = ack = false;
+		
+		for (String st : listeChoix){
+			if (st.equals("Prioritaire")){
+				prio = true;
+			} else if (st.equals("Chiffre")){
+				chiff = true;
 
-			}else if (s.equals("Expiration")) {
-				toSend = new MessageAvecExpiration(toSend);
+			}else if (st.equals("Expiration")) {
+				exp = true;
 
-			} else if (s.equals("ACK")) {
-				toSend = new MessageAvecAccuseReception(toSend);
+			} else if (st.equals("ACK")) {
+				ack = true;
 
 			}
 		}
-		toSend.isChiffre();
-		toSend.isExpiration();
-		toSend.isPrioritaire();
-		toSend.isReception();
-		System.out.println(toSend);
-		center.addMessage(toSend);
-		mp.insert(toSend);
+		
+		//Ici on en aura peut être plus besoin
+	//	center.addMessage(toSend);
+		//Ici il faut avoir lookup un salon, je sais pas encore comment on procède pour ça
+		//s.send(s, exped, dest, date, prio, chiff, exp, ack);
+		//mp.insert(toSend);
 		j.setText("");
 		center.updateUI();
 	}
