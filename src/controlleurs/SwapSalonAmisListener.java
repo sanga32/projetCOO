@@ -24,7 +24,12 @@ public class SwapSalonAmisListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Salons")){
-			west.getJListAmis();
+			try {
+				west.getJListAmis();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else {
 			try {
 				west.getJListSalons();

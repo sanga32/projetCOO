@@ -1,5 +1,6 @@
 package persistance;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -34,8 +35,9 @@ public class VirtualProxyListAmi implements List<Personne> {
 	 * On vérifie si on a déja récupéré la liste d'ami en base
 	 * Sinon on la récupère
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public void verifieInitilisation() throws SQLException {
+	public void verifieInitilisation() throws SQLException, RemoteException {
 		if (amis == null) {
 			amis = new ArrayList<Personne>();
 			initialisation();
@@ -46,17 +48,19 @@ public class VirtualProxyListAmi implements List<Personne> {
 	/**
 	 * C'est ici qu'on récupère la liste d'ami en BDD
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public void initialisation() throws SQLException {
+	public void initialisation() throws SQLException, RemoteException {
 		amis = AmiMapper.getInstance().getAmis(id_personne);
 	}
 
 	/**
 	 * On va chercher la liste d'ami en BDD si ça n'est pas déja fait et on la retourne 
 	 * @return la liste d'ami
+	 * @throws RemoteException 
 	 * @throws SQLException
 	 */
-	public List<Personne> getAmis() {
+	public List<Personne> getAmis() throws RemoteException {
 		try {
 			verifieInitilisation();
 		} catch (SQLException e) {
@@ -77,6 +81,9 @@ public class VirtualProxyListAmi implements List<Personne> {
 		try {
 			verifieInitilisation();
 		} catch (SQLException e1) {
+			e1.printStackTrace();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		this.amis.add(e);
@@ -111,6 +118,9 @@ public class VirtualProxyListAmi implements List<Personne> {
 			verifieInitilisation();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		amis.clear();
 	}
@@ -141,6 +151,9 @@ public class VirtualProxyListAmi implements List<Personne> {
 			verifieInitilisation();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return amis.get(index);
 	}
@@ -162,6 +175,9 @@ public class VirtualProxyListAmi implements List<Personne> {
 			verifieInitilisation();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		if (amis.isEmpty())
 			return true;
@@ -198,6 +214,9 @@ public class VirtualProxyListAmi implements List<Personne> {
 			verifieInitilisation();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		amis.remove(o);
 		return true;
@@ -208,6 +227,9 @@ public class VirtualProxyListAmi implements List<Personne> {
 		try {
 			verifieInitilisation();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return amis.remove(index);
@@ -236,6 +258,9 @@ public class VirtualProxyListAmi implements List<Personne> {
 		try {
 			verifieInitilisation();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return amis.size();

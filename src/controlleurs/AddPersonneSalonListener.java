@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
@@ -64,8 +65,13 @@ public class AddPersonneSalonListener implements ActionListener {
 		JList<Personne> jl2 = new JList<Personne>();
 		DefaultListModel<Personne> lmodel2 = new DefaultListModel<Personne>();
 
-		for ( Personne pers : p.getAmis()){
-			lmodel.addElement(pers);
+		try {
+			for ( Personne pers : p.getAmis()){
+				lmodel.addElement(pers);
+			}
+		} catch (RemoteException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
 		}
 
 		jl.setModel(lmodel);
@@ -123,6 +129,9 @@ public class AddPersonneSalonListener implements ActionListener {
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "Cet utilisateur est déjà présent dans le salon", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});

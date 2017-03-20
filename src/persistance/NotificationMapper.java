@@ -1,5 +1,6 @@
 package persistance;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -193,8 +194,9 @@ public class NotificationMapper {
 	 * @param id_personne
 	 * 						id de la personne 
 	 * @return la liste des notification de la personne
+	 * @throws RemoteException 
 	 */
-	public List<Notification> findByPersonne(int id_personne) {
+	public List<Notification> findByPersonne(int id_personne) throws RemoteException {
 		List<Notification> notifs = new ArrayList<Notification>();
 		try {
 			String req = "SELECT n.idNotification, message, destinataire, d.expediteur  "

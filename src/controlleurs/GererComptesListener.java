@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -59,7 +60,13 @@ public class GererComptesListener implements ActionListener {
 							PersonneMapper pm = PersonneMapper.getInstance();
 
 
-							Personne pc = pm.findByLogin(log.getText());
+							Personne pc = null;
+							try {
+								pc = pm.findByLogin(log.getText());
+							} catch (RemoteException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							if ( pc != null ) {
 								JButton valider = new JButton("Valider");
 
@@ -155,7 +162,13 @@ public class GererComptesListener implements ActionListener {
 							PersonneMapper pm = PersonneMapper.getInstance();
 
 
-							Personne pc = pm.findByLogin(log.getText());
+							Personne pc = null;
+							try {
+								pc = pm.findByLogin(log.getText());
+							} catch (RemoteException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							if ( pc != null ) {
 								JButton valider = new JButton("Valider");
 
@@ -266,9 +279,14 @@ public class GererComptesListener implements ActionListener {
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
 						jf.setVisible(false);
-						Personne pc;
+						Personne pc = null;
 						if (!tlogin.getText().equals("") &&!tmdp.getText().equals("")&&!tnom.getText().equals("")&&!tprenom.getText().equals("")){
-							pc = new Utilisateur(3000, tlogin.getText(), tmdp.getText(), tnom.getText(), tprenom.getText());
+							try {
+								pc = new Utilisateur(3000, tlogin.getText(), tmdp.getText(), tnom.getText(), tprenom.getText());
+							} catch (RemoteException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							PersonneMapper.getInstance().insert(pc);
 							JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Information",  JOptionPane.INFORMATION_MESSAGE);
 

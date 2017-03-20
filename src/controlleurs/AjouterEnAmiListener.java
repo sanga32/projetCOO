@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +68,13 @@ public class AjouterEnAmiListener implements ActionListener {
 		JList<Personne> jl = new JList<Personne>();
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
 
-		List<Personne> personnes = PersonneMapper.getInstance().findNewPersonne(p.getId());
+		List<Personne> personnes = null;
+		try {
+			personnes = PersonneMapper.getInstance().findNewPersonne(p.getId());
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		for (Personne p : personnes) {
 			lmodel.addElement(p);
 		}
@@ -92,7 +99,13 @@ public class AjouterEnAmiListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				if (amiLogin != "") {
 
-					Personne newAmi = PersonneMapper.getInstance().findByLogin(amiLogin);
+					Personne newAmi = null;
+					try {
+						newAmi = PersonneMapper.getInstance().findByLogin(amiLogin);
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					DemandeAmi da = new DemandeAmi(p, newAmi);
 					NotificationMapper.getInstance().insert(da);
 					JOptionPane.showMessageDialog(null, "Demande d'ami envoyé", "Message d'information",

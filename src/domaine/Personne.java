@@ -172,7 +172,7 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public List<Personne> getAmis() {
+	public List<Personne> getAmis() throws RemoteException {
 		return ((VirtualProxyListAmi) amis).getAmis();
 	}
 

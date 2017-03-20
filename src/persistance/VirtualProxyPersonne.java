@@ -1,5 +1,6 @@
 package persistance;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import domaine.Personne;
@@ -21,7 +22,7 @@ public class VirtualProxyPersonne extends Personne{
 	 * récupère l'id de la personne qu'on récupéra en BDD plus tard
 	 * @param id_personne
 	 */
-	public VirtualProxyPersonne(int id_personne) {
+	public VirtualProxyPersonne(int id_personne) throws RemoteException{
 		this.id_personne = id_personne;
 	}
 	
@@ -30,8 +31,9 @@ public class VirtualProxyPersonne extends Personne{
 	 * On vérifie si on a déja récupéré la personne en base
 	 * Sinon on la récupère
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public void verifieInitilisation() throws SQLException {
+	public void verifieInitilisation() throws SQLException, RemoteException {
 		// on vérifie id != 0 car c'est ce qui est retourné par la BDD si id est null
 		if (personne == null && id_personne != 0) {
 			personne = new VirtualProxyPersonne(id_personne);
@@ -42,8 +44,9 @@ public class VirtualProxyPersonne extends Personne{
 	/**
 	 * C'est ici qu'on récupère la personne en BDD
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public void initialisation() throws SQLException {
+	public void initialisation() throws SQLException, RemoteException {
 		personne = PersonneMapper.getInstance().findById(id_personne);
 	}
 	
@@ -52,8 +55,9 @@ public class VirtualProxyPersonne extends Personne{
 	 * On va chercher la personne en BDD si ça n'est pas déja fait et on le retourne 
 	 * @return une personne 
 	 * @throws SQLException
+	 * @throws RemoteException 
 	 */
-	public Personne getPersonne() throws SQLException {
+	public Personne getPersonne() throws SQLException, RemoteException {
 		verifieInitilisation();
 		return personne;
 	}
@@ -66,6 +70,9 @@ public class VirtualProxyPersonne extends Personne{
 		try {
 			verifieInitilisation();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return personne.getId();
@@ -81,6 +88,9 @@ public class VirtualProxyPersonne extends Personne{
 			verifieInitilisation();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return personne.getLogin();
 	}
@@ -92,7 +102,12 @@ public class VirtualProxyPersonne extends Personne{
 	 */
 	@Override
 	public boolean isAdmin() throws SQLException {
-		verifieInitilisation();
+		try {
+			verifieInitilisation();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(id_personne == 1) return true;
 		return false;
 	}
@@ -105,7 +120,12 @@ public class VirtualProxyPersonne extends Personne{
 	 * @throws SQLException
 	 */
 	public boolean isModo(Salon s) throws SQLException {
-		verifieInitilisation();
+		try {
+			verifieInitilisation();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(s.getModo() == this) return true;
 		return false;
 	}
@@ -115,7 +135,17 @@ public class VirtualProxyPersonne extends Personne{
 			verifieInitilisation();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return personne+"";
+	}
+
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }

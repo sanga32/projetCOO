@@ -39,7 +39,7 @@ public class West extends JPanel {
 	
 	InterfaceChat interfaceChat;
 	
-	public West(InfoInterface info, Personne p, InterfaceChat interfaceChat) {
+	public West(InfoInterface info, Personne p, InterfaceChat interfaceChat) throws RemoteException {
 		this.info = info;
 		BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS); // top to bottom
 		this.setLayout(boxLayout);
@@ -62,7 +62,7 @@ public class West extends JPanel {
 		return swap;
 	}
 
-	public void getJListAmis(){
+	public void getJListAmis() throws RemoteException{
 		this.removeAll();
 		JList<Personne> jl = new JList<Personne>();
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();

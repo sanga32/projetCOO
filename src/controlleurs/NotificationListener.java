@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -60,7 +61,13 @@ public class NotificationListener implements ActionListener{
 		JList<Notification> jl = new JList<Notification>();
 		DefaultListModel<Notification> lmodel = new DefaultListModel<Notification>();
 
-		List<Notification> notifs = NotificationMapper.getInstance().findByPersonne(p.getId());
+		List<Notification> notifs = null;
+		try {
+			notifs = NotificationMapper.getInstance().findByPersonne(p.getId());
+		} catch (RemoteException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		for(Notification n : notifs){
 			lmodel.addElement(n);
 		}
@@ -91,7 +98,12 @@ public class NotificationListener implements ActionListener{
 							AmiMapper.getInstance().insert(expediteur, destinataire);
 							lmodel.remove(index);
 							p.addAmi(destinataire);
-							interfaceChat.getWest().getJListAmis();
+							try {
+								interfaceChat.getWest().getJListAmis();
+							} catch (RemoteException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							interfaceChat.getWest().updateUI();
 							reponse.setVisible(false);
 							
@@ -131,7 +143,12 @@ public class NotificationListener implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jf.setVisible(false);
-				interfaceChat.getWest().getJListAmis();
+				try {
+					interfaceChat.getWest().getJListAmis();
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				interfaceChat.getWest().updateUI();
 			}
 		});

@@ -53,7 +53,7 @@ public class East extends JPanel {
 		this.setBackground(Color.white);
 	}
 
-	public void getPersonnePrive(String personne) {
+	public void getPersonnePrive(String personne) throws RemoteException {
 		this.removeAll();
 		JList<Personne> jl = new JList<Personne>();
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
@@ -71,7 +71,7 @@ public class East extends JPanel {
 		this.s = s;
 	}
 
-	public void getJListPersonneSalons(String salon) {
+	public void getJListPersonneSalons(String salon) throws RemoteException {
 		this.removeAll();
 		JList<Personne> jl = new JList<Personne>();
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
@@ -84,7 +84,13 @@ public class East extends JPanel {
 			public void valueChanged(ListSelectionEvent e) {
 				// TODO Auto-generated method stub
 				SalonMapper sm = SalonMapper.getInstance();
-				Salon s = sm.findByNom(salon);
+				Salon s = null;
+				try {
+					s = sm.findByNom(salon);
+				} catch (RemoteException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				JList lsm = (JList) e.getSource();
 				int index = lsm.getSelectionModel().getMinSelectionIndex();
 				lsm.setCellRenderer(new MySalonCellRenderer());
@@ -113,7 +119,12 @@ public class East extends JPanel {
 									e1.printStackTrace();
 								}
 								interfaceChat.getWest().updateUI();
-								interfaceChat.getEast().getJListPersonneSalons(salon);
+								try {
+									interfaceChat.getEast().getJListPersonneSalons(salon);
+								} catch (RemoteException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
 								interfaceChat.getEast().updateUI();
 								lsm.setCellRenderer(new MySalonCellRenderer());
 
@@ -127,6 +138,9 @@ public class East extends JPanel {
 
 					}
 				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

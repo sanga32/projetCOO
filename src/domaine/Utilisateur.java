@@ -1,5 +1,6 @@
 package domaine;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -11,15 +12,15 @@ import java.util.List;
 public class Utilisateur extends Personne{
 
 	
-	public Utilisateur(int id, String login, String mdp) {
+	public Utilisateur(int id, String login, String mdp) throws RemoteException {
 		super(id, login, mdp);
 	}
 	
-	public Utilisateur(int id, String login, String mdp, String nom, String prenom) {
+	public Utilisateur(int id, String login, String mdp, String nom, String prenom) throws RemoteException {
 		super(id, login, mdp, nom, prenom);
 	}
 	
-	public Utilisateur(int id, String login, String mdp, String nom, String prenom, List<Interet> interets, List<SousInteret> sousInterets) {
+	public Utilisateur(int id, String login, String mdp, String nom, String prenom, List<Interet> interets, List<SousInteret> sousInterets) throws RemoteException {
 		super(id, login, mdp, nom, prenom,interets,sousInterets);
 	}
 
@@ -34,4 +35,11 @@ public class Utilisateur extends Personne{
 		if(s.getModo() == this) return true;
 		return false;
 	}
+
+	@Override
+	public void update() {
+		
+	}
+	
+	
 }

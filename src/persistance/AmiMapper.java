@@ -1,5 +1,6 @@
 package persistance;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -158,8 +159,9 @@ public class AmiMapper {
 	 * @param id_personne
 	 * 					id de la personne
 	 * @return la liste d'ami de la personne
+	 * @throws RemoteException 
 	 */
-	public List<Personne> getAmis(int id_personne) {
+	public List<Personne> getAmis(int id_personne) throws RemoteException {
 		try {
 			List<Personne> amis = new ArrayList<Personne>();
 			String req = "SELECT idPersonne1 FROM Projet_Ami WHERE idPersonne2=?";

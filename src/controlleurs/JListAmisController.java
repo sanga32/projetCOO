@@ -2,6 +2,7 @@ package controlleurs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -32,14 +33,30 @@ public class JListAmisController implements ListSelectionListener {
 		if("Amis".equals(interfaceChat.getWest().getSwap().getText())){
 
 			String personne = ""+((Personne) lsm.getModel().getElementAt(Index)).getLogin();
-			interfaceChat.getEast().getPersonnePrive(personne);
+			try {
+				interfaceChat.getEast().getPersonnePrive(personne);
+			} catch (RemoteException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			Personne utilisateur = interfaceChat.getWest().getPersonne();
 			Personne destinataire = (((Personne) lsm.getModel().getElementAt(Index)));
-			List<Message> messages = MessageMapper.getInstance().findListMessagePrive(utilisateur.getId(),destinataire.getId());
+			List<Message> messages = null;
+			try {
+				messages = MessageMapper.getInstance().findListMessagePrive(utilisateur.getId(),destinataire.getId());
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			interfaceChat.getCenter().getDiscussion(messages);
 			JButton supprAmi = new JButton("Supprimer "+destinataire.getLogin());
 			interfaceChat.getWest().removeAll();
-			interfaceChat.getWest().getJListAmis();
+			try {
+				interfaceChat.getWest().getJListAmis();
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			interfaceChat.getWest().add(supprAmi);
 
 			supprAmi.addActionListener(new ActionListener() {
@@ -50,7 +67,12 @@ public class JListAmisController implements ListSelectionListener {
 					AmiMapper am = new AmiMapper().getInstance();
 					am.delete(utilisateur, destinataire);
 					utilisateur.deleteAmi(destinataire);
-					interfaceChat.getWest().getJListAmis();
+					try {
+						interfaceChat.getWest().getJListAmis();
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					interfaceChat.getWest().updateUI();
 					interfaceChat.getEast().updateUI();
 					interfaceChat.getCenter().removeAll();

@@ -1,5 +1,6 @@
 package persistance;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -130,8 +131,9 @@ public class MessageMapper {
 	 * @param id_personne2
 	 * 			id de la personne avec qui l'utilisateur veux parler
 	 * @return la liste des messages
+	 * @throws RemoteException 
 	 */
-	public List<Message> findListMessagePrive(int id_personne1, int id_personne2) {
+	public List<Message> findListMessagePrive(int id_personne1, int id_personne2) throws RemoteException {
 		List<Message> messages = new ArrayList<Message>();
 		try {
 			String req = "SELECT idMessage, message, expediteur, destinataire, dateHeure, "
@@ -188,8 +190,9 @@ public class MessageMapper {
 	 * @param utilisateur
 	 * 		 	l'utilisateur courant
 	 * @return la liste des messages du salon
+	 * @throws RemoteException 
 	 */
-	public List<Message> findListMessageSalon(int id_salon, Personne utilisateur) {
+	public List<Message> findListMessageSalon(int id_salon, Personne utilisateur) throws RemoteException {
 		List<Message> messages = new ArrayList<Message>();
 		try {
 			String req = "SELECT idMessage, idSalon, idPersonne, message, isReception, "

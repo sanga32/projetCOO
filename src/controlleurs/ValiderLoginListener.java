@@ -76,9 +76,19 @@ public class ValiderLoginListener implements ActionListener{
 			try {
 				if(id > 0){
 					if(id == 1){
-						p = new Administrateur(id,login,mdp);
+						try {
+							p = new Administrateur(id,login,mdp);
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}else{
-						p = new Utilisateur(id,login,mdp);
+						try {
+							p = new Utilisateur(id,login,mdp);
+						} catch (RemoteException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					//p = PersonneMapper.getInstance().findByLogMdp(login, mdp);
 				}
@@ -90,6 +100,9 @@ public class ValiderLoginListener implements ActionListener{
 			} catch (NullPointerException | SQLException e) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(null, "Aucune personne avec ces identifiants", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

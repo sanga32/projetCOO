@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
@@ -111,7 +112,12 @@ public class SupprPersonneSalonListener implements ActionListener{
 				
 				JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Validation",  JOptionPane.INFORMATION_MESSAGE);
 				jf.setVisible(false);
-				east2.getJListPersonneSalons(salon.getNom());
+				try {
+					east2.getJListPersonneSalons(salon.getNom());
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				east2.updateUI();
 			}
 		});

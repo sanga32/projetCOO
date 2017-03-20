@@ -1,5 +1,6 @@
 package persistance;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -160,8 +161,9 @@ public class SalonMapper {
 	 * @param id_salon
 	 * 			id du salon à récupérer
 	 * @return
+	 * @throws RemoteException 
 	 */
-	public Salon findById(int id_salon) {
+	public Salon findById(int id_salon) throws RemoteException {
 		try {
 			String req = "SELECT idSalon, nom, modo  FROM Projet_Salon WHERE idSalon=?";
 			PreparedStatement ps = conn.prepareStatement(req);
@@ -185,8 +187,9 @@ public class SalonMapper {
 	 * @param nom
 	 * 		nom du salon à récupérer
 	 * @return un salon
+	 * @throws RemoteException 
 	 */
-	public Salon findByNom(String nom) {
+	public Salon findByNom(String nom) throws RemoteException {
 		try {
 			String req = "SELECT idSalon, nom, modo  FROM Projet_Salon WHERE nom=?";
 			PreparedStatement ps = conn.prepareStatement(req);
@@ -210,8 +213,9 @@ public class SalonMapper {
 	 * @param id_salon
 	 * 			id du salon 
 	 * @return la liste de personne dans le salon passé en paramètre
+	 * @throws RemoteException 
 	 */
-	public List<Personne> getPersonnes(int id_salon) {
+	public List<Personne> getPersonnes(int id_salon) throws RemoteException {
 		List<Personne> personnes = new ArrayList<Personne>();
 		try {
 			String req = "SELECT idPersonne  FROM Projet_OccupeSalon WHERE idSalon=?";
@@ -234,8 +238,9 @@ public class SalonMapper {
 	 * Récupère les salons d'une personne et initialise ses salons
 	 * @param p
 	 * 		Personne à qui on récupère les salons
+	 * @throws RemoteException 
 	 */
-	public List<Salon> getSalons(PersonneInterface p) {
+	public List<Salon> getSalons(PersonneInterface p) throws RemoteException {
 		List<Salon> salons = new ArrayList<Salon>();
 		try {
 			String req = "SELECT s.idSalon, nom, modo  FROM "

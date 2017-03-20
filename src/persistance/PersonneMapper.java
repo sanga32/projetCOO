@@ -1,5 +1,6 @@
 package persistance;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -148,8 +149,9 @@ public class PersonneMapper {
 	 * @param id
 	 *            id de la personne à trouver en BDD
 	 * @return une personne
+	 * @throws RemoteException 
 	 */
-	public Personne findById(int id) {
+	public Personne findById(int id) throws RemoteException {
 		try {
 			// on va chercher la personne
 			String req = "SELECT idPersonne, login, mdp, nom, prenom, admin  FROM Projet_Personne WHERE idPersonne=?";
@@ -183,8 +185,9 @@ public class PersonneMapper {
 	 * @param login
 	 *            login de la personne à trouver en BDD
 	 * @return une personne
+	 * @throws RemoteException 
 	 */
-	public Personne findByLogin(String login) {
+	public Personne findByLogin(String login) throws RemoteException {
 		try {
 			// on va chercher la personne
 			String req = "SELECT idPersonne, login, mdp, nom, prenom, admin  FROM Projet_Personne WHERE login=?";
@@ -217,8 +220,9 @@ public class PersonneMapper {
 	 * @param id
 	 * 				id de la personne
 	 * @return liste de personne qui ne sont pas ami avec l'utilisateur
+	 * @throws RemoteException 
 	 */
-	public List<Personne> findNewPersonne(int id){
+	public List<Personne> findNewPersonne(int id) throws RemoteException{
 		List<Personne> personnes = new ArrayList<Personne>();
 		try {
 			String req = "SELECT idPersonne, login, mdp, prenom, nom, admin from Projet_Personne  WHERE idPersonne !=? and "
@@ -261,8 +265,9 @@ public class PersonneMapper {
 	 * @param mdp
 	 * 				mot de passe de la personne
 	 * @return Une personne
+	 * @throws RemoteException 
 	 */
-	public Personne findByLogMdp(String login, String mdp) {
+	public Personne findByLogMdp(String login, String mdp) throws RemoteException {
 		// TODO Auto-generated method stub
 		try {
 			// on va chercher la personne

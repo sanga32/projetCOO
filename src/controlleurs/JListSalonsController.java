@@ -2,6 +2,7 @@ package controlleurs;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
@@ -36,10 +37,20 @@ public class JListSalonsController implements ListSelectionListener {
 
 		if ("Salons".equals(interfaceChat.getWest().getSwap().getText())) {
 			String salon = lsm.getModel().getElementAt(Index).toString();
-			interfaceChat.getEast().getJListPersonneSalons(salon);
+			try {
+				interfaceChat.getEast().getJListPersonneSalons(salon);
+			} catch (RemoteException e3) {
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
+			}
 			MessageMapper mp = MessageMapper.getInstance();
 			SalonMapper sm = SalonMapper.getInstance();
-			interfaceChat.getCenter().getDiscussion(mp.findListMessageSalon(sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId(), p));
+			try {
+				interfaceChat.getCenter().getDiscussion(mp.findListMessageSalon(sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId(), p));
+			} catch (RemoteException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			try {
 				if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId()) || p.isAdmin()){
 					try {
@@ -63,11 +74,21 @@ public class JListSalonsController implements ListSelectionListener {
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
-							if( sm.findByNom(salon).isEmpty()){
-								sm.delete(sm.findByNom(salon));
-							} else {
-								JOptionPane.showMessageDialog(null, "Ce salon n'est pas vide !", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
+							try {
+								if( sm.findByNom(salon).isEmpty()){
+									try {
+										sm.delete(sm.findByNom(salon));
+									} catch (RemoteException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+								} else {
+									JOptionPane.showMessageDialog(null, "Ce salon n'est pas vide !", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
 
+								}
+							} catch (HeadlessException | RemoteException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
 							}
 							try {
 								interfaceChat.getWest().getJListSalons();
@@ -94,7 +115,12 @@ public class JListSalonsController implements ListSelectionListener {
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
-							sm.leaveSalon(p, sm.findByNom(salon));
+							try {
+								sm.leaveSalon(p, sm.findByNom(salon));
+							} catch (RemoteException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
 							try {
 								interfaceChat.getWest().getJListSalons();
 							} catch (RemoteException e1) {
@@ -110,6 +136,9 @@ public class JListSalonsController implements ListSelectionListener {
 				}
 				interfaceChat.getWest().updateUI();
 			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (RemoteException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
