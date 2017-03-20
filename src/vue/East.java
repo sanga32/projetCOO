@@ -28,7 +28,9 @@ import persistance.SalonMapper;
 import sun.security.x509.IssuerAlternativeNameExtension;
 
 /**
- * panel représentant soit la liste des personnes d'un salon selectionné, soit l'ami selectionné
+ * panel représentant soit la liste des personnes d'un salon selectionné, soit
+ * l'ami selectionné
+ * 
  * @author Kevin delporte, alexandre godon, teddy lequette
  *
  */
@@ -40,7 +42,7 @@ public class East extends JPanel {
 	Personne destinataire;
 	InterfaceChat interfaceChat;
 	InfoInterface info;
-	
+
 	public East(InfoInterface info, Personne p2, InterfaceChat interfaceChat) {
 		// TODO Auto-generated constructor stub
 		this.info = info;
@@ -57,7 +59,7 @@ public class East extends JPanel {
 		this.removeAll();
 		JList<Personne> jl = new JList<Personne>();
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
-		destinataire  = PersonneMapper.getInstance().findByLogin(personne);
+		destinataire = PersonneMapper.getInstance().findByLogin(personne);
 		lmodel.addElement(destinataire);
 		jl.setModel(lmodel);
 		this.add(jl);
@@ -79,28 +81,23 @@ public class East extends JPanel {
 		s = sm.findByNom(salon);
 
 		jl.addListSelectionListener(new ListSelectionListener() {
-			
+
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				// TODO Auto-generated method stub
 				SalonMapper sm = SalonMapper.getInstance();
-				Salon s = null;
 				try {
-					s = sm.findByNom(salon);
-				} catch (RemoteException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-				JList lsm = (JList) e.getSource();
-				int index = lsm.getSelectionModel().getMinSelectionIndex();
-				lsm.setCellRenderer(new MySalonCellRenderer());
-				p2 = (Personne) lsm.getModel().getElementAt(index);
-				try {
-					if( sm.isModo(p, s.getId()) && !p.getLogin().equals(((Personne) lsm.getModel().getElementAt(index)).getLogin())){
+					Salon s = sm.findByNom(salon);
+
+					JList lsm = (JList) e.getSource();
+					int index = lsm.getSelectionModel().getMinSelectionIndex();
+					lsm.setCellRenderer(new MySalonCellRenderer());
+					p2 = (Personne) lsm.getModel().getElementAt(index);
+					if (sm.isModo(p, s.getId())
+							&& !p.getLogin().equals(((Personne) lsm.getModel().getElementAt(index)).getLogin())) {
 						JButton donnerDroits = new JButton("Donner droits de modération");
 						donnerDroits.addActionListener(new ActionListener() {
 
-							
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								// TODO Auto-generated method stub
@@ -128,13 +125,11 @@ public class East extends JPanel {
 								interfaceChat.getEast().updateUI();
 								lsm.setCellRenderer(new MySalonCellRenderer());
 
-
 							}
 						});
 						interfaceChat.getEast().getJListPersonneSalons(salon);
 
 						interfaceChat.getEast().add(donnerDroits);
-						
 
 					}
 				} catch (SQLException e1) {
@@ -148,17 +143,16 @@ public class East extends JPanel {
 			}
 		});
 
-		
-		
-		for (int i =0; i<s.getPersonnes().size();i++) {
+		for (int i = 0; i < s.getPersonnes().size(); i++) {
 			lmodel.addElement(s.getPersonnes().get(i));
 		}
 
 		jl.setModel(lmodel);
-		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		listScrollPane.setPreferredSize(new Dimension(115, 150));
 		this.add(listScrollPane);
-		
+
 	}
 
 	public Personne getDestinataire() {
@@ -169,6 +163,4 @@ public class East extends JPanel {
 		this.destinataire = destinataire;
 	}
 
-	
-	
 }

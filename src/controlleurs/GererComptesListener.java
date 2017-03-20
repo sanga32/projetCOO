@@ -28,6 +28,7 @@ public class GererComptesListener implements ActionListener {
 		panel = new JPanel();
 		jf = new JFrame("Gestion des comptes");
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		panel.removeAll();
@@ -53,79 +54,81 @@ public class GererComptesListener implements ActionListener {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						if (log.getText().equals("")){
-							JOptionPane.showMessageDialog(null, "Veuillez entrer un login", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
+						if (log.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "Veuillez entrer un login", "Message d'erreur",
+									JOptionPane.ERROR_MESSAGE);
 						} else {
 							panel.removeAll();
 							PersonneMapper pm = PersonneMapper.getInstance();
 
-
-							Personne pc = null;
 							try {
-								pc = pm.findByLogin(log.getText());
+								Personne pc = pm.findByLogin(log.getText());
+								if (pc != null) {
+									JButton valider = new JButton("Valider");
+
+									JPanel center = new JPanel();
+									BoxLayout boxLayout = new BoxLayout(center, BoxLayout.Y_AXIS); // top
+																									// to
+																									// bottom
+									center.setLayout(boxLayout);
+
+									JLabel login = new JLabel("Nouveau login");
+									JTextField tlogin = new JTextField(pc.getLogin());
+									login.setPreferredSize(new Dimension(150, 50));
+
+									JLabel mdp = new JLabel("Nouveau mot de passe");
+									JTextField tmdp = new JTextField(pc.getMdp());
+									mdp.setPreferredSize(new Dimension(150, 50));
+
+									JLabel nom = new JLabel("Nouveau nom");
+									JTextField tnom = new JTextField(pc.getNom());
+									nom.setPreferredSize(new Dimension(150, 50));
+
+									JLabel prenom = new JLabel("Nouveau prenom");
+									JTextField tprenom = new JTextField(pc.getPrenom());
+									prenom.setPreferredSize(new Dimension(150, 50));
+
+									center.add(login);
+									center.add(tlogin);
+									center.add(mdp);
+									center.add(tmdp);
+									center.add(nom);
+									center.add(tnom);
+									center.add(prenom);
+									center.add(tprenom);
+
+									valider.addActionListener(new ActionListener() {
+
+										@Override
+										public void actionPerformed(ActionEvent e) {
+											// TODO Auto-generated method stub
+											jf.setVisible(false);
+											if (!tlogin.getText().equals(""))
+												pc.setLogin(tlogin.getText());
+											if (!tmdp.getText().equals(""))
+												pc.setMdp(tmdp.getText());
+											if (!tnom.getText().equals(""))
+												pc.setNom(tnom.getText());
+											if (!tprenom.getText().equals(""))
+												pc.setPrenom(tprenom.getText());
+											PersonneMapper.getInstance().update(pc);
+											JOptionPane.showMessageDialog(null, "Modifications enregistrées",
+													"Information", JOptionPane.INFORMATION_MESSAGE);
+
+											jf.setVisible(false);
+										}
+									});
+									center.add(valider);
+									panel.add(center, BorderLayout.CENTER);
+									panel.updateUI();
+								} else {
+									JOptionPane.showMessageDialog(null, "Ce login n'existe pas", "Message d'erreur",
+											JOptionPane.ERROR_MESSAGE);
+									jf.setVisible(false);
+								}
 							} catch (RemoteException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
-							}
-							if ( pc != null ) {
-								JButton valider = new JButton("Valider");
-
-
-								JPanel center = new JPanel();
-								BoxLayout boxLayout = new BoxLayout(center, BoxLayout.Y_AXIS); // top to bottom
-								center.setLayout(boxLayout);
-
-								JLabel login = new JLabel("Nouveau login");
-								JTextField tlogin = new JTextField(pc.getLogin());
-								login.setPreferredSize(new Dimension(150, 50));
-
-								JLabel mdp = new JLabel("Nouveau mot de passe");
-								JTextField tmdp = new JTextField(pc.getMdp());
-								mdp.setPreferredSize(new Dimension(150, 50));
-
-								JLabel nom = new JLabel("Nouveau nom");
-								JTextField tnom = new JTextField(pc.getNom());
-								nom.setPreferredSize(new Dimension(150, 50));
-
-								JLabel prenom = new JLabel("Nouveau prenom");
-								JTextField tprenom = new JTextField(pc.getPrenom());
-								prenom.setPreferredSize(new Dimension(150, 50));
-
-								center.add(login);
-								center.add(tlogin);
-								center.add(mdp);
-								center.add(tmdp);
-								center.add(nom);
-								center.add(tnom);
-								center.add(prenom);
-								center.add(tprenom);
-
-								valider.addActionListener(new ActionListener() {
-
-									@Override
-									public void actionPerformed(ActionEvent e) {
-										// TODO Auto-generated method stub
-										jf.setVisible(false);
-										if (!tlogin.getText().equals(""))
-											pc.setLogin(tlogin.getText());
-										if (!tmdp.getText().equals(""))
-											pc.setMdp(tmdp.getText());
-										if (!tnom.getText().equals(""))
-											pc.setNom(tnom.getText());
-										if (!tprenom.getText().equals(""))
-											pc.setPrenom(tprenom.getText());
-										PersonneMapper.getInstance().update(pc);
-										JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Information",  JOptionPane.INFORMATION_MESSAGE);
-
-										jf.setVisible(false);
-									}
-								});
-								center.add(valider);
-								panel.add(center, BorderLayout.CENTER);
-								panel.updateUI();
-							}else {
-								JOptionPane.showMessageDialog(null, "Ce login n'existe pas", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
-								jf.setVisible(false);
 							}
 						}
 					}
@@ -155,72 +158,75 @@ public class GererComptesListener implements ActionListener {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						if (log.getText().equals("")){
-							JOptionPane.showMessageDialog(null, "Veuillez entrer un login", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
+						if (log.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "Veuillez entrer un login", "Message d'erreur",
+									JOptionPane.ERROR_MESSAGE);
 						} else {
 							panel.removeAll();
 							PersonneMapper pm = PersonneMapper.getInstance();
 
-
-							Personne pc = null;
 							try {
-								pc = pm.findByLogin(log.getText());
+								Personne pc = pm.findByLogin(log.getText());
+
+								if (pc != null) {
+									JButton valider = new JButton("Valider");
+
+									JPanel center = new JPanel();
+									BoxLayout boxLayout = new BoxLayout(center, BoxLayout.Y_AXIS); // top
+																									// to
+																									// bottom
+									center.setLayout(boxLayout);
+
+									JLabel login = new JLabel("Login");
+									JTextField tlogin = new JTextField(pc.getLogin());
+									login.setPreferredSize(new Dimension(150, 50));
+
+									JLabel mdp = new JLabel("Mot de passe");
+									JTextField tmdp = new JTextField(pc.getMdp());
+									mdp.setPreferredSize(new Dimension(150, 50));
+
+									JLabel nom = new JLabel("Nom");
+									JTextField tnom = new JTextField(pc.getNom());
+									nom.setPreferredSize(new Dimension(150, 50));
+
+									JLabel prenom = new JLabel("Prenom");
+									JTextField tprenom = new JTextField(pc.getPrenom());
+									prenom.setPreferredSize(new Dimension(150, 50));
+
+									center.add(login);
+									center.add(tlogin);
+									center.add(mdp);
+									center.add(tmdp);
+									center.add(nom);
+									center.add(tnom);
+									center.add(prenom);
+									center.add(tprenom);
+
+									valider.addActionListener(new ActionListener() {
+
+										@Override
+										public void actionPerformed(ActionEvent e) {
+											// TODO Auto-generated method stub
+											jf.setVisible(false);
+
+											PersonneMapper.getInstance().delete(pc);
+											JOptionPane.showMessageDialog(null, "Modifications enregistrées",
+													"Information", JOptionPane.INFORMATION_MESSAGE);
+
+											jf.setVisible(false);
+										}
+									});
+									center.add(valider);
+									panel.add(center, BorderLayout.CENTER);
+									panel.updateUI();
+								} else {
+									JOptionPane.showMessageDialog(null, "Ce login n'existe pas", "Message d'erreur",
+											JOptionPane.ERROR_MESSAGE);
+									jf.setVisible(false);
+								}
 							} catch (RemoteException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
-							}
-							if ( pc != null ) {
-								JButton valider = new JButton("Valider");
-
-
-								JPanel center = new JPanel();
-								BoxLayout boxLayout = new BoxLayout(center, BoxLayout.Y_AXIS); // top to bottom
-								center.setLayout(boxLayout);
-
-								JLabel login = new JLabel("Login");
-								JTextField tlogin = new JTextField(pc.getLogin());
-								login.setPreferredSize(new Dimension(150, 50));
-
-								JLabel mdp = new JLabel("Mot de passe");
-								JTextField tmdp = new JTextField(pc.getMdp());
-								mdp.setPreferredSize(new Dimension(150, 50));
-
-								JLabel nom = new JLabel("Nom");
-								JTextField tnom = new JTextField(pc.getNom());
-								nom.setPreferredSize(new Dimension(150, 50));
-
-								JLabel prenom = new JLabel("Prenom");
-								JTextField tprenom = new JTextField(pc.getPrenom());
-								prenom.setPreferredSize(new Dimension(150, 50));
-
-								center.add(login);
-								center.add(tlogin);
-								center.add(mdp);
-								center.add(tmdp);
-								center.add(nom);
-								center.add(tnom);
-								center.add(prenom);
-								center.add(tprenom);
-
-								valider.addActionListener(new ActionListener() {
-
-									@Override
-									public void actionPerformed(ActionEvent e) {
-										// TODO Auto-generated method stub
-										jf.setVisible(false);
-										
-										PersonneMapper.getInstance().delete(pc);
-										JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Information",  JOptionPane.INFORMATION_MESSAGE);
-
-										jf.setVisible(false);
-									}
-								});
-								center.add(valider);
-								panel.add(center, BorderLayout.CENTER);
-								panel.updateUI();
-							}else {
-								JOptionPane.showMessageDialog(null, "Ce login n'existe pas", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
-								jf.setVisible(false);
 							}
 						}
 					}
@@ -243,9 +249,10 @@ public class GererComptesListener implements ActionListener {
 
 				JButton valider = new JButton("Valider");
 
-
 				JPanel center = new JPanel();
-				BoxLayout boxLayout = new BoxLayout(center, BoxLayout.Y_AXIS); // top to bottom
+				BoxLayout boxLayout = new BoxLayout(center, BoxLayout.Y_AXIS); // top
+																				// to
+																				// bottom
 				center.setLayout(boxLayout);
 
 				JLabel login = new JLabel("Login");
@@ -280,19 +287,23 @@ public class GererComptesListener implements ActionListener {
 						// TODO Auto-generated method stub
 						jf.setVisible(false);
 						Personne pc = null;
-						if (!tlogin.getText().equals("") &&!tmdp.getText().equals("")&&!tnom.getText().equals("")&&!tprenom.getText().equals("")){
+						if (!tlogin.getText().equals("") && !tmdp.getText().equals("") && !tnom.getText().equals("")
+								&& !tprenom.getText().equals("")) {
 							try {
-								pc = new Utilisateur(3000, tlogin.getText(), tmdp.getText(), tnom.getText(), tprenom.getText());
+								pc = new Utilisateur(3000, tlogin.getText(), tmdp.getText(), tnom.getText(),
+										tprenom.getText());
 							} catch (RemoteException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
 							PersonneMapper.getInstance().insert(pc);
-							JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Information",  JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Information",
+									JOptionPane.INFORMATION_MESSAGE);
 
 							jf.setVisible(false);
 						} else {
-							JOptionPane.showMessageDialog(null, "Un des champs est vide", "Erreur",  JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Un des champs est vide", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
 
 						}
 
@@ -314,8 +325,6 @@ public class GererComptesListener implements ActionListener {
 		jf.setResizable(false);
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
-
-
 
 	}
 

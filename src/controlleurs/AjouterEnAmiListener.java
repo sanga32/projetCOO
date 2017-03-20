@@ -68,162 +68,163 @@ public class AjouterEnAmiListener implements ActionListener {
 		JList<Personne> jl = new JList<Personne>();
 		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
 
-		List<Personne> personnes = null;
 		try {
-			personnes = PersonneMapper.getInstance().findNewPersonne(p.getId());
+			List<Personne> personnes = PersonneMapper.getInstance().findNewPersonne(p.getId());
+
+			for (Personne p : personnes) {
+				lmodel.addElement(p);
+			}
+
+			jl.setModel(lmodel);
+
+			jl.addListSelectionListener(new ListSelectionListener() {
+
+				@Override
+				public void valueChanged(ListSelectionEvent e) {
+					// TODO Auto-generated method stub
+					JList lsm = (JList) e.getSource();
+					int index = lsm.getSelectionModel().getMinSelectionIndex();
+					amiLogin = ((Personne) lsm.getModel().getElementAt(index)).getLogin();
+
+				}
+			});
+
+			valider.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (amiLogin != "") {
+
+						Personne newAmi = null;
+						try {
+							newAmi = PersonneMapper.getInstance().findByLogin(amiLogin);
+						} catch (RemoteException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						DemandeAmi da = new DemandeAmi(p, newAmi);
+						NotificationMapper.getInstance().insert(da);
+						JOptionPane.showMessageDialog(null, "Demande d'ami envoyé", "Message d'information",
+								JOptionPane.INFORMATION_MESSAGE);
+
+						jf.setVisible(false);
+					}
+				}
+			});
+
+			actualiser.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					lmodel.removeAllElements();
+					for (Personne p : personnes) {
+						lmodel.addElement(p);
+					}
+				}
+			});
+
+			rechercheParNom.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JFrame recherche = new JFrame("Recherche par Nom/Prenom");
+					JPanel pan = new JPanel();
+					JTextArea n = new JTextArea("Nom :");
+					JTextField nom = new JTextField();
+					JTextArea p = new JTextArea("Prenom :");
+					JTextField prenom = new JTextField();
+					JButton validerRecherche = new JButton("Rechercher");
+					nom.setPreferredSize(new Dimension(100, 30));
+					prenom.setPreferredSize(new Dimension(100, 30));
+					validerRecherche.addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							for (Personne p : personnes) {
+								if (!nom.getText().equals(p.getNom()) || !prenom.getText().equals(p.getPrenom()))
+									lmodel.removeElement(p);
+							}
+							recherche.setVisible(false);
+						}
+					});
+					pan.add(n);
+					pan.add(nom);
+					pan.add(p);
+					pan.add(prenom);
+					pan.add(validerRecherche);
+					recherche.getContentPane().add(pan);
+					recherche.setSize(350, 350);
+					recherche.setResizable(false);
+					recherche.setLocationRelativeTo(null);
+					recherche.setVisible(true);
+				}
+			});
+
+			rechercheParInteret.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JFrame recherche = new JFrame("Recherche par Interet");
+					JPanel pan = new JPanel();
+					JButton validerRecherche = new JButton("Rechercher");
+					JComboBox cb = new JComboBox();
+					cb.setPreferredSize(new Dimension(300, 30));
+
+					List<Interet> listeInteret = new ArrayList<Interet>();
+					listeInteret = InteretPersonneMapper.getInstance().findInteret();
+
+					DefaultComboBoxModel<Interet> cbm = new DefaultComboBoxModel<Interet>();
+					for (Interet i : listeInteret) {
+						cbm.addElement(i);
+					}
+					cb.setModel(cbm);
+					validerRecherche.addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							Interet interetRecherche;
+							if (cb.getSelectedItem() instanceof SousInteret) {
+								interetRecherche = (SousInteret) cb.getSelectedItem();
+								for (Personne p : personnes) {
+									boolean inSousInteret = false;
+									for (SousInteret i : p.getSousInterets()) {
+										if (i.getIdSousInteret() == ((SousInteret) interetRecherche)
+												.getIdSousInteret()) {
+											inSousInteret = true;
+										}
+									}
+									if (!inSousInteret)
+										lmodel.removeElement(p);
+								}
+
+							} else {
+								interetRecherche = (Interet) cb.getSelectedItem();
+								for (Personne p : personnes) {
+									boolean inSousInteret = false;
+									for (Interet i : p.getInterets()) {
+										if (i.getIdInteret() != interetRecherche.getIdInteret())
+											inSousInteret = true;
+									}
+									if (!inSousInteret)
+										lmodel.removeElement(p);
+								}
+							}
+							recherche.setVisible(false);
+						}
+					});
+					pan.add(cb);
+					pan.add(validerRecherche);
+					recherche.getContentPane().add(pan);
+					recherche.setSize(350, 150);
+					recherche.setResizable(false);
+					recherche.setLocationRelativeTo(null);
+					recherche.setVisible(true);
+				}
+			});
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		for (Personne p : personnes) {
-			lmodel.addElement(p);
-		}
-
-		jl.setModel(lmodel);
-
-		jl.addListSelectionListener(new ListSelectionListener() {
-
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				// TODO Auto-generated method stub
-				JList lsm = (JList) e.getSource();
-				int index = lsm.getSelectionModel().getMinSelectionIndex();
-				amiLogin = ((Personne) lsm.getModel().getElementAt(index)).getLogin();
-
-			}
-		});
-
-		valider.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (amiLogin != "") {
-
-					Personne newAmi = null;
-					try {
-						newAmi = PersonneMapper.getInstance().findByLogin(amiLogin);
-					} catch (RemoteException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					DemandeAmi da = new DemandeAmi(p, newAmi);
-					NotificationMapper.getInstance().insert(da);
-					JOptionPane.showMessageDialog(null, "Demande d'ami envoyé", "Message d'information",
-							JOptionPane.INFORMATION_MESSAGE);
-
-					jf.setVisible(false);
-				}
-			}
-		});
-
-		actualiser.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				lmodel.removeAllElements();
-				for (Personne p : personnes) {
-					lmodel.addElement(p);
-				}
-			}
-		});
-
-		rechercheParNom.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFrame recherche = new JFrame("Recherche par Nom/Prenom");
-				JPanel pan = new JPanel();
-				JTextArea n = new JTextArea("Nom :");
-				JTextField nom = new JTextField();
-				JTextArea p = new JTextArea("Prenom :");
-				JTextField prenom = new JTextField();
-				JButton validerRecherche = new JButton("Rechercher");
-				nom.setPreferredSize(new Dimension(100, 30));
-				prenom.setPreferredSize(new Dimension(100, 30));
-				validerRecherche.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						for (Personne p : personnes) {
-							if (!nom.getText().equals(p.getNom()) || !prenom.getText().equals(p.getPrenom()))
-								lmodel.removeElement(p);
-						}
-						recherche.setVisible(false);
-					}
-				});
-				pan.add(n);
-				pan.add(nom);
-				pan.add(p);
-				pan.add(prenom);
-				pan.add(validerRecherche);
-				recherche.getContentPane().add(pan);
-				recherche.setSize(350, 350);
-				recherche.setResizable(false);
-				recherche.setLocationRelativeTo(null);
-				recherche.setVisible(true);
-			}
-		});
-
-		rechercheParInteret.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFrame recherche = new JFrame("Recherche par Interet");
-				JPanel pan = new JPanel();
-				JButton validerRecherche = new JButton("Rechercher");
-				JComboBox cb = new JComboBox();
-				cb.setPreferredSize(new Dimension(300, 30));
-
-				List<Interet> listeInteret = new ArrayList<Interet>();
-				listeInteret = InteretPersonneMapper.getInstance().findInteret();
-
-				DefaultComboBoxModel<Interet> cbm = new DefaultComboBoxModel<Interet>();
-				for (Interet i : listeInteret) {
-					cbm.addElement(i);
-				}
-				cb.setModel(cbm);
-				validerRecherche.addActionListener(new ActionListener() {
-
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						Interet interetRecherche;
-						if (cb.getSelectedItem() instanceof SousInteret) {
-							interetRecherche = (SousInteret) cb.getSelectedItem();
-							for (Personne p : personnes) {
-								boolean inSousInteret = false;
-								for (SousInteret i : p.getSousInterets()) {
-									if (i.getIdSousInteret() == ((SousInteret) interetRecherche).getIdSousInteret()){
-										inSousInteret = true;
-									}
-								}
-								if(!inSousInteret)
-									lmodel.removeElement(p);
-							}
-							
-						} else {
-							interetRecherche = (Interet) cb.getSelectedItem();
-							for (Personne p : personnes) {
-								boolean inSousInteret = false;
-								for (Interet i : p.getInterets()) {
-									if (i.getIdInteret() != interetRecherche.getIdInteret())
-										inSousInteret = true;
-								}
-								if(!inSousInteret)
-									lmodel.removeElement(p);
-							}
-						}
-						recherche.setVisible(false);
-					}
-				});
-				pan.add(cb);
-				pan.add(validerRecherche);
-				recherche.getContentPane().add(pan);
-				recherche.setSize(350, 150);
-				recherche.setResizable(false);
-				recherche.setLocationRelativeTo(null);
-				recherche.setVisible(true);
-			}
-		});
 
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
