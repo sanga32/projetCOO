@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Interface.MessageInterface;
+import Interface.PersonneInterface;
 
 import java.sql.Date;
 
@@ -195,7 +196,7 @@ public class MessageMapper {
 	 * @return la liste des messages du salon
 	 * @throws RemoteException 
 	 */
-	public List<MessageInterface> findListMessageSalon(int id_salon, Personne utilisateur) throws RemoteException {
+	public List<MessageInterface> findListMessageSalon(int id_salon, PersonneInterface utilisateur) throws RemoteException {
 		List<MessageInterface> messages = new ArrayList<MessageInterface>();
 		try {
 			String req = "SELECT idMessage, idSalon, idPersonne, message, isReception, "

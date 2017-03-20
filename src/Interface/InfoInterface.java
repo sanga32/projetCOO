@@ -14,4 +14,5 @@ public interface InfoInterface extends Remote{
 	public List<Salon> getSalon(PersonneInterface p) throws RemoteException;
 	public List<Notification> getNotification(PersonneInterface p) throws RemoteException;
 	public List<Personne> getAmi(PersonneInterface p) throws RemoteException;
+	public List<MessageInterface> getMessage(Salon s, PersonneInterface p) throws RemoteException;
 }
