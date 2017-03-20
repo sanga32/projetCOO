@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import Interface.MessageInterface;
+
 import java.sql.Date;
 
 import domaine.Administrateur;
@@ -192,8 +195,8 @@ public class MessageMapper {
 	 * @return la liste des messages du salon
 	 * @throws RemoteException 
 	 */
-	public List<Message> findListMessageSalon(int id_salon, Personne utilisateur) throws RemoteException {
-		List<Message> messages = new ArrayList<Message>();
+	public List<MessageInterface> findListMessageSalon(int id_salon, Personne utilisateur) throws RemoteException {
+		List<MessageInterface> messages = new ArrayList<MessageInterface>();
 		try {
 			String req = "SELECT idMessage, idSalon, idPersonne, message, isReception, "
 					+ "isExpiration, isChiffre, isPrioritaire, dateHeure FROM Projet_DiscussionSalon "

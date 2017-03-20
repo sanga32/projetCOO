@@ -225,7 +225,7 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 
 	public void receiveMessage(MessageInterface m)
 	{
-		interfaceChat.getCenter().addMessage(m.getMessage());
+		interfaceChat.getCenter().addMessage(m);
 		interfaceChat.getCenter().updateUI();
 	}
 }

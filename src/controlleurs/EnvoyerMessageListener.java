@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JTextField;
 
+import Interface.SalonInterface;
 import domaine.Personne;
 import domaine.Salon;
 import message.Message;
@@ -58,7 +59,8 @@ public class EnvoyerMessageListener implements ActionListener{
 			envoiMessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate);
 		} else {
 			//envoiMessageSalon(new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate), east.getSalon());
-			
+			envoiMessageSalon(j.getText(), expediteur, east.getDestinataire(),strDate, east.getSalon());
+
 		}
 
 	}
@@ -87,7 +89,6 @@ public class EnvoyerMessageListener implements ActionListener{
 		}
 		
 		//Ici on en aura peut être plus besoin
-	//	center.addMessage(toSend);
 		//Ici il faut avoir lookup un salon, je sais pas encore comment on procède pour ça
 		//s.send(s, exped, dest, date, prio, chiff, exp, ack);
 		//mp.insert(toSend);
@@ -95,30 +96,28 @@ public class EnvoyerMessageListener implements ActionListener{
 		center.updateUI();
 	}
 
-	public void envoiMessageSalon(Message toSend, Salon salon){
-		MessageMapper mp = MessageMapper.getInstance();
+	public void envoiMessageSalon(String s, Personne exped, Personne dest, String date, SalonInterface salon){
+		boolean ack;
+		boolean exp;
+		boolean chiff;
+		boolean prio = chiff = exp = ack = false;
+		
+		for (String st : listeChoix){
+			if (st.equals("Prioritaire")){
+				prio = true;
+			} else if (st.equals("Chiffre")){
+				chiff = true;
 
-		for (String s : listeChoix){
-			if (s.equals("Prioritaire")){
-				toSend = new MessagePrioritaire(toSend);
-			} else if (s.equals("Chiffre")){
-				toSend = new MessageChiffre(toSend);
+			}else if (st.equals("Expiration")) {
+				exp = true;
 
-			}else if (s.equals("Expiration")) {
-				toSend = new MessageAvecExpiration(toSend);
-
-			} else if (s.equals("ACK")) {
-				toSend = new MessageAvecAccuseReception(toSend);
+			} else if (st.equals("ACK")) {
+				ack = true;
 
 			}
 		}
-		toSend.isChiffre();
-		toSend.isExpiration();
-		toSend.isPrioritaire();
-		toSend.isReception();
-		System.out.println(toSend);
-		center.addMessage(toSend);
-		mp.insert(toSend, salon);
+		
+		salon.send(s, exped, dest, date, prio, chiff, exp, ack);
 		j.setText("");
 		center.updateUI();
 	}

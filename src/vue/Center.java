@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Interface.InfoInterface;
+import Interface.MessageInterface;
 import controlleurs.MyCellRenderer;
 import domaine.Personne;
 import message.Message;
@@ -27,8 +28,8 @@ import persistance.PersonneMapper;
 public class Center extends JPanel {
 
 	InterfaceChat interfaceChat;
-	JList<Message> jl;
-	DefaultListModel<Message> lmodel;
+	JList<MessageInterface> jl;
+	DefaultListModel<MessageInterface> lmodel;
 	InfoInterface info;
 
 	public Center(InfoInterface info, Personne p, InterfaceChat interfaceChat) {
@@ -43,11 +44,11 @@ public class Center extends JPanel {
 	}
 
 	
-	public void getDiscussion(List<Message> messages) {
+	public void getDiscussion(List<MessageInterface> messages) {
 		this.removeAll();
-		jl = new JList<Message>();
-		lmodel = new DefaultListModel<Message>();
-		for ( Message mess : messages){
+		jl = new JList<MessageInterface>();
+		lmodel = new DefaultListModel<MessageInterface>();
+		for ( MessageInterface mess : messages){
 			lmodel.addElement(mess);
 		}
 		jl.setCellRenderer(new MyCellRenderer());
@@ -75,7 +76,7 @@ public class Center extends JPanel {
 		this.add(listScrollPane);
 	}
 	
-	public void addMessage(Message m){
+	public void addMessage(MessageInterface m){
 		lmodel.addElement(m);
 	}
 	

@@ -10,6 +10,7 @@ import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Interface.MessageInterface;
 import domaine.Personne;
 import message.Message;
 import persistance.AmiMapper;
@@ -41,7 +42,7 @@ public class JListAmisController implements ListSelectionListener {
 			}
 			Personne utilisateur = interfaceChat.getWest().getPersonne();
 			Personne destinataire = (((Personne) lsm.getModel().getElementAt(Index)));
-			List<Message> messages = null;
+			List<MessageInterface> messages = null;
 			try {
 				messages = MessageMapper.getInstance().findListMessagePrive(utilisateur.getId(),destinataire.getId());
 			} catch (RemoteException e1) {

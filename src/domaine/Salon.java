@@ -3,7 +3,10 @@ package domaine;
 import java.util.ArrayList;
 import java.util.List;
 
-import message.Message;
+import Interface.PersonneInterface;
+import Interface.SalonInterface;
+import message.MessageSimple;
+import persistance.MessageMapper;
 
 /**
  * Classe qui représente un salon
@@ -11,11 +14,13 @@ import message.Message;
  *
  */
 
-public class Salon {
+public class Salon implements SalonInterface{
 	int id;
 	String nom;
 	Personne modo;
 	private List<Personne> personnes;
+	List<PersonneInterface> connecte;
+
 
 	public Salon(int id, String nom, Personne modo, List<Personne> personnes) {
 		super();
@@ -24,7 +29,7 @@ public class Salon {
 		this.modo = modo;
 		this.personnes = personnes;
 	}
-	
+
 	public Salon(int id, String nom, Personne modo) {
 		super();
 		this.id = id;
@@ -32,24 +37,24 @@ public class Salon {
 		this.modo = modo;
 		this.personnes = new ArrayList<Personne>();
 	}
-	
+
 	public boolean isEmpty(){
 		if(personnes.isEmpty()) return true;
 		return false;
 	}
-	
+
 	public void addPersonne(Personne p){
 		this.personnes.add(p);
 	}
-	
+
 	public void removePersonne(Personne p){
 		this.personnes.remove(p);
 	}
-	
+
 	public String toString(){
 		return nom;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -76,8 +81,21 @@ public class Salon {
 	public void setPersonnes(List<Personne> personnes) {
 		this.personnes = personnes;
 	}
-	
-	
-	
-	
+
+	@Override
+	public void send(String s, Personne exped, Personne dest, String date, boolean prio, boolean chiff, boolean exp,
+			boolean ack) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		MessageMapper mm =  MessageMapper.getInstance();
+		MessageSimple m = new MessageSimple();
+		mm.insert(m, this);
+		for (int i = 0 ; i<connecte.size(); i++){
+			connecte.get(i).receiveMessage(m);
+		}
+	}
+
+
+
+
 }

@@ -5,22 +5,21 @@ import java.util.Date;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
+import Interface.MessageInterface;
 import domaine.Personne;
 import domaine.Salon;
 
 /**
- * Classe abstraite reprï¿½sentant un message
+ * Classe abstraite représentant un message
  * @author Kevin delporte, alexandre godon, teddy lequette
  *
  */
-public abstract class Message {
+public abstract class Message implements MessageInterface {
 
 	String contenu;
 	int id;
 	String dateEnvoi;
 	Personne expediteur;
-
-	public abstract Personne getDestinataire();
 
 	public abstract void setContenu(String contenu);
 
