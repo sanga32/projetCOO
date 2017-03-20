@@ -17,12 +17,12 @@ import persistance.MessageMapper;
 public class Salon implements SalonInterface{
 	int id;
 	String nom;
-	Personne modo;
-	private List<Personne> personnes;
+	PersonneInterface modo;
+	private List<PersonneInterface> personnes;
 	List<PersonneInterface> connecte;
 
 
-	public Salon(int id, String nom, Personne modo, List<Personne> personnes) {
+	public Salon(int id, String nom, PersonneInterface modo, List<PersonneInterface> personnes) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -35,7 +35,7 @@ public class Salon implements SalonInterface{
 		this.id = id;
 		this.nom = nom;
 		this.modo = modo;
-		this.personnes = new ArrayList<Personne>();
+		this.personnes = new ArrayList<PersonneInterface>();
 	}
 
 	public boolean isEmpty(){
@@ -67,18 +67,18 @@ public class Salon implements SalonInterface{
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public Personne getModo() {
+	public PersonneInterface getModo() {
 		return modo;
 	}
 	public void setModo(Personne modo) {
 		this.modo = modo;
 	}
 
-	public List<Personne> getPersonnes() {
+	public List<PersonneInterface> getPersonnes() {
 		return personnes;
 	}
 
-	public void setPersonnes(List<Personne> personnes) {
+	public void setPersonnes(List<PersonneInterface> personnes) {
 		this.personnes = personnes;
 	}
 

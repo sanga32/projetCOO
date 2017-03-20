@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Interface.PersonneInterface;
+import Interface.SalonInterface;
 import domaine.*;
 import settings.ConnectionInfo;
 
@@ -142,7 +143,7 @@ public class SalonMapper {
 	 * @param s
 	 * 		salon que le personne quitte
 	 */
-	public void leaveSalon(Personne p, Salon s){
+	public void leaveSalon(PersonneInterface p, Salon s){
 		try {
 			String req = "delete from Projet_OccupeSalon where idSalon=? AND idPersonne=? ";
 			PreparedStatement ps = conn.prepareStatement(req);
@@ -173,7 +174,7 @@ public class SalonMapper {
 			int id = rs.getInt("idSalon");
 			String nom = rs.getString("nom");
 			Personne p = new VirtualProxyPersonne(rs.getInt("modo"));
-			List<Personne> personnes = getPersonnes(id);
+			List<PersonneInterface> personnes = getPersonnes(id);
 			Salon s = new Salon(id, nom, p,personnes);
 			return s;
 		} catch (SQLException e) {
@@ -181,7 +182,22 @@ public class SalonMapper {
 		}
 		return null;
 	}
-
+	
+	public List<SalonInterface> getSalons() throws SQLException, RemoteException{
+		List<SalonInterface> salons = new ArrayList<SalonInterface>();
+		String req = "SELECT idSalon, nom, modo  FROM Projet_Salon";
+		PreparedStatement ps = conn.prepareStatement(req);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			int id = rs.getInt("idSalon");
+			String nom = rs.getString("nom");
+			Personne modo = new VirtualProxyPersonne(rs.getInt("modo"));
+			List<PersonneInterface> personnes = getPersonnes(id);
+			Salon s = new Salon(id, nom, modo,personnes);
+			salons.add(s);
+		}
+		return salons;
+	}
 	/**
 	 * recupère un salon en BDD à partir de son nom
 	 * @param nom
@@ -199,7 +215,7 @@ public class SalonMapper {
 			int id = rs.getInt("idSalon");
 			String n = rs.getString("nom");
 			Personne p = new VirtualProxyPersonne(rs.getInt("modo"));
-			List<Personne> personnes = getPersonnes(id);
+			List<PersonneInterface> personnes = getPersonnes(id);
 			Salon s = new Salon(id, nom, p,personnes);
 			return s;
 		} catch (SQLException e) {
@@ -215,8 +231,8 @@ public class SalonMapper {
 	 * @return la liste de personne dans le salon passé en paramètre
 	 * @throws RemoteException 
 	 */
-	public List<Personne> getPersonnes(int id_salon) throws RemoteException {
-		List<Personne> personnes = new ArrayList<Personne>();
+	public List<PersonneInterface> getPersonnes(int id_salon) throws RemoteException {
+		List<PersonneInterface> personnes = new ArrayList<PersonneInterface>();
 		try {
 			String req = "SELECT idPersonne  FROM Projet_OccupeSalon WHERE idSalon=?";
 			PreparedStatement ps = conn.prepareStatement(req);
@@ -240,8 +256,8 @@ public class SalonMapper {
 	 * 		Personne à qui on récupère les salons
 	 * @throws RemoteException 
 	 */
-	public List<Salon> getSalons(PersonneInterface p) throws RemoteException {
-		List<Salon> salons = new ArrayList<Salon>();
+	public List<SalonInterface> getSalons(PersonneInterface p) throws RemoteException {
+		List<SalonInterface> salons = new ArrayList<SalonInterface>();
 		try {
 			String req = "SELECT s.idSalon, nom, modo  FROM "
 					+ "Projet_OccupeSalon o join Projet_Salon s on o.idSalon=s.idSalon  WHERE idPersonne=?";
@@ -252,7 +268,7 @@ public class SalonMapper {
 				int id = rs.getInt("idSalon");
 				String nom = rs.getString("nom");
 				Personne modo = new VirtualProxyPersonne(rs.getInt("modo"));
-				List<Personne> personnes = getPersonnes(id);
+				List<PersonneInterface> personnes = getPersonnes(id);
 				Salon s = new Salon(id, nom, modo,personnes);
 				salons.add(s);
 			}
@@ -264,7 +280,7 @@ public class SalonMapper {
 				int id = rs2.getInt("idSalon");
 				String nom = rs2.getString("nom");
 				Personne modo = new VirtualProxyPersonne(rs2.getInt("modo"));
-				List<Personne> personnes = getPersonnes(id);
+				List<PersonneInterface> personnes = getPersonnes(id);
 				Salon s = new Salon(id, nom, modo,personnes);
 				salons.add(s);
 			}

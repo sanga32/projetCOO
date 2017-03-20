@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Interface.PersonneInterface;
 import domaine.Personne;
 import domaine.Salon;
 import persistance.SalonMapper;
@@ -57,12 +58,12 @@ public class SupprPersonneSalonListener implements ActionListener{
 		west.setLayout(boxLayout2);
 
 
-		JList<Personne> jl = new JList<Personne>();
-		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
-		JList<Personne> jl2 = new JList<Personne>();
-		DefaultListModel<Personne> lmodel2 = new DefaultListModel<Personne>();
+		JList<PersonneInterface> jl = new JList<PersonneInterface>();
+		DefaultListModel<PersonneInterface> lmodel = new DefaultListModel<PersonneInterface>();
+		JList<PersonneInterface> jl2 = new JList<PersonneInterface>();
+		DefaultListModel<PersonneInterface> lmodel2 = new DefaultListModel<PersonneInterface>();
 
-		for ( Personne pers : salon.getPersonnes()){
+		for ( PersonneInterface pers : salon.getPersonnes()){
 			lmodel.addElement(pers);
 		}
 

@@ -6,6 +6,7 @@ import java.util.List;
 import Interface.InfoInterface;
 import Interface.MessageInterface;
 import Interface.PersonneInterface;
+import Interface.SalonInterface;
 import domaine.Notification;
 import domaine.Personne;
 import domaine.Salon;
@@ -25,8 +26,8 @@ public class Info implements InfoInterface {
 	}
 
 	@Override
-	public List<Salon> getSalon(PersonneInterface p) throws RemoteException {
-		List<Salon> salons = SalonMapper.getInstance().getSalons(p);
+	public List<SalonInterface> getSalon(PersonneInterface p) throws RemoteException {
+		List<SalonInterface> salons = SalonMapper.getInstance().getSalons(p);
 		return salons;
 	}
 
@@ -43,9 +44,14 @@ public class Info implements InfoInterface {
 	}
 
 	@Override
-	public List<MessageInterface> getMessage(Salon s, PersonneInterface p) throws RemoteException {
+	public List<MessageInterface> getMessage(SalonInterface s, PersonneInterface p) throws RemoteException {
 		List<MessageInterface> messages = MessageMapper.getInstance().findListMessageSalon(s.getId(), p);
 		return null;
+	}
+
+	@Override
+	public void connectionSalon(SalonInterface s) throws RemoteException {
+		
 	}
 
 }

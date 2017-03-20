@@ -12,6 +12,7 @@ import java.util.List;
 
 import Interface.MessageInterface;
 import Interface.PersonneInterface;
+import Interface.SalonInterface;
 
 import java.sql.Date;
 
@@ -254,7 +255,7 @@ public class MessageMapper {
 	 * @param salon
 	 * 			salon
 	 */
-	public void insert(Message toSend, Salon salon) {
+	public void insert(Message toSend, SalonInterface salon) {
 		try {
 			String req = "";
 			req = "insert into Projet_DiscussionSalon( idSalon, idPersonne, message, isReception, "

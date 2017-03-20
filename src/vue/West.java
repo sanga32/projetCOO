@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Interface.InfoInterface;
+import Interface.SalonInterface;
 import controlleurs.AddPersonneSalonListener;
 import controlleurs.CreerSalonListener;
 import controlleurs.JListAmisController;
@@ -87,12 +88,12 @@ public class West extends JPanel {
 	
 	public void getJListSalons() throws RemoteException{
 		this.removeAll();
-		JList<Salon> jl = new JList<Salon>();
-		DefaultListModel<Salon> lmodel = new DefaultListModel<Salon>();
+		JList<SalonInterface> jl = new JList<SalonInterface>();
+		DefaultListModel<SalonInterface> lmodel = new DefaultListModel<SalonInterface>();
 		
-		List<Salon> salons = info.getSalon(p);
+		List<SalonInterface> salons = info.getSalon(p);
 		
-		for ( Salon s : salons){
+		for ( SalonInterface s : salons){
 			lmodel.addElement(s);
 		}
 

@@ -17,6 +17,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import Interface.InfoInterface;
+import Interface.PersonneInterface;
 import controlleurs.CreerSalonListener;
 import controlleurs.JListAmisController;
 import controlleurs.MySalonCellRenderer;
@@ -75,8 +76,8 @@ public class East extends JPanel {
 
 	public void getJListPersonneSalons(String salon) throws RemoteException {
 		this.removeAll();
-		JList<Personne> jl = new JList<Personne>();
-		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
+		JList<PersonneInterface> jl = new JList<PersonneInterface>();
+		DefaultListModel<PersonneInterface> lmodel = new DefaultListModel<PersonneInterface>();
 		SalonMapper sm = new SalonMapper().getInstance();
 		s = sm.findByNom(salon);
 
