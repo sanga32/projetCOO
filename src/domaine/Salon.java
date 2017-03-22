@@ -1,5 +1,6 @@
 package domaine;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +85,7 @@ public class Salon implements SalonInterface{
 
 	@Override
 	public void send(String s, Personne exped, Personne dest, String date, boolean prio, boolean chiff, boolean exp,
-			boolean ack) {
+			boolean ack) throws RemoteException {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		MessageMapper mm =  MessageMapper.getInstance();
@@ -93,6 +94,14 @@ public class Salon implements SalonInterface{
 		for (int i = 0 ; i<connecte.size(); i++){
 			connecte.get(i).receiveMessage(m);
 		}
+	}
+	
+	public void connection(PersonneInterface p) {
+		connecte.add(p);
+	}
+	
+	public void deconnection(PersonneInterface p){
+		connecte.remove(p);
 	}
 
 

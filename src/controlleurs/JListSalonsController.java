@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -15,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Interface.InfoInterface;
+import Interface.MessageInterface;
+import Interface.SalonInterface;
 import domaine.Personne;
 import persistance.MessageMapper;
 import persistance.SalonMapper;
@@ -24,10 +28,12 @@ public class JListSalonsController implements ListSelectionListener {
 	
 	InterfaceChat interfaceChat;
 	Personne p;
+	InfoInterface info;
 
-	public JListSalonsController(InterfaceChat interfaceChat, Personne p) {
+	public JListSalonsController(InterfaceChat interfaceChat, Personne p, InfoInterface info) {
 		this.interfaceChat = interfaceChat;
 		this.p = p;
+		this.info = info;
 	}
 
 	@Override
@@ -36,22 +42,19 @@ public class JListSalonsController implements ListSelectionListener {
 		int Index = lsm.getSelectionModel().getMinSelectionIndex();
 
 		if ("Salons".equals(interfaceChat.getWest().getSwap().getText())) {
-			String salon = lsm.getModel().getElementAt(Index).toString();
+			String nomSalon = lsm.getModel().getElementAt(Index).toString();
 			try {
-				interfaceChat.getEast().getJListPersonneSalons(salon);
+				interfaceChat.getEast().getJListPersonneSalons(nomSalon);
 			} catch (RemoteException e3) {
 				// TODO Auto-generated catch block
 				e3.printStackTrace();
 			}
-			MessageMapper mp = MessageMapper.getInstance();
-			SalonMapper sm = SalonMapper.getInstance();
 			try {
-				interfaceChat.getCenter().getDiscussion(mp.findListMessageSalon(sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId(), p));
-			} catch (RemoteException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-			try {
+				MessageMapper mp = MessageMapper.getInstance();
+				SalonMapper sm = SalonMapper.getInstance();
+				SalonInterface salon = info.getSalon(nomSalon);
+				List<MessageInterface> message = info.getMessage(salon, p);
+				interfaceChat.getCenter().getDiscussion(message);
 				if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId()) || p.isAdmin()){
 					try {
 						interfaceChat.getWest().getJListSalons();
@@ -66,7 +69,7 @@ public class JListSalonsController implements ListSelectionListener {
 					JButton quitter = new JButton("Quitter");
 
 					addPersonneSalon.addActionListener(new AddPersonneSalonListener(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()), interfaceChat.getEast() ));
-					supprPersonneSalon.addActionListener(new SupprPersonneSalonListener(p, sm.findByNom(salon), interfaceChat.getEast()));
+					supprPersonneSalon.addActionListener(new SupprPersonneSalonListener(p, salon, interfaceChat.getEast()));
 					interfaceChat.getWest().add(addPersonneSalon);
 					interfaceChat.getWest().add(supprPersonneSalon);
 					quitter.addActionListener(new ActionListener() {
@@ -75,7 +78,7 @@ public class JListSalonsController implements ListSelectionListener {
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
 							try {
-								if( sm.findByNom(salon).isEmpty()){
+								if(salon.isEmpty()){
 									try {
 										sm.delete(sm.findByNom(salon));
 									} catch (RemoteException e1) {
@@ -109,7 +112,7 @@ public class JListSalonsController implements ListSelectionListener {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					JButton quitter = new JButton("Quitter "+sm.findByNom(salon).getNom() );
+					JButton quitter = new JButton("Quitter "+salon.getNom() );
 					quitter.addActionListener(new ActionListener() {
 						
 						@Override

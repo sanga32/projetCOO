@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import Interface.PersonneInterface;
 import domaine.Personne;
 
 /**
@@ -17,9 +18,9 @@ import domaine.Personne;
  * @author Alexandre Godon, Kevin Delporte, Teddy Lequette
  *
  */
-public class VirtualProxyListAmi implements List<Personne> {
+public class VirtualProxyListAmi implements List<PersonneInterface> {
 	private int id_personne;
-	private List<Personne> amis = null;
+	private List<PersonneInterface> amis = null;
 
 
 	/**
@@ -39,7 +40,7 @@ public class VirtualProxyListAmi implements List<Personne> {
 	 */
 	public void verifieInitilisation() throws SQLException, RemoteException {
 		if (amis == null) {
-			amis = new ArrayList<Personne>();
+			amis = new ArrayList<PersonneInterface>();
 			initialisation();
 		}
 
@@ -60,7 +61,7 @@ public class VirtualProxyListAmi implements List<Personne> {
 	 * @throws RemoteException 
 	 * @throws SQLException
 	 */
-	public List<Personne> getAmis() throws RemoteException {
+	public List<PersonneInterface> getAmis() throws RemoteException {
 		try {
 			verifieInitilisation();
 		} catch (SQLException e) {
@@ -77,7 +78,7 @@ public class VirtualProxyListAmi implements List<Personne> {
 	 * @throws SQLException
 	 */
 	@Override
-	public boolean add(Personne e) {
+	public boolean add(PersonneInterface e) {
 		try {
 			verifieInitilisation();
 		} catch (SQLException e1) {
@@ -91,19 +92,19 @@ public class VirtualProxyListAmi implements List<Personne> {
 	}
 
 	@Override
-	public void add(int index, Personne element) {
+	public void add(int index, PersonneInterface element) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public boolean addAll(Collection<? extends Personne> c) {
+	public boolean addAll(Collection<? extends PersonneInterface> c) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean addAll(int index, Collection<? extends Personne> c) {
+	public boolean addAll(int index, Collection<? extends PersonneInterface> c) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -145,8 +146,8 @@ public class VirtualProxyListAmi implements List<Personne> {
 	 * @return Une personne
 	 * @throws SQLException
 	 */
-	@Override
-	public Personne get(int index) {
+	
+	public PersonneInterface get(int index) {
 		try {
 			verifieInitilisation();
 		} catch (SQLException e1) {
@@ -185,7 +186,7 @@ public class VirtualProxyListAmi implements List<Personne> {
 	}
 
 	@Override
-	public Iterator<Personne> iterator() {
+	public Iterator<PersonneInterface> iterator() {
 		// TODO Auto-generated method stub
 		return amis.iterator();
 	}
@@ -197,13 +198,13 @@ public class VirtualProxyListAmi implements List<Personne> {
 	}
 
 	@Override
-	public ListIterator<Personne> listIterator() {
+	public ListIterator<PersonneInterface> listIterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ListIterator<Personne> listIterator(int index) {
+	public ListIterator<PersonneInterface> listIterator(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -223,7 +224,7 @@ public class VirtualProxyListAmi implements List<Personne> {
 	}
 
 	@Override
-	public Personne remove(int index) {
+	public PersonneInterface remove(int index) {
 		try {
 			verifieInitilisation();
 		} catch (SQLException e) {
@@ -248,7 +249,7 @@ public class VirtualProxyListAmi implements List<Personne> {
 	}
 
 	@Override
-	public Personne set(int index, Personne element) {
+	public Personne set(int index, PersonneInterface element) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -267,7 +268,7 @@ public class VirtualProxyListAmi implements List<Personne> {
 	}
 
 	@Override
-	public List<Personne> subList(int fromIndex, int toIndex) {
+	public List<PersonneInterface> subList(int fromIndex, int toIndex) {
 		// TODO Auto-generated method stub
 		return null;
 	}

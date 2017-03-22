@@ -2,6 +2,8 @@ package vue;
 
 import java.awt.BorderLayout;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.sql.SQLException;
 
 import javax.swing.JPanel;
@@ -22,10 +24,12 @@ public class InterfaceChat extends JPanel {
 	North north;
 	South south;
 	Center center;
+	Registry registry;
 	
 	public InterfaceChat(Personne p, InfoInterface info) throws SQLException, RemoteException {
 		// TODO Auto-generated constructor stub
 		super();
+		this.registry = LocateRegistry.createRegistry(10000);
 		this.setLayout(new BorderLayout());
 		
 		east = new East(info, p, this);

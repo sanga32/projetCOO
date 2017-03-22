@@ -23,7 +23,7 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 	String mdp;
 	String prenom;
 	String nom;
-	List<Personne> amis;
+	List<PersonneInterface> amis;
 	List<Interet> interets;
 	List<SousInteret> sousInterets;
 	List<Salon> salons;
@@ -172,11 +172,11 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public List<Personne> getAmis() throws RemoteException {
+	public List<PersonneInterface> getAmis() throws RemoteException {
 		return ((VirtualProxyListAmi) amis).getAmis();
 	}
 
-	public void setAmis(List<Personne> amis) {
+	public void setAmis(List<PersonneInterface> amis) {
 		this.amis = amis;
 	}
 	public List<Interet> getInterets() {

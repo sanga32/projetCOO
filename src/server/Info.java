@@ -26,7 +26,7 @@ public class Info implements InfoInterface {
 	}
 
 	@Override
-	public List<SalonInterface> getSalon(PersonneInterface p) throws RemoteException {
+	public List<SalonInterface> getSalons(PersonneInterface p) throws RemoteException {
 		List<SalonInterface> salons = SalonMapper.getInstance().getSalons(p);
 		return salons;
 	}
@@ -38,9 +38,9 @@ public class Info implements InfoInterface {
 	}
 
 	@Override
-	public List<Personne> getAmi(PersonneInterface p) throws RemoteException {
-		List<Personne> amis = AmiMapper.getInstance().getAmis(p.getId());
-		return null;
+	public List<PersonneInterface> getAmi(PersonneInterface p) throws RemoteException {
+		List<PersonneInterface> amis = AmiMapper.getInstance().getAmis(p.getId());
+		return amis;
 	}
 
 	@Override
@@ -49,9 +49,17 @@ public class Info implements InfoInterface {
 		return null;
 	}
 
+
 	@Override
-	public void connectionSalon(SalonInterface s) throws RemoteException {
-		
+	public List<PersonneInterface> getAmis(PersonneInterface p) throws RemoteException {
+		List<PersonneInterface> amis = AmiMapper.getInstance().getAmis(p.getId());
+		return amis;
+	}
+
+	@Override
+	public SalonInterface getSalon(String s) throws RemoteException {
+		SalonInterface salon = SalonMapper.getInstance().findByNom(s); 
+		return salon;
 	}
 
 }

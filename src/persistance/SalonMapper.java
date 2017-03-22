@@ -142,8 +142,9 @@ public class SalonMapper {
 	 * 		personne qui quitte le salon
 	 * @param s
 	 * 		salon que le personne quitte
+	 * @throws RemoteException 
 	 */
-	public void leaveSalon(PersonneInterface p, Salon s){
+	public void leaveSalon(PersonneInterface p, SalonInterface s) throws RemoteException{
 		try {
 			String req = "delete from Projet_OccupeSalon where idSalon=? AND idPersonne=? ";
 			PreparedStatement ps = conn.prepareStatement(req);

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import Interface.InfoInterface;
+import Interface.PersonneInterface;
 import Interface.SalonInterface;
 import controlleurs.AddPersonneSalonListener;
 import controlleurs.CreerSalonListener;
@@ -65,10 +66,11 @@ public class West extends JPanel {
 
 	public void getJListAmis() throws RemoteException{
 		this.removeAll();
-		JList<Personne> jl = new JList<Personne>();
-		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
+		JList<PersonneInterface> jl = new JList<PersonneInterface>();
+		DefaultListModel<PersonneInterface> lmodel = new DefaultListModel<PersonneInterface>();
 
-		for ( Personne pers : p.getAmis()){
+		List<PersonneInterface> amis = info.getAmi(p);
+		for ( PersonneInterface pers : amis){
 			lmodel.addElement(pers);
 		}
 
@@ -91,14 +93,14 @@ public class West extends JPanel {
 		JList<SalonInterface> jl = new JList<SalonInterface>();
 		DefaultListModel<SalonInterface> lmodel = new DefaultListModel<SalonInterface>();
 		
-		List<SalonInterface> salons = info.getSalon(p);
+		List<SalonInterface> salons = info.getSalons(p);
 		
 		for ( SalonInterface s : salons){
 			lmodel.addElement(s);
 		}
 
 		jl.setModel(lmodel);
-		jl.addListSelectionListener(new JListSalonsController(interfaceChat, p));
+		jl.addListSelectionListener(new JListSalonsController(interfaceChat, p, info));
 
 		JScrollPane listScrollPane = new JScrollPane(jl, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		listScrollPane.setPreferredSize(new Dimension(115, 150));

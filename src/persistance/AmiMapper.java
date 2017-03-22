@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interface.PersonneInterface;
 import domaine.Personne;
 import settings.ConnectionInfo;
 
@@ -161,9 +162,9 @@ public class AmiMapper {
 	 * @return la liste d'ami de la personne
 	 * @throws RemoteException 
 	 */
-	public List<Personne> getAmis(int id_personne) throws RemoteException {
+	public List<PersonneInterface> getAmis(int id_personne) throws RemoteException {
 		try {
-			List<Personne> amis = new ArrayList<Personne>();
+			List<PersonneInterface> amis = new ArrayList<PersonneInterface>();
 			String req = "SELECT idPersonne1 FROM Projet_Ami WHERE idPersonne2=?";
 			PreparedStatement ps = conn.prepareStatement(req);
 			ps.setInt(1, id_personne);

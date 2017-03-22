@@ -20,6 +20,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import Interface.PersonneInterface;
+import Interface.SalonInterface;
 import domaine.Personne;
 import domaine.Salon;
 import persistance.SalonMapper;
@@ -28,11 +29,11 @@ import vue.East;
 public class SupprPersonneSalonListener implements ActionListener{
 	Personne p;
 	JPanel panel;
-	Salon salon;
+	SalonInterface salon;
 	JFrame jf;
 	East east2;
 
-	public SupprPersonneSalonListener(Personne p, Salon salon, East east) {
+	public SupprPersonneSalonListener(Personne p, SalonInterface salon, East east) {
 		this.p = p;
 		this.p = p;
 		panel= new JPanel();
@@ -63,8 +64,13 @@ public class SupprPersonneSalonListener implements ActionListener{
 		JList<PersonneInterface> jl2 = new JList<PersonneInterface>();
 		DefaultListModel<PersonneInterface> lmodel2 = new DefaultListModel<PersonneInterface>();
 
-		for ( PersonneInterface pers : salon.getPersonnes()){
-			lmodel.addElement(pers);
+		try {
+			for ( PersonneInterface pers : salon.getPersonnes()){
+				lmodel.addElement(pers);
+			}
+		} catch (RemoteException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
 		}
 
 		jl.setModel(lmodel);
@@ -107,7 +113,12 @@ public class SupprPersonneSalonListener implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for (int i = 0; i< lmodel2.size(); i++){
-					sm.leaveSalon( lmodel2.getElementAt(i), salon);
+					try {
+						sm.leaveSalon( lmodel2.getElementAt(i), salon);
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 
 				}
 				

@@ -138,8 +138,8 @@ public class MessageMapper {
 	 * @return la liste des messages
 	 * @throws RemoteException 
 	 */
-	public List<Message> findListMessagePrive(int id_personne1, int id_personne2) throws RemoteException {
-		List<Message> messages = new ArrayList<Message>();
+	public List<MessageInterface> findListMessagePrive(int id_personne1, int id_personne2) throws RemoteException {
+		List<MessageInterface> messages = new ArrayList<MessageInterface>();
 		try {
 			String req = "SELECT idMessage, message, expediteur, destinataire, dateHeure, "
 					+ "isReception, isExpiration, isChiffre, isPrioritaire  FROM Projet_MessagePrive "
@@ -254,8 +254,9 @@ public class MessageMapper {
 	 * 			message à envoyer
 	 * @param salon
 	 * 			salon
+	 * @throws RemoteException 
 	 */
-	public void insert(Message toSend, SalonInterface salon) {
+	public void insert(Message toSend, SalonInterface salon) throws RemoteException {
 		try {
 			String req = "";
 			req = "insert into Projet_DiscussionSalon( idSalon, idPersonne, message, isReception, "
