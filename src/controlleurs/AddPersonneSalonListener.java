@@ -21,6 +21,7 @@ import javax.swing.event.ListSelectionListener;
 
 import Interface.PersonneInterface;
 import Interface.SalonInterface;
+import Interface.SalonInterface;
 import domaine.Personne;
 import domaine.Salon;
 import persistance.AmiMapper;

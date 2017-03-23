@@ -1,5 +1,7 @@
 package domaine;
 
+import java.awt.HeadlessException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,6 @@ public class Salon implements SalonInterface{
 
 	public void addPersonne(PersonneInterface p){
 		this.personnes.add(p);
-		//Ici faire le insert
 	}
 
 	public void removePersonne(Personne p){
