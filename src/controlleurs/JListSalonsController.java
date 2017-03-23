@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,7 +26,7 @@ import persistance.SalonMapper;
 import vue.InterfaceChat;
 
 public class JListSalonsController implements ListSelectionListener {
-	
+
 	InterfaceChat interfaceChat;
 	Personne p;
 	InfoInterface info;
@@ -50,12 +51,10 @@ public class JListSalonsController implements ListSelectionListener {
 				e3.printStackTrace();
 			}
 			try {
-				MessageMapper mp = MessageMapper.getInstance();
-				SalonMapper sm = SalonMapper.getInstance();
 				SalonInterface salon = info.getSalon(nomSalon);
 				List<MessageInterface> message = info.getMessage(salon, p);
 				interfaceChat.getCenter().getDiscussion(message);
-				if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId()) || p.isAdmin()){
+				if(salon.getModo() == p){
 					try {
 						interfaceChat.getWest().getJListSalons();
 					} catch (RemoteException e1) {
@@ -68,7 +67,7 @@ public class JListSalonsController implements ListSelectionListener {
 					
 					JButton quitter = new JButton("Quitter");
 
-					addPersonneSalon.addActionListener(new AddPersonneSalonListener(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()), interfaceChat.getEast() ));
+					addPersonneSalon.addActionListener(new AddPersonneSalonListener(p, salon, interfaceChat.getEast() ));
 					supprPersonneSalon.addActionListener(new SupprPersonneSalonListener(p, salon, interfaceChat.getEast()));
 					interfaceChat.getWest().add(addPersonneSalon);
 					interfaceChat.getWest().add(supprPersonneSalon);
@@ -78,21 +77,20 @@ public class JListSalonsController implements ListSelectionListener {
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
 							try {
-								if(salon.isEmpty()){
-									try {
-										sm.delete(sm.findByNom(salon));
-									} catch (RemoteException e1) {
-										// TODO Auto-generated catch block
-										e1.printStackTrace();
-									}
-								} else {
-									JOptionPane.showMessageDialog(null, "Ce salon n'est pas vide !", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
-
+								if(!salon.delete()){
+										JOptionPane.showMessageDialog(null, "Ce salon n'est pas vide !", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
 								}
-							} catch (HeadlessException | RemoteException e2) {
+							} catch (HeadlessException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							} catch (RemoteException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							} catch (NotBoundException e2) {
 								// TODO Auto-generated catch block
 								e2.printStackTrace();
 							}
+
 							try {
 								interfaceChat.getWest().getJListSalons();
 							} catch (RemoteException e1) {
@@ -119,7 +117,7 @@ public class JListSalonsController implements ListSelectionListener {
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
 							try {
-								sm.leaveSalon(p, sm.findByNom(salon));
+								salon.quitter(p);
 							} catch (RemoteException e2) {
 								// TODO Auto-generated catch block
 								e2.printStackTrace();
@@ -138,9 +136,6 @@ public class JListSalonsController implements ListSelectionListener {
 
 				}
 				interfaceChat.getWest().updateUI();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			} catch (RemoteException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

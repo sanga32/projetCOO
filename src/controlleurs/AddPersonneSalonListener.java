@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Interface.SalonInterface;
 import domaine.Personne;
 import domaine.Salon;
 import persistance.AmiMapper;
@@ -34,7 +35,7 @@ public class AddPersonneSalonListener implements ActionListener {
 	JFrame jf;
 	East east2;
 
-	public AddPersonneSalonListener(Personne p, Salon salon, East east) {
+	public AddPersonneSalonListener(Personne p, SalonInterface salon, East east) {
 		this.p = p;
 		this.p = p;
 		panel= new JPanel();
