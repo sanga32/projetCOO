@@ -229,7 +229,7 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 		interfaceChat.getCenter().updateUI();
 	}
 	
-	public boolean equals(PersonneInterface p) throws RemoteException {
+	public boolean equal(PersonneInterface p) throws RemoteException {
 		if(this.id == p.getId()) return true;
 		return false;
 	}
