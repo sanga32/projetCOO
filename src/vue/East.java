@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
@@ -90,7 +91,7 @@ public class East extends JPanel {
 				// TODO Auto-generated method stub
 				//SalonMapper sm = SalonMapper.getInstance();
 				try {
-					SalonInterface s = info.getSalon(salon);
+					SalonInterface s = (SalonInterface) InterfaceChat.registry.lookup(salon);
 
 					JList lsm = (JList) e.getSource();
 					int index = lsm.getSelectionModel().getMinSelectionIndex();
@@ -147,6 +148,9 @@ public class East extends JPanel {
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (NotBoundException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
 				}
 				interfaceChat.getEast().updateUI();
 			}
