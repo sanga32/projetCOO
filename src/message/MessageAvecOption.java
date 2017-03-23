@@ -2,6 +2,7 @@ package message;
 
 import java.sql.Date;
 
+import Interface.PersonneInterface;
 import domaine.Personne;
 import domaine.Salon;
 
@@ -19,7 +20,7 @@ public abstract class MessageAvecOption extends Message {
 	}
 	
 	
-	public Personne getExpediteur() {
+	public PersonneInterface getExpediteur() {
 		return message.getExpediteur();
 	}
 

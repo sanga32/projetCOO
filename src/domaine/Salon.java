@@ -10,6 +10,7 @@ import java.sql.SQLException;//github.com/sanga32/projetCOO.git
 import java.util.ArrayList;
 import java.util.List;
 
+import Interface.MessageInterface;
 import Interface.PersonneInterface;
 import Interface.SalonInterface;
 import message.MessageSimple;
@@ -99,8 +100,10 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 			boolean ack) throws RemoteException {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
+		System.out.println(connecte+"----connecte----");
+
 		MessageMapper mm =  MessageMapper.getInstance();
-		MessageSimple m = new MessageSimple(s, exped, dest, date, this);
+		MessageInterface m = new MessageSimple(s, exped, dest, date, this);
 		mm.insert(m, this);
 		//connecte.add(exped);
 		for (int i = 0 ; i<connecte.size(); i++){
@@ -108,7 +111,8 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 		}
 	}
 	
-	public void connection(PersonneInterface p) {
+	public void connection(PersonneInterface p) throws RemoteException {
+		System.out.println(p.getId()+"----personne------");
 		connecte.add(p);
 	}
 	

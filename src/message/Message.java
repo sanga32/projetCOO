@@ -1,11 +1,13 @@
 package message;
 
+import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import Interface.MessageInterface;
+import Interface.PersonneInterface;
 import domaine.Personne;
 import domaine.Salon;
 
@@ -19,7 +21,7 @@ public abstract class Message implements MessageInterface {
 	String contenu;
 	int id;
 	String dateEnvoi;
-	Personne expediteur;
+	PersonneInterface expediteur;
 
 	public abstract void setContenu(String contenu);
 
@@ -41,14 +43,20 @@ public abstract class Message implements MessageInterface {
 
 	public String toString() {
 		System.out.println(contenu);
-		return "[" + dateEnvoi + "]" + expediteur.getLogin() + " : " + contenu;
+		try {
+			return "[" + dateEnvoi + "]" + expediteur.getLogin() + " : " + contenu;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return contenu;
 	}
 
 	public int getId() {
 		return this.id;
 	}
 
-	public Personne getExpediteur() {
+	public PersonneInterface getExpediteur() {
 		return expediteur;
 	}
 

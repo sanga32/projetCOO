@@ -105,7 +105,7 @@ public class MessageMapper {
 
 			ps.execute();
 			conn.commit();
-		} catch (SQLException e) {
+		} catch (SQLException | RemoteException e) {
 			e.printStackTrace();
 		}
 
@@ -250,13 +250,13 @@ public class MessageMapper {
 
 	/**
 	 * insert en BDD un message dans un salon dans Projet_DiscussionSalon
-	 * @param toSend
+	 * @param m
 	 * 			message à envoyer
 	 * @param salon
 	 * 			salon
 	 * @throws RemoteException 
 	 */
-	public void insert(Message toSend, SalonInterface salon) throws RemoteException {
+	public void insert(MessageInterface m, SalonInterface salon) throws RemoteException {
 		try {
 			String req = "";
 			req = "insert into Projet_DiscussionSalon( idSalon, idPersonne, message, isReception, "
@@ -265,20 +265,20 @@ public class MessageMapper {
 			PreparedStatement ps = conn.prepareStatement(req);
 
 			String contenu = "";
-			if (toSend.isChiffre()) {
-				contenu = Cryptage.chiffrage(toSend.getContenu());
+			if (m.isChiffre()) {
+				contenu = Cryptage.chiffrage(m.getContenu());
 			} else {
-				contenu = toSend.getContenu();
+				contenu = m.getContenu();
 			}
 			
 			ps.setInt(1, salon.getId());
-			ps.setInt(2, (toSend).getExpediteur().getId());
+			ps.setInt(2, (m).getExpediteur().getId());
 			ps.setString(3, contenu);
-			ps.setInt(4, (toSend.isReception()) ? 1 : 0);
-			ps.setInt(5, (toSend.isExpiration()) ? 1 : 0);
-			ps.setInt(6, (toSend.isChiffre()) ? 1 : 0);
-			ps.setInt(7, (toSend.isPrioritaire()) ? 1 : 0);
-			ps.setString(8, toSend.getDateEnvoi());
+			ps.setInt(4, (m.isReception()) ? 1 : 0);
+			ps.setInt(5, (m.isExpiration()) ? 1 : 0);
+			ps.setInt(6, (m.isChiffre()) ? 1 : 0);
+			ps.setInt(7, (m.isPrioritaire()) ? 1 : 0);
+			ps.setString(8, m.getDateEnvoi());
 			ps.execute();
 			conn.commit();
 		} catch (SQLException e) {

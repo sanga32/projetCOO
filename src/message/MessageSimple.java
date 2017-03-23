@@ -29,7 +29,7 @@ public class MessageSimple extends Message{
 	
 	public MessageSimple(String s, PersonneInterface exped, PersonneInterface dest, String date,  Salon salon) {
 		// TODO Auto-generated constructor stub
-		this.expediteur = (Personne) exped;
+		this.expediteur = exped;
 		this.contenu = s;
 		this.dateEnvoi = date;
 		this.idSalon = salon;
