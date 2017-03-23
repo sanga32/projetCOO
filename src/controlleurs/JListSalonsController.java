@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -17,11 +16,8 @@ import javax.swing.event.ListSelectionListener;
 
 import Interface.InfoInterface;
 import Interface.MessageInterface;
-import Interface.PersonneInterface;
 import Interface.SalonInterface;
 import domaine.Personne;
-import persistance.MessageMapper;
-import persistance.SalonMapper;
 import vue.InterfaceChat;
 
 public class JListSalonsController implements ListSelectionListener {
@@ -50,7 +46,7 @@ public class JListSalonsController implements ListSelectionListener {
 				e3.printStackTrace();
 			}
 			try {
-				SalonInterface salon = info.getSalon(nomSalon);
+				SalonInterface salon = (SalonInterface) InterfaceChat.registry.lookup(nomSalon);
 				List<MessageInterface> message = info.getMessage(salon, p);
 				interfaceChat.getCenter().getDiscussion(message);
 				salon.connection(p);
@@ -141,7 +137,7 @@ public class JListSalonsController implements ListSelectionListener {
 				/*
 				 * } catch (SQLException e1) { // TODO Auto-generated catch
 				 * block e1.printStackTrace();
-				 */} catch (RemoteException e1) {
+				 */} catch (RemoteException | NotBoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
