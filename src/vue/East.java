@@ -97,7 +97,7 @@ public class East extends JPanel {
 					int index = lsm.getSelectionModel().getMinSelectionIndex();
 					lsm.setCellRenderer(new MySalonCellRenderer());
 					p2 = (PersonneInterface) lsm.getModel().getElementAt(index);
-					if (s.getModo() == p
+					if (s.getModo().equals(p)
 							&& !p.getLogin().equals(((Personne) lsm.getModel().getElementAt(index)).getLogin())) {
 						JButton donnerDroits = new JButton("Donner droits de modération");
 						donnerDroits.addActionListener(new ActionListener() {

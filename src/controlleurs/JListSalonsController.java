@@ -50,7 +50,7 @@ public class JListSalonsController implements ListSelectionListener {
 				List<MessageInterface> message = info.getMessage(salon, p);
 				interfaceChat.getCenter().getDiscussion(message);
 				salon.connection(p);
-				if (salon.getModo() == p) {
+				if (salon.getModo().equals(p)) {
 					try {
 						interfaceChat.getWest().getJListSalons();
 					} catch (RemoteException e1) {
