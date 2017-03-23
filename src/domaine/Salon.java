@@ -3,12 +3,9 @@ package domaine;
 import java.awt.HeadlessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-<<<<<<< HEAD
-=======
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.sql.SQLException;
->>>>>>> branch 'master' of https://github.com/sanga32/projetCOO.git
+import java.sql.SQLException;//github.com/sanga32/projetCOO.git
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +13,7 @@ import Interface.PersonneInterface;
 import Interface.SalonInterface;
 import message.MessageSimple;
 import persistance.MessageMapper;
+import persistance.SalonMapper;
 
 /**
  * Classe qui représente un salon
@@ -55,8 +53,9 @@ public class Salon implements SalonInterface{
 		return false;
 	}
 
-	public void addPersonne(PersonneInterface p){
-		this.personnes.add(p);
+	public void addPersonne(PersonneInterface p) throws RemoteException, SQLException{
+		SalonMapper.getInstance().insertPersonne(this, p);	
+		personnes.add(p);
 	}
 
 	public void removePersonne(Personne p){
@@ -120,19 +119,22 @@ public class Salon implements SalonInterface{
 		connecte.remove(p);
 	}
 
-
-
-
-	@Override
-	public void ajouterPersonne(PersonneInterface p) throws RemoteException, SQLException {
-		SalonMapper.getInstance().insertPersonne(this, p);	
-		personnes.add(p);
-	}
-
 	@Override
 	public void updateModo(PersonneInterface p) throws RemoteException {
 		SalonMapper.getInstance().updateModo(this, p);
 		this.modo = p;
+		
+	}
+
+	@Override
+	public boolean delete() throws RemoteException, NotBoundException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void quitter(PersonneInterface p) throws RemoteException {
+		// TODO Auto-generated method stub
 		
 	}
 

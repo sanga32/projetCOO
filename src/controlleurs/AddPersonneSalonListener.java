@@ -122,7 +122,7 @@ public class AddPersonneSalonListener implements ActionListener {
 				try {
 
 					for (int i = 0; i< lmodel2.size(); i++){
-						salon.ajouterPersonne(lmodel2.getElementAt(i));
+						salon.addPersonne(lmodel2.getElementAt(i));
 
 					}
 					
@@ -136,6 +136,9 @@ public class AddPersonneSalonListener implements ActionListener {
 					JOptionPane.showMessageDialog(null, "Cet utilisateur est déjà présent dans le salon", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
 				
 				*/} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

@@ -85,8 +85,9 @@ public class SalonMapper {
 	 * @param s
 	 * 		 le salon a mettre en base
 	 * @return le nombre de ligne inséré en base
+	 * @throws RemoteException 
 	 */
-	public int insertSalon(Salon s) throws SQLException {
+	public int insertSalon(Salon s) throws SQLException, RemoteException {
 		int nbLigne = 0;
 		String req = "insert into Projet_Salon( nom, modo) values(?,?)";
 		PreparedStatement ps = conn.prepareStatement(req);

@@ -19,13 +19,8 @@ public interface SalonInterface extends Remote{
 	public void connection(PersonneInterface p) throws RemoteException;
 	public void deconnection(PersonneInterface p) throws RemoteException;
 	public boolean isEmpty() throws RemoteException;
-<<<<<<< HEAD
-	public void UpdateModo(SalonInterface s, PersonneInterface modo);
-	public void addPersonne(PersonneInterface personneInterface);
-=======
+	public void addPersonne(PersonneInterface personneInterface) throws RemoteException, SQLException;
 	public boolean delete() throws RemoteException, NotBoundException;
 	public void quitter(PersonneInterface p) throws RemoteException;
-	public void ajouterPersonne(PersonneInterface p) throws RemoteException, SQLException;
->>>>>>> branch 'master' of https://github.com/sanga32/projetCOO.git
 	public void updateModo(PersonneInterface p) throws RemoteException;
 }

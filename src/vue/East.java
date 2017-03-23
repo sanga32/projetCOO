@@ -39,14 +39,9 @@ import sun.security.x509.IssuerAlternativeNameExtension;
 
 public class East extends JPanel {
 
-<<<<<<< HEAD
 	SalonInterface s;
-	Personne p, p2;
-=======
-	Salon s;
 	Personne p;
 	PersonneInterface p2;
->>>>>>> branch 'master' of https://github.com/sanga32/projetCOO.git
 	Personne destinataire;
 	InterfaceChat interfaceChat;
 	InfoInterface info;
@@ -109,11 +104,7 @@ public class East extends JPanel {
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								// TODO Auto-generated method stub
-<<<<<<< HEAD
-								//sm.leaveSalon(p2, s);
-								s.UpdateModo(s, p2);
-=======
->>>>>>> branch 'master' of https://github.com/sanga32/projetCOO.git
+
 								try {
 									s.quitter(p2);
 									s.updateModo(p2);
@@ -121,7 +112,12 @@ public class East extends JPanel {
 									// TODO Auto-generated catch block
 									e2.printStackTrace();
 								}
-								s.addPersonne(p);
+								try {
+									s.addPersonne(p);
+								} catch (RemoteException | SQLException e2) {
+									// TODO Auto-generated catch block
+									e2.printStackTrace();
+								}
 								try {
 									interfaceChat.getWest().getJListSalons();
 								} catch (RemoteException e1) {

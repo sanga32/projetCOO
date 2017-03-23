@@ -73,7 +73,7 @@ public class CreerSalonListener implements ActionListener{
 				Salon s = new Salon(4, tsalon.getText(), p);
 				try {
 					SalonMapper.getInstance().insertSalon(s);
-				} catch (SQLException e1) {
+				} catch (SQLException | RemoteException e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "Ce nom de salon est deja pris", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
 
