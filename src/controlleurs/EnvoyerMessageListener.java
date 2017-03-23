@@ -2,6 +2,7 @@ package controlleurs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.RemoteException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -59,7 +60,12 @@ public class EnvoyerMessageListener implements ActionListener{
 			envoiMessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate);
 		} else {
 			//envoiMessageSalon(new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate), east.getSalon());
-			envoiMessageSalon(j.getText(), expediteur, east.getDestinataire(),strDate, east.getSalon());
+			try {
+				envoiMessageSalon(j.getText(), expediteur, east.getDestinataire(),strDate, east.getSalon());
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 		}
 
@@ -96,7 +102,7 @@ public class EnvoyerMessageListener implements ActionListener{
 		center.updateUI();
 	}
 
-	public void envoiMessageSalon(String s, Personne exped, Personne dest, String date, SalonInterface salon){
+	public void envoiMessageSalon(String s, Personne exped, Personne dest, String date, SalonInterface salon) throws RemoteException{
 		boolean ack;
 		boolean exp;
 		boolean chiff;

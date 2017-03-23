@@ -1,7 +1,5 @@
 package controlleurs;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,8 +16,8 @@ import javax.swing.event.ListSelectionListener;
 
 import Interface.InfoInterface;
 import Interface.MessageInterface;
+import Interface.PersonneInterface;
 import Interface.SalonInterface;
-import domaine.Personne;
 import persistance.MessageMapper;
 import persistance.SalonMapper;
 import vue.InterfaceChat;
@@ -27,10 +25,10 @@ import vue.InterfaceChat;
 public class JListSalonsController implements ListSelectionListener {
 	
 	InterfaceChat interfaceChat;
-	Personne p;
+	PersonneInterface p;
 	InfoInterface info;
 
-	public JListSalonsController(InterfaceChat interfaceChat, Personne p, InfoInterface info) {
+	public JListSalonsController(InterfaceChat interfaceChat, PersonneInterface p, InfoInterface info) {
 		this.interfaceChat = interfaceChat;
 		this.p = p;
 		this.info = info;
@@ -55,7 +53,8 @@ public class JListSalonsController implements ListSelectionListener {
 				SalonInterface salon = info.getSalon(nomSalon);
 				List<MessageInterface> message = info.getMessage(salon, p);
 				interfaceChat.getCenter().getDiscussion(message);
-				if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId()) || p.isAdmin()){
+				salon.connection(p);
+				/*if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId()) || p.isAdmin()){
 					try {
 						interfaceChat.getWest().getJListSalons();
 					} catch (RemoteException e1) {
@@ -136,12 +135,12 @@ public class JListSalonsController implements ListSelectionListener {
 					});
 					interfaceChat.getWest().add(quitter);
 
-				}
+				}*/
 				interfaceChat.getWest().updateUI();
-			} catch (SQLException e1) {
+			/*} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			} catch (RemoteException e1) {
+			*/} catch (RemoteException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

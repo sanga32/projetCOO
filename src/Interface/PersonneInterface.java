@@ -1,10 +1,11 @@
 package Interface;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 public interface PersonneInterface extends Remote{
 
-	public void update();
-	public void receiveMessage(MessageInterface m);
-	public int getId();
+	public void update() throws RemoteException;
+	public void receiveMessage(MessageInterface m) throws RemoteException;
+	public int getId() throws RemoteException;
 }

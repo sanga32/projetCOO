@@ -29,7 +29,7 @@ public class InterfaceChat extends JPanel {
 	public InterfaceChat(Personne p, InfoInterface info) throws SQLException, RemoteException {
 		// TODO Auto-generated constructor stub
 		super();
-		this.registry = LocateRegistry.createRegistry(10000);
+		//this.registry = LocateRegistry.createRegistry(10000);
 		this.setLayout(new BorderLayout());
 		
 		east = new East(info, p, this);

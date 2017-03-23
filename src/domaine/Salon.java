@@ -29,6 +29,7 @@ public class Salon implements SalonInterface{
 		this.nom = nom;
 		this.modo = modo;
 		this.personnes = personnes;
+		connecte = new ArrayList<PersonneInterface>();
 	}
 
 	public Salon(int id, String nom, Personne modo) {
@@ -37,6 +38,8 @@ public class Salon implements SalonInterface{
 		this.nom = nom;
 		this.modo = modo;
 		this.personnes = new ArrayList<PersonneInterface>();
+		connecte = new ArrayList<PersonneInterface>();
+
 	}
 
 	public boolean isEmpty(){
@@ -44,8 +47,9 @@ public class Salon implements SalonInterface{
 		return false;
 	}
 
-	public void addPersonne(Personne p){
+	public void addPersonne(PersonneInterface p){
 		this.personnes.add(p);
+		//Ici faire le insert
 	}
 
 	public void removePersonne(Personne p){
@@ -71,8 +75,12 @@ public class Salon implements SalonInterface{
 	public PersonneInterface getModo() {
 		return modo;
 	}
-	public void setModo(Personne modo) {
+	public void setModo(PersonneInterface modo) {
 		this.modo = modo;
+	}
+	
+	public void UpdateModo(SalonInterface s, PersonneInterface modo){
+		//Ici faire la MAJ
 	}
 
 	public List<PersonneInterface> getPersonnes() {
@@ -84,13 +92,14 @@ public class Salon implements SalonInterface{
 	}
 
 	@Override
-	public void send(String s, Personne exped, Personne dest, String date, boolean prio, boolean chiff, boolean exp,
+	public void send(String s, PersonneInterface exped, PersonneInterface dest, String date, boolean prio, boolean chiff, boolean exp,
 			boolean ack) throws RemoteException {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		MessageMapper mm =  MessageMapper.getInstance();
-		MessageSimple m = new MessageSimple();
+		MessageSimple m = new MessageSimple(s, exped, dest, date, this);
 		mm.insert(m, this);
+		//connecte.add(exped);
 		for (int i = 0 ; i<connecte.size(); i++){
 			connecte.get(i).receiveMessage(m);
 		}

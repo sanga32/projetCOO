@@ -46,7 +46,7 @@ public class Info implements InfoInterface {
 	@Override
 	public List<MessageInterface> getMessage(SalonInterface s, PersonneInterface p) throws RemoteException {
 		List<MessageInterface> messages = MessageMapper.getInstance().findListMessageSalon(s.getId(), p);
-		return null;
+		return messages;
 	}
 
 

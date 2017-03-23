@@ -18,6 +18,7 @@ import javax.swing.event.ListSelectionListener;
 
 import Interface.InfoInterface;
 import Interface.PersonneInterface;
+import Interface.SalonInterface;
 import controlleurs.CreerSalonListener;
 import controlleurs.JListAmisController;
 import controlleurs.MySalonCellRenderer;
@@ -38,7 +39,7 @@ import sun.security.x509.IssuerAlternativeNameExtension;
 
 public class East extends JPanel {
 
-	Salon s;
+	SalonInterface s;
 	Personne p, p2;
 	Personne destinataire;
 	InterfaceChat interfaceChat;
@@ -66,11 +67,11 @@ public class East extends JPanel {
 		this.add(jl);
 	}
 
-	public Salon getSalon() {
+	public SalonInterface getSalon() {
 		return s;
 	}
 
-	public void setSalon(Salon s) {
+	public void setSalon(SalonInterface s) {
 		this.s = s;
 	}
 
@@ -79,16 +80,16 @@ public class East extends JPanel {
 		JList<PersonneInterface> jl = new JList<PersonneInterface>();
 		DefaultListModel<PersonneInterface> lmodel = new DefaultListModel<PersonneInterface>();
 		SalonMapper sm = new SalonMapper().getInstance();
-		s = sm.findByNom(salon);
+		s = info.getSalon(salon);
 
 		jl.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				// TODO Auto-generated method stub
-				SalonMapper sm = SalonMapper.getInstance();
+				//SalonMapper sm = SalonMapper.getInstance();
 				try {
-					Salon s = sm.findByNom(salon);
+					SalonInterface s = info.getSalon(salon);
 
 					JList lsm = (JList) e.getSource();
 					int index = lsm.getSelectionModel().getMinSelectionIndex();
@@ -102,8 +103,8 @@ public class East extends JPanel {
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								// TODO Auto-generated method stub
-								sm.leaveSalon(p2, s);
-								sm.updateModo(s, p2);
+								//sm.leaveSalon(p2, s);
+								s.UpdateModo(s, p2);
 								try {
 									sm.insertPersonne(s, p);
 								} catch (SQLException e1) {

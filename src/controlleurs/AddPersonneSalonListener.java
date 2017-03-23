@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Interface.PersonneInterface;
+import Interface.SalonInterface;
 import domaine.Personne;
 import domaine.Salon;
 import persistance.AmiMapper;
@@ -30,11 +32,11 @@ public class AddPersonneSalonListener implements ActionListener {
 
 	Personne p;
 	JPanel panel;
-	Salon salon;
+	SalonInterface salon;
 	JFrame jf;
 	East east2;
 
-	public AddPersonneSalonListener(Personne p, Salon salon, East east) {
+	public AddPersonneSalonListener(Personne p, SalonInterface salon, East east) {
 		this.p = p;
 		this.p = p;
 		panel= new JPanel();
@@ -60,13 +62,13 @@ public class AddPersonneSalonListener implements ActionListener {
 		west.setLayout(boxLayout2);
 
 
-		JList<Personne> jl = new JList<Personne>();
-		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
-		JList<Personne> jl2 = new JList<Personne>();
-		DefaultListModel<Personne> lmodel2 = new DefaultListModel<Personne>();
+		JList<PersonneInterface> jl = new JList<PersonneInterface>();
+		DefaultListModel<PersonneInterface> lmodel = new DefaultListModel<PersonneInterface>();
+		JList<PersonneInterface> jl2 = new JList<PersonneInterface>();
+		DefaultListModel<PersonneInterface> lmodel2 = new DefaultListModel<PersonneInterface>();
 
 		try {
-			for ( Personne pers : p.getAmis()){
+			for ( PersonneInterface pers : p.getAmis()){
 				lmodel.addElement(pers);
 			}
 		} catch (RemoteException e2) {
@@ -117,7 +119,7 @@ public class AddPersonneSalonListener implements ActionListener {
 				try {
 
 					for (int i = 0; i< lmodel2.size(); i++){
-						sm.insertPersonne(salon, lmodel2.getElementAt(i));
+						salon.addPersonne(lmodel2.getElementAt(i));
 
 					}
 					
@@ -126,10 +128,11 @@ public class AddPersonneSalonListener implements ActionListener {
 					east2.getJListPersonneSalons(salon.getNom());
 					east2.updateUI();
 
-				} catch (SQLException e1) {
+				/*} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "Cet utilisateur est déjà présent dans le salon", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
-				} catch (RemoteException e1) {
+				
+				*/} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

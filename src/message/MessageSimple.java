@@ -2,6 +2,7 @@ package message;
 
 import java.sql.Date;
 
+import Interface.PersonneInterface;
 import domaine.Personne;
 import domaine.Salon;
 
@@ -26,6 +27,15 @@ public class MessageSimple extends Message{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public MessageSimple(String s, PersonneInterface exped, PersonneInterface dest, String date,  Salon salon) {
+		// TODO Auto-generated constructor stub
+		this.expediteur = (Personne) exped;
+		this.contenu = s;
+		this.dateEnvoi = date;
+		this.idSalon = salon;
+
+	}
+
 	@Override
 	public
 	boolean isReception() {
