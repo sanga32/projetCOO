@@ -105,8 +105,9 @@ public class SalonMapper {
 	 * @param p
 	 * 		 la personne à mettre dans le salon
 	 * @return le nombre de ligne inséré en base
+	 * @throws RemoteException 
 	 */
-	public int insertPersonne(Salon s, Personne p) throws SQLException {
+	public int insertPersonne(SalonInterface s, PersonneInterface p) throws SQLException, RemoteException {
 		int nbLigne = 0;
 
 		String req = "insert into Projet_OccupeSalon(idSalon, idPersonne) values(?,?)";

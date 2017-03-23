@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Interface.InfoInterface;
+import Interface.PersonneInterface;
 import Interface.SalonInterface;
 import domaine.Personne;
 import domaine.Salon;
@@ -31,11 +33,12 @@ public class AddPersonneSalonListener implements ActionListener {
 
 	Personne p;
 	JPanel panel;
-	Salon salon;
+	SalonInterface salon;
 	JFrame jf;
 	East east2;
+	InfoInterface info;
 
-	public AddPersonneSalonListener(Personne p, SalonInterface salon, East east) {
+	public AddPersonneSalonListener(Personne p, SalonInterface salon, East east, InfoInterface info) {
 		this.p = p;
 		this.p = p;
 		panel= new JPanel();
@@ -61,13 +64,13 @@ public class AddPersonneSalonListener implements ActionListener {
 		west.setLayout(boxLayout2);
 
 
-		JList<Personne> jl = new JList<Personne>();
-		DefaultListModel<Personne> lmodel = new DefaultListModel<Personne>();
-		JList<Personne> jl2 = new JList<Personne>();
-		DefaultListModel<Personne> lmodel2 = new DefaultListModel<Personne>();
+		JList<PersonneInterface> jl = new JList<PersonneInterface>();
+		DefaultListModel<PersonneInterface> lmodel = new DefaultListModel<PersonneInterface>();
+		JList<PersonneInterface> jl2 = new JList<PersonneInterface>();
+		DefaultListModel<PersonneInterface> lmodel2 = new DefaultListModel<PersonneInterface>();
 
 		try {
-			for ( Personne pers : p.getAmis()){
+			for ( PersonneInterface pers : info.getAmis(p)){
 				lmodel.addElement(pers);
 			}
 		} catch (RemoteException e2) {
@@ -111,15 +114,13 @@ public class AddPersonneSalonListener implements ActionListener {
 		});
 
 		valider.addActionListener(new ActionListener() {
-			SalonMapper sm = SalonMapper.getInstance();
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				try {
 
 					for (int i = 0; i< lmodel2.size(); i++){
-						sm.insertPersonne(salon, lmodel2.getElementAt(i));
-
+						salon.ajouterPersonne(lmodel2.getElementAt(i));
 					}
 					
 					JOptionPane.showMessageDialog(null, "Modifications enregistrées", "Validation",  JOptionPane.INFORMATION_MESSAGE);

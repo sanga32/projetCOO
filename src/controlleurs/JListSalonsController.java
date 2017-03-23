@@ -67,7 +67,7 @@ public class JListSalonsController implements ListSelectionListener {
 					
 					JButton quitter = new JButton("Quitter");
 
-					addPersonneSalon.addActionListener(new AddPersonneSalonListener(p, salon, interfaceChat.getEast() ));
+					addPersonneSalon.addActionListener(new AddPersonneSalonListener(p, salon, interfaceChat.getEast(),info ));
 					supprPersonneSalon.addActionListener(new SupprPersonneSalonListener(p, salon, interfaceChat.getEast()));
 					interfaceChat.getWest().add(addPersonneSalon);
 					interfaceChat.getWest().add(supprPersonneSalon);

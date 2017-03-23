@@ -5,6 +5,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,6 +134,11 @@ public class Salon implements SalonInterface {
 		SalonMapper.getInstance().leaveSalon(p, this);
 		personnes.remove(p);
 		if(connecte.contains(p)) connecte.remove(p);
+	}
+
+	@Override
+	public void ajouterPersonne(PersonneInterface p) throws RemoteException, SQLException {
+		SalonMapper.getInstance().insertPersonne(this, p);		
 	}
 
 }
