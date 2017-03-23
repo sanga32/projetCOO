@@ -2,6 +2,7 @@ package controlleurs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.Date;
 import java.text.ParseException;
@@ -22,6 +23,7 @@ import message.MessagePrive;
 import persistance.MessageMapper;
 import vue.Center;
 import vue.East;
+import vue.InterfaceChat;
 import vue.West;
 
 public class EnvoyerMessageListener implements ActionListener{
@@ -33,8 +35,9 @@ public class EnvoyerMessageListener implements ActionListener{
 	Personne expediteur;
 	Center center;
 	West west;
+	InterfaceChat interfaceChat;
 
-	public EnvoyerMessageListener(JTextField j, List<String> listeChoix2, East east, West west, Personne p, Center center) {
+	public EnvoyerMessageListener(JTextField j, List<String> listeChoix2, East east, West west, Personne p, Center center, InterfaceChat interfaceChat) {
 		super();
 		this.j = j;
 		this.listeChoix = listeChoix2;
@@ -42,6 +45,7 @@ public class EnvoyerMessageListener implements ActionListener{
 		expediteur =p;
 		this.center = center;
 		this.west = west;
+		this.interfaceChat = interfaceChat;
 	}
 
 
@@ -63,6 +67,9 @@ public class EnvoyerMessageListener implements ActionListener{
 			try {
 				envoiMessageSalon(j.getText(), expediteur, east.getDestinataire(),strDate, east.getSalon());
 			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotBoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -102,7 +109,7 @@ public class EnvoyerMessageListener implements ActionListener{
 		center.updateUI();
 	}
 
-	public void envoiMessageSalon(String s, Personne exped, Personne dest, String date, SalonInterface salon) throws RemoteException{
+	public void envoiMessageSalon(String s, Personne exped, Personne dest, String date, SalonInterface salon) throws RemoteException, NotBoundException{
 		boolean ack;
 		boolean exp;
 		boolean chiff;
@@ -122,7 +129,7 @@ public class EnvoyerMessageListener implements ActionListener{
 
 			}
 		}
-		
+		salon = (SalonInterface) interfaceChat.registry.lookup(salon.getNom());
 		salon.send(s, exped, dest, date, prio, chiff, exp, ack);
 		j.setText("");
 		center.updateUI();
