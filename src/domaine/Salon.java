@@ -5,6 +5,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;//github.com/sanga32/projetCOO.git
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import persistance.SalonMapper;
  *
  */
 
-public class Salon implements SalonInterface{
+public class Salon extends UnicastRemoteObject implements SalonInterface{
 	int id;
 	String nom;
 	PersonneInterface modo;
@@ -29,7 +30,7 @@ public class Salon implements SalonInterface{
 	List<PersonneInterface> connecte;
 
 
-	public Salon(int id, String nom, PersonneInterface modo, List<PersonneInterface> personnes) {
+	public Salon(int id, String nom, PersonneInterface modo, List<PersonneInterface> personnes) throws RemoteException {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -38,7 +39,7 @@ public class Salon implements SalonInterface{
 		connecte = new ArrayList<PersonneInterface>();
 	}
 
-	public Salon(int id, String nom, Personne modo) {
+	public Salon(int id, String nom, Personne modo) throws RemoteException {
 		super();
 		this.id = id;
 		this.nom = nom;

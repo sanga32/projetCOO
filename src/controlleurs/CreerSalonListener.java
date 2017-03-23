@@ -70,8 +70,9 @@ public class CreerSalonListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				jf.setVisible(false);
-				Salon s = new Salon(4, tsalon.getText(), p);
+				Salon s;
 				try {
+					s = new Salon(4, tsalon.getText(), p);
 					SalonMapper.getInstance().insertSalon(s);
 				} catch (SQLException | RemoteException e1) {
 					// TODO Auto-generated catch block
