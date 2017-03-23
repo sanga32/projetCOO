@@ -27,13 +27,13 @@ import persistance.SalonMapper;
 import vue.East;
 
 public class SupprPersonneSalonListener implements ActionListener{
-	PersonneInterface p;
+	Personne p;
 	JPanel panel;
 	SalonInterface salon;
 	JFrame jf;
 	East east2;
 
-	public SupprPersonneSalonListener(PersonneInterface p, SalonInterface salon, East east) {
+	public SupprPersonneSalonListener(Personne p, SalonInterface salon, East east) {
 		this.p = p;
 		this.p = p;
 		panel= new JPanel();

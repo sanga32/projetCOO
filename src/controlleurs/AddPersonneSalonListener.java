@@ -33,14 +33,14 @@ import vue.East;
 
 public class AddPersonneSalonListener implements ActionListener {
 
-	PersonneInterface p;
+	Personne p;
 	JPanel panel;
 	SalonInterface salon;
 	JFrame jf;
 	East east2;
 	InfoInterface info;
 
-	public AddPersonneSalonListener(PersonneInterface p, SalonInterface salon, East east, InfoInterface info) {
+	public AddPersonneSalonListener(Personne p, SalonInterface salon, East east, InfoInterface info) {
 		this.p = p;
 		this.p = p;
 		panel= new JPanel();

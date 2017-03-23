@@ -19,6 +19,7 @@ import Interface.InfoInterface;
 import Interface.MessageInterface;
 import Interface.PersonneInterface;
 import Interface.SalonInterface;
+import domaine.Personne;
 import persistance.MessageMapper;
 import persistance.SalonMapper;
 import vue.InterfaceChat;
@@ -26,10 +27,10 @@ import vue.InterfaceChat;
 public class JListSalonsController implements ListSelectionListener {
 
 	InterfaceChat interfaceChat;
-	PersonneInterface p;
+	Personne p;
 	InfoInterface info;
 
-	public JListSalonsController(InterfaceChat interfaceChat, PersonneInterface p, InfoInterface info) {
+	public JListSalonsController(InterfaceChat interfaceChat, Personne p, InfoInterface info) {
 		this.interfaceChat = interfaceChat;
 		this.p = p;
 		this.info = info;

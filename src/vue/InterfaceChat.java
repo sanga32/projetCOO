@@ -24,7 +24,7 @@ public class InterfaceChat extends JPanel {
 	North north;
 	South south;
 	Center center;
-	Registry registry;
+	static Registry registry;
 	
 	public InterfaceChat(Personne p, InfoInterface info) throws SQLException, RemoteException {
 		// TODO Auto-generated constructor stub
