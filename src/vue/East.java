@@ -97,7 +97,7 @@ public class East extends JPanel {
 					int index = lsm.getSelectionModel().getMinSelectionIndex();
 					lsm.setCellRenderer(new MySalonCellRenderer());
 					p2 = (PersonneInterface) lsm.getModel().getElementAt(index);
-					if (sm.isModo(p, s.getId())
+					if (s.getModo() == p
 							&& !p.getLogin().equals(((Personne) lsm.getModel().getElementAt(index)).getLogin())) {
 						JButton donnerDroits = new JButton("Donner droits de modération");
 						donnerDroits.addActionListener(new ActionListener() {
@@ -142,9 +142,6 @@ public class East extends JPanel {
 						interfaceChat.getEast().add(donnerDroits);
 
 					}
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
