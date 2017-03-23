@@ -84,10 +84,6 @@ public class Salon implements SalonInterface{
 	public void setModo(PersonneInterface modo) {
 		this.modo = modo;
 	}
-	
-	public void UpdateModo(SalonInterface s, PersonneInterface modo){
-		//Ici faire la MAJ
-	}
 
 	public List<PersonneInterface> getPersonnes() {
 		return personnes;
