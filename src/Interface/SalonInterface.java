@@ -22,5 +22,5 @@ public interface SalonInterface extends Remote{
 	public boolean delete() throws RemoteException, NotBoundException;
 	public void quitter(PersonneInterface p) throws RemoteException;
 	public void ajouterPersonne(PersonneInterface p) throws RemoteException, SQLException;
-
+	public void updateModo(PersonneInterface p) throws RemoteException;
 }

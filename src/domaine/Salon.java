@@ -138,7 +138,15 @@ public class Salon implements SalonInterface {
 
 	@Override
 	public void ajouterPersonne(PersonneInterface p) throws RemoteException, SQLException {
-		SalonMapper.getInstance().insertPersonne(this, p);		
+		SalonMapper.getInstance().insertPersonne(this, p);	
+		personnes.add(p);
+	}
+
+	@Override
+	public void updateModo(PersonneInterface p) throws RemoteException {
+		SalonMapper.getInstance().updateModo(this, p);
+		this.modo = p;
+		
 	}
 
 }
