@@ -20,6 +20,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import Interface.PersonneInterface;
+import Interface.InfoInterface;
+import Interface.PersonneInterface;
 import Interface.SalonInterface;
 import Interface.SalonInterface;
 import domaine.Personne;
@@ -36,8 +38,9 @@ public class AddPersonneSalonListener implements ActionListener {
 	SalonInterface salon;
 	JFrame jf;
 	East east2;
+	InfoInterface info;
 
-	public AddPersonneSalonListener(Personne p, SalonInterface salon, East east) {
+	public AddPersonneSalonListener(Personne p, SalonInterface salon, East east, InfoInterface info) {
 		this.p = p;
 		this.p = p;
 		panel= new JPanel();
@@ -113,14 +116,13 @@ public class AddPersonneSalonListener implements ActionListener {
 		});
 
 		valider.addActionListener(new ActionListener() {
-			SalonMapper sm = SalonMapper.getInstance();
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				try {
 
 					for (int i = 0; i< lmodel2.size(); i++){
-						salon.addPersonne(lmodel2.getElementAt(i));
+						salon.ajouterPersonne(lmodel2.getElementAt(i));
 
 					}
 					
