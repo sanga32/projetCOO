@@ -53,7 +53,7 @@ public class JListSalonsController implements ListSelectionListener {
 				List<MessageInterface> message = info.getMessage(salon, p);
 				interfaceChat.getCenter().getDiscussion(message);
 				salon.connection(p);
-				/*if(sm.isModo(p, sm.findByNom(lsm.getModel().getElementAt(Index).toString()).getId()) || p.isAdmin()){
+				if (salon.getModo() == p) {
 					try {
 						interfaceChat.getWest().getJListSalons();
 					} catch (RemoteException e1) {
@@ -63,21 +63,24 @@ public class JListSalonsController implements ListSelectionListener {
 					JButton addPersonneSalon = new JButton("Ajouter");
 					JButton supprPersonneSalon = new JButton("Supprimer");
 					JPanel pane = new JPanel();
-					
+
 					JButton quitter = new JButton("Quitter");
 
-					addPersonneSalon.addActionListener(new AddPersonneSalonListener(p, salon, interfaceChat.getEast(),info ));
-					supprPersonneSalon.addActionListener(new SupprPersonneSalonListener(p, salon, interfaceChat.getEast()));
+					addPersonneSalon
+							.addActionListener(new AddPersonneSalonListener(p, salon, interfaceChat.getEast(), info));
+					supprPersonneSalon
+							.addActionListener(new SupprPersonneSalonListener(p, salon, interfaceChat.getEast()));
 					interfaceChat.getWest().add(addPersonneSalon);
 					interfaceChat.getWest().add(supprPersonneSalon);
 					quitter.addActionListener(new ActionListener() {
-						
+
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
 							try {
-								if(!salon.delete()){
-										JOptionPane.showMessageDialog(null, "Ce salon n'est pas vide !", "Message d'erreur",  JOptionPane.ERROR_MESSAGE);
+								if (!salon.delete()) {
+									JOptionPane.showMessageDialog(null, "Ce salon n'est pas vide !", "Message d'erreur",
+											JOptionPane.ERROR_MESSAGE);
 								}
 							} catch (HeadlessException e2) {
 								// TODO Auto-generated catch block
@@ -101,17 +104,16 @@ public class JListSalonsController implements ListSelectionListener {
 					});
 					interfaceChat.getWest().add(quitter);
 
-					
-				}else{
+				} else {
 					try {
 						interfaceChat.getWest().getJListSalons();
 					} catch (RemoteException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					JButton quitter = new JButton("Quitter "+salon.getNom() );
+					JButton quitter = new JButton("Quitter " + salon.getNom());
 					quitter.addActionListener(new ActionListener() {
-						
+
 						@Override
 						public void actionPerformed(ActionEvent e) {
 							// TODO Auto-generated method stub
@@ -133,16 +135,16 @@ public class JListSalonsController implements ListSelectionListener {
 					});
 					interfaceChat.getWest().add(quitter);
 
-				}*/
+				}
 				interfaceChat.getWest().updateUI();
-			/*} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			*/} catch (RemoteException e1) {
+				/*
+				 * } catch (SQLException e1) { // TODO Auto-generated catch
+				 * block e1.printStackTrace();
+				 */} catch (RemoteException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		} 
+		}
 		interfaceChat.getCenter().updateUI();
 		interfaceChat.getEast().updateUI();
 	}

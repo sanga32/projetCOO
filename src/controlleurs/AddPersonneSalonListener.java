@@ -33,14 +33,14 @@ import vue.East;
 
 public class AddPersonneSalonListener implements ActionListener {
 
-	Personne p;
+	PersonneInterface p;
 	JPanel panel;
 	SalonInterface salon;
 	JFrame jf;
 	East east2;
 	InfoInterface info;
 
-	public AddPersonneSalonListener(Personne p, SalonInterface salon, East east, InfoInterface info) {
+	public AddPersonneSalonListener(PersonneInterface p, SalonInterface salon, East east, InfoInterface info) {
 		this.p = p;
 		this.p = p;
 		panel= new JPanel();
@@ -72,7 +72,7 @@ public class AddPersonneSalonListener implements ActionListener {
 		DefaultListModel<PersonneInterface> lmodel2 = new DefaultListModel<PersonneInterface>();
 
 		try {
-			for ( PersonneInterface pers : p.getAmis()){
+			for ( PersonneInterface pers : info.getAmis(p)){
 				lmodel.addElement(pers);
 			}
 		} catch (RemoteException e2) {
