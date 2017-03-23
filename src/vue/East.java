@@ -108,6 +108,7 @@ public class East extends JPanel {
 
 								try {
 									s.quitter(p2);
+									s.connection(p); //car quitter va deco la personne
 									s.updateModo(p2);
 								} catch (RemoteException e2) {
 									// TODO Auto-generated catch block
