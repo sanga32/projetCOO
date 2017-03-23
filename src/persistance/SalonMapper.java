@@ -321,8 +321,9 @@ public class SalonMapper {
 	 * 		salon
 	 * @param p
 	 * 		le nouveau modo
+	 * @throws RemoteException 
 	 */
-	public void updateModo(Salon s, Personne p){
+	public void updateModo(SalonInterface s, PersonneInterface p) throws RemoteException{
 		try {
 			String req = "UPDATE Projet_Salon SET  modo=? WHERE idSalon=?";
 			PreparedStatement ps = conn.prepareStatement(req);

@@ -39,8 +39,14 @@ import sun.security.x509.IssuerAlternativeNameExtension;
 
 public class East extends JPanel {
 
+<<<<<<< HEAD
 	SalonInterface s;
 	Personne p, p2;
+=======
+	Salon s;
+	Personne p;
+	PersonneInterface p2;
+>>>>>>> branch 'master' of https://github.com/sanga32/projetCOO.git
 	Personne destinataire;
 	InterfaceChat interfaceChat;
 	InfoInterface info;
@@ -94,7 +100,7 @@ public class East extends JPanel {
 					JList lsm = (JList) e.getSource();
 					int index = lsm.getSelectionModel().getMinSelectionIndex();
 					lsm.setCellRenderer(new MySalonCellRenderer());
-					p2 = (Personne) lsm.getModel().getElementAt(index);
+					p2 = (PersonneInterface) lsm.getModel().getElementAt(index);
 					if (sm.isModo(p, s.getId())
 							&& !p.getLogin().equals(((Personne) lsm.getModel().getElementAt(index)).getLogin())) {
 						JButton donnerDroits = new JButton("Donner droits de modération");
@@ -103,14 +109,19 @@ public class East extends JPanel {
 							@Override
 							public void actionPerformed(ActionEvent e) {
 								// TODO Auto-generated method stub
+<<<<<<< HEAD
 								//sm.leaveSalon(p2, s);
 								s.UpdateModo(s, p2);
+=======
+>>>>>>> branch 'master' of https://github.com/sanga32/projetCOO.git
 								try {
-									sm.insertPersonne(s, p);
-								} catch (SQLException e1) {
+									s.quitter(p2);
+									s.updateModo(p2);
+								} catch (RemoteException e2) {
 									// TODO Auto-generated catch block
-									e1.printStackTrace();
+									e2.printStackTrace();
 								}
+								s.addPersonne(p);
 								try {
 									interfaceChat.getWest().getJListSalons();
 								} catch (RemoteException e1) {

@@ -27,5 +27,5 @@ public interface SalonInterface extends Remote{
 	public void quitter(PersonneInterface p) throws RemoteException;
 	public void ajouterPersonne(PersonneInterface p) throws RemoteException, SQLException;
 >>>>>>> branch 'master' of https://github.com/sanga32/projetCOO.git
-
+	public void updateModo(PersonneInterface p) throws RemoteException;
 }
