@@ -122,16 +122,23 @@ public class Salon implements SalonInterface{
 		
 	}
 
-	@Override
 	public boolean delete() throws RemoteException, NotBoundException {
-		// TODO Auto-generated method stub
+		if (this.isEmpty()) {
+			SalonMapper.getInstance().delete(this);
+			Registry registry = LocateRegistry.createRegistry(10000);
+			registry.unbind(this.getNom());
+			return true;
+		}
 		return false;
+
 	}
 
 	@Override
 	public void quitter(PersonneInterface p) throws RemoteException {
-		// TODO Auto-generated method stub
-		
+		SalonMapper.getInstance().leaveSalon(p, this);
+		personnes.remove(p);
+		if (connecte.contains(p))
+			connecte.remove(p);
 	}
 
 }
