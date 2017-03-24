@@ -1,7 +1,9 @@
 package message;
 
+import java.rmi.RemoteException;
 import java.sql.Date;
 
+import Interface.PersonneInterface;
 import domaine.Personne;
 import domaine.Salon;
 
@@ -14,16 +16,16 @@ import domaine.Salon;
 public class MessagePrive extends Message{
 	
 	
-	Personne destinataire;
+	PersonneInterface destinataire;
 	
-	public MessagePrive(int id, String contenu, Personne expediteur, Personne destinataire, String dateEnvoi) {
+	public MessagePrive(int id, String contenu, PersonneInterface expediteur, PersonneInterface destinataire, String dateEnvoi) {
 		this.id=id;
 		this.contenu = contenu;
 		this.expediteur = expediteur;
 		this.destinataire = destinataire;
 		this.dateEnvoi = dateEnvoi;
 	}
-	public MessagePrive(String contenu, Personne expediteur, Personne destinataire, String string) {
+	public MessagePrive(String contenu, PersonneInterface expediteur, PersonneInterface destinataire, String string) {
 		
 		this.contenu = contenu;
 		this.expediteur = expediteur;
@@ -36,7 +38,7 @@ public class MessagePrive extends Message{
 	}
 	
 	
-	public Personne getDestinataire() {
+	public PersonneInterface getDestinataire() {
 		return destinataire;
 	}
 	public void setDestinataire(Personne destinataire) {

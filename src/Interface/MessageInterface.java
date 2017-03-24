@@ -11,7 +11,7 @@ public interface MessageInterface extends Serializable{
 	public String getContenu();
 	public String getDateEnvoi() ;
 	public PersonneInterface getExpediteur() ;
-	public Personne getDestinataire();
+	public PersonneInterface getDestinataire();
 	
 	/**
 	 * 

@@ -26,7 +26,7 @@ public abstract class MessageAvecOption extends Message {
 		return message.getExpediteur();
 	}
 
-	public Personne getDestinataire() {
+	public PersonneInterface getDestinataire() {
 		return message.getDestinataire();
 	}
 	

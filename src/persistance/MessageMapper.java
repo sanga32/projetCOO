@@ -78,7 +78,7 @@ public class MessageMapper {
 	 * @param toSend
 	 *            message à insérer en BDD
 	 */
-	public void insert(Message toSend) {
+	public void insert(MessageInterface toSend) {
 		try {
 			String req = "";
 			req = "insert into Projet_MessagePrive( message, expediteur, destinataire, "
