@@ -56,6 +56,7 @@ public class JListAmisController implements ListSelectionListener {
 				String nomSalonPrive;
 				nomSalonPrive = info.salonAmi(p, destinataire);
 				PriveInterface salonPrive = (PriveInterface) interfaceChat.registry.lookup(nomSalonPrive);
+				salonPrive.connection(p);
 				messages = salonPrive.getMessages(p, destinataire);
 			} catch (RemoteException e2) {
 				// TODO Auto-generated catch block
