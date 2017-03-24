@@ -113,7 +113,7 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 	public void removeInteret(Interet i){
 		this.interets.remove(i);
 	}
-	
+
 	/**
 	 * Ajoute le sous int�r�t pass� en param�tre � la liste de sous int�r�ts
 	 * @param si
@@ -233,18 +233,23 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 		interfaceChat.getCenter().addMessage(m);
 		interfaceChat.getCenter().updateUI();
 	}
-	
+
 	public void receiveNotif() throws RemoteException
 	{
-		if(info.getNotification(this) != null){
-			interfaceChat.getNorth().getNotif().setBackground(Color.RED);
+		try {
+
+			interfaceChat.getNorth().actNotif();
+			interfaceChat.getNorth().updateUI();
+			info.getNotification(this);
+				
+		} catch (NullPointerException e){
+			e.printStackTrace();
 		}
-		interfaceChat.getNorth().updateUI();
 	}
-	
+
 	public boolean equal(PersonneInterface p) throws RemoteException {
 		if(this.id == p.getId()) return true;
 		return false;
 	}
-	
+
 }
