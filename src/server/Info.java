@@ -27,7 +27,7 @@ import persistance.SalonMapper;
 
 public class Info implements InfoInterface {
 	
-	public static List<PersonneInterface> personnes = new ArrayList<PersonneInterface>();
+	public List<PersonneInterface> personnes = new ArrayList<PersonneInterface>();
 
 	@Override
 	public int connection(String login, String mdp) throws RemoteException {
@@ -99,7 +99,8 @@ public class Info implements InfoInterface {
 
 	@Override
 	public void connecter(PersonneInterface p) throws RemoteException {
-		personnes.add(p);	
+		personnes.add(p);
+		System.out.println(personnes+"ggggggggggggggggggggggggggggggggggggggggggggggg");
 	}
 	
 	@Override

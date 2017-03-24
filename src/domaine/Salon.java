@@ -123,9 +123,12 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 				Registry registry = LocateRegistry.getRegistry(10000);
 				InfoInterface info = (InfoInterface) registry.lookup("info");
 				List<PersonneInterface> connects =info.getPersonnes(); 
+				System.out.println(connects+"eeeeeeeeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrrrrrrrrrrr");
 				for (int y=0;y<connects.size();y++){
-					if(connects.get(y).equal(personnes.get(i)))
+					if(connects.get(y).equal(personnes.get(i))){
 						connects.get(y).receiveNotif();
+						System.out.println("(((((((((((((((((((((((((((((((((((((((((((((((((((((");
+					}
 				}
 			}catch (NullPointerException e ){
 

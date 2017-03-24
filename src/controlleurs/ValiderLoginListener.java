@@ -55,25 +55,12 @@ public class ValiderLoginListener implements ActionListener{
 			try {
 				registry = LocateRegistry.getRegistry(10000);
 				info = (InfoInterface) registry.lookup("info");
-			} catch (RemoteException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			} catch (NotBoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			String login = saisieID.getText();
-			String mdp = saisieMDP.getText();
-			int id = 0;
-			try {
+
+
+				String login = saisieID.getText();
+				String mdp = saisieMDP.getText();
+				int id = 0;
 				id = info.connection(login, mdp);
-			} catch (RemoteException e1) {
-				e1.printStackTrace();
-			}
-
-
-			try {
 				if(id > 0){
 					if(id == 1){
 						try {
@@ -105,6 +92,9 @@ public class ValiderLoginListener implements ActionListener{
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (NotBoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 
 		}
