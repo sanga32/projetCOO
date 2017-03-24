@@ -11,6 +11,8 @@ import java.util.List;
 
 import javax.swing.JTextField;
 
+import Interface.InfoInterface;
+import Interface.PriveInterface;
 import Interface.SalonInterface;
 import domaine.Personne;
 import domaine.Salon;
@@ -61,7 +63,15 @@ public class EnvoyerMessageListener implements ActionListener{
 		System.out.println(strDate);
 		if (west.getSwap().getText().equals("Amis")){
 			//envoiMessagePrive(new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate));
-			envoiMessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate);
+			try {
+				envoiMessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate);
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotBoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			//envoiMessageSalon(new MessagePrive(j.getText(), expediteur, east.getDestinataire(),strDate), east.getSalon());
 			try {
@@ -78,7 +88,7 @@ public class EnvoyerMessageListener implements ActionListener{
 
 	}
 
-	public void envoiMessagePrive(String s, Personne exped, Personne dest, String date){
+	public void envoiMessagePrive(String s, Personne exped, Personne dest, String date) throws RemoteException, NotBoundException{
 		//MessageMapper mp = MessageMapper.getInstance();
 
 		boolean ack;
@@ -101,6 +111,12 @@ public class EnvoyerMessageListener implements ActionListener{
 			}
 		}
 		
+		InfoInterface info = (InfoInterface) interfaceChat.registry.lookup("info");
+
+		String nomSalonPrive;
+		nomSalonPrive = info.salonAmi(exped, dest);
+		PriveInterface pi = (PriveInterface) interfaceChat.registry.lookup(nomSalonPrive);
+		pi.send(s, exped, dest, date, prio, chiff, exp, ack);
 		//Ici on en aura peut être plus besoin
 		//Ici il faut avoir lookup un salon, je sais pas encore comment on procède pour ça
 		//s.send(s, exped, dest, date, prio, chiff, exp, ack);
