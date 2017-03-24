@@ -123,7 +123,6 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 		}
 		for (int i = 0 ; i<connecte.size(); i++){
 			connecte.get(i).receiveMessage(m);
-
 		}
 		
 	}

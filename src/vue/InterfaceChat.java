@@ -31,13 +31,13 @@ public class InterfaceChat extends JPanel {
 		super();
 		this.registry = LocateRegistry.getRegistry(10000);
 		this.setLayout(new BorderLayout());
-		
+		p.setInterfaceChat(this, info);
+
 		east = new East(info, p, this);
 		west = new West(info,p, this);
 		north = new North(info,p, this);
 		center = new Center(info,p, this);
 		south = new South(info,p, this);
-		p.setInterfaceChat(this, info);
 
 		this.add(east, BorderLayout.EAST);
 		this.add(west, BorderLayout.WEST);
