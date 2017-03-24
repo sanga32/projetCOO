@@ -1,5 +1,9 @@
 package domaine;
 
+import java.rmi.RemoteException;
+
+import Interface.PersonneInterface;
+
 /** 
  * Classe que hérite de Notification et qui représente la réponse à une demande d'ami
  * @author Kevin delporte, alexandre godon, teddy lequette 
@@ -19,7 +23,7 @@ public class Reponse extends Notification{
 		}
 	}
 	
-	public Reponse(boolean rep, Personne expediteur, Personne destinataire) {
+	public Reponse(boolean rep, PersonneInterface expediteur, PersonneInterface destinataire) throws RemoteException {
 		super(expediteur, destinataire);
 		this.reponse = rep;
 		if(rep){

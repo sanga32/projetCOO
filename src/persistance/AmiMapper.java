@@ -65,23 +65,23 @@ public class AmiMapper {
 	/**
 	 * Insère 2 personne dans la table Projet_Ami
 	 * 
-	 * @param p1
-	 * @param p2
+	 * @param expediteur
+	 * @param destinataire
 	 *            p1 et p2 sont les deux nouveau ami à insérer en bdd
 	 * @return le nombre de ligne inséré en BDD
 	 */
-	public int insert(Personne p1, Personne p2) {
+	public int insert(PersonneInterface expediteur, PersonneInterface destinataire) {
 		int nbLigne = 0;
 		// On insère uniquement si ils ne sont pas déja ami
-		if (!isAmi(p1, p2)) {
+		if (!isAmi(expediteur, destinataire)) {
 			try {
 				String req = "insert into Projet_Ami(idPersonne1,idPersonne2) values(?,?)";
 				PreparedStatement ps = conn.prepareStatement(req);
-				ps.setInt(1, p1.getId());
-				ps.setInt(2, p2.getId());
+				ps.setInt(1, expediteur.getId());
+				ps.setInt(2, destinataire.getId());
 				nbLigne = ps.executeUpdate();
 				conn.commit();
-			} catch (SQLException e) {
+			} catch (SQLException | RemoteException e) {
 				e.printStackTrace();
 			}
 		}
@@ -132,25 +132,25 @@ public class AmiMapper {
 	/**
 	 * Vérifie si 2 personnes sont amis
 	 * 
-	 * @param p1
+	 * @param expediteur
 	 *            une personne
-	 * @param p2
+	 * @param destinataire
 	 *            une personne
 	 * @return vrai si ils sont ami, false sinon
 	 */
-	public boolean isAmi(Personne p1, Personne p2) {
+	public boolean isAmi(PersonneInterface expediteur, PersonneInterface destinataire) {
 		try {
 			String req = "SELECT idPersonne FROM Projet_Ami where (idPersonne1 =? && idPersonne2 =?) || (idPersonne2 =? && idPersonne1 =?)";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, p1.getId());
-			ps.setInt(2, p2.getId());
-			ps.setInt(3, p1.getId());
-			ps.setInt(4, p2.getId());
+			ps.setInt(1, expediteur.getId());
+			ps.setInt(2, destinataire.getId());
+			ps.setInt(3, expediteur.getId());
+			ps.setInt(4, destinataire.getId());
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			rs.getInt(1);
 			return true;
-		} catch (SQLException e) {
+		} catch (SQLException | RemoteException e) {
 			return false;
 		}
 	}

@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import Interface.MessageInterface;
+
 /**
  * Classe qui hérite de MessageAvecOption et qui représente un message avec un temps d'expiration
  * @author Kevin delporte, alexandre godon, teddy lequette 
@@ -12,7 +14,7 @@ import java.util.Date;
 
 public class MessageAvecExpiration extends MessageAvecOption {
 
-	public MessageAvecExpiration(Message m) {
+	public MessageAvecExpiration(MessageInterface m) {
 		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.message = m;

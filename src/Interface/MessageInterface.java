@@ -3,6 +3,7 @@ package Interface;
 import java.io.Serializable;
 
 import domaine.Personne;
+import domaine.Salon;
 import message.Message;
 
 public interface MessageInterface extends Serializable{
@@ -34,4 +35,8 @@ public interface MessageInterface extends Serializable{
 	 * @return true si c'est un message prioritaire
 	 */
 	public boolean isPrioritaire() ;
+	public int getId();
+	public Boolean isExpire();
+	public SalonInterface getSalon();
+	public void setContenu(String contenu);
 }

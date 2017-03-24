@@ -1,6 +1,5 @@
 package domaine;
 
-import java.awt.HeadlessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -13,8 +12,13 @@ import java.util.List;
 import Interface.MessageInterface;
 import Interface.PersonneInterface;
 import Interface.SalonInterface;
+import message.MessageAvecAccuseReception;
+import message.MessageAvecExpiration;
+import message.MessageChiffre;
+import message.MessagePrioritaire;
 import message.MessageSimple;
 import persistance.MessageMapper;
+import persistance.NotificationMapper;
 import persistance.SalonMapper;
 
 /**
@@ -102,12 +106,21 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 		// TODO Auto-generated method stub
 		System.out.println(connecte+"----connecte----");
 
+		NotificationMapper nm = NotificationMapper.getInstance();
 		MessageMapper mm =  MessageMapper.getInstance();
 		MessageInterface m = new MessageSimple(s, exped, dest, date, this);
+		if (prio) m = new MessagePrioritaire(m);
+		if (chiff) m = new MessageChiffre(m);
+		if (exp) m = new MessageAvecExpiration(m);
+		if (ack) m = new MessageAvecAccuseReception(m);
+
 		mm.insert(m, this);
 		//connecte.add(exped);
 		for (int i = 0 ; i<connecte.size(); i++){
 			connecte.get(i).receiveMessage(m);
+		}
+		for (int i = 0 ; i<personnes.size(); i++){
+			nm.insert(new NotifMessage(exped, personnes.get(i), this.getNom()) );
 		}
 	}
 	

@@ -8,6 +8,7 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import Interface.MessageInterface;
 import Interface.PersonneInterface;
+import Interface.SalonInterface;
 import domaine.Personne;
 import domaine.Salon;
 
@@ -25,7 +26,7 @@ public abstract class Message implements MessageInterface {
 
 	public abstract void setContenu(String contenu);
 
-	public abstract Salon getSalon();
+	public abstract SalonInterface getSalon();
 
 	/**
 	 * Permet de tester si un message a expir� ou non

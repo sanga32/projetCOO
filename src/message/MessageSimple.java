@@ -3,6 +3,7 @@ package message;
 import java.sql.Date;
 
 import Interface.PersonneInterface;
+import Interface.SalonInterface;
 import domaine.Personne;
 import domaine.Salon;
 
@@ -13,9 +14,9 @@ import domaine.Salon;
  */
 
 public class MessageSimple extends Message{
-	Salon idSalon;
+	SalonInterface idSalon;
 	
-	public MessageSimple(int idMessage, Salon salon, Personne personne,String contenu, String dateEnvoi) {
+	public MessageSimple(int idMessage, SalonInterface salon, Personne personne,String contenu, String dateEnvoi) {
 		this.idSalon = salon;
 		this.id = idMessage;
 		this.expediteur = personne;
@@ -64,7 +65,7 @@ public class MessageSimple extends Message{
 		return false;
 	}
 	
-	public Salon getSalon(){
+	public SalonInterface getSalon(){
 		return this.idSalon;
 	}
 

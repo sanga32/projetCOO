@@ -11,6 +11,7 @@ import java.util.List;
 
 import domaine.Administrateur;
 import domaine.DemandeAmi;
+import domaine.NotifMessage;
 import domaine.Notification;
 import domaine.Personne;
 import domaine.Reponse;
@@ -94,7 +95,7 @@ public class NotificationMapper {
 			ps2.setInt(2, n.getExpediteur().getId());
 			nbLigne2 = ps2.executeUpdate();
 			conn.commit();
-		} catch (SQLException e) {
+		} catch (SQLException | RemoteException e) {
 			e.printStackTrace();
 		}
 		if (nbLigne1 * nbLigne2 > 0)
@@ -126,7 +127,7 @@ public class NotificationMapper {
 			ps2.setInt(3, n.getExpediteur().getId());
 			nbLigne2 = ps2.executeUpdate();
 			conn.commit();
-		} catch (SQLException e) {
+		} catch (SQLException | RemoteException e) {
 			e.printStackTrace();
 		}
 		if (nbLigne1 * nbLigne2 > 0)
@@ -238,6 +239,27 @@ public class NotificationMapper {
 					e.printStackTrace();
 				}
 			}
+			
+			String req3 = "SELECT n.idNotification, message, destinataire, d.expediteur  "
+					+ "FROM Projet_Notification n join Projet_NotifMessage d on n.idNotification = d.idNotification "
+					+ "WHERE destinataire=?";
+			PreparedStatement ps3 = conn.prepareStatement(req3);
+			ps.setInt(1, id_personne);
+			ResultSet rs3 = ps3.executeQuery();
+			while (rs3.next()) {
+				try {
+					int id_notification = rs3.getInt("n.idNotification");
+					String message = rs3.getString("message");
+					Personne destinataire = new VirtualProxyPersonne(rs3.getInt("destinataire"));
+					Personne expediteur = new VirtualProxyPersonne(rs3.getInt("d.expediteur"));
+					Notification notif;
+					notif = new NotifMessage(id_notification, expediteur, destinataire);
+					notif.setMessage(message);
+					notifs.add(notif);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 
 			return notifs;
 		} catch (SQLException e) {
@@ -266,6 +288,61 @@ public class NotificationMapper {
 				return false;
 			}
 
+	}
+
+	/**
+	 * Crée une notification message
+	 * @param n
+	 * 			la réponse à insérer en BDD
+	 * @return le nombre de ligne inséré en BDD
+	 */
+	
+	public int insert(NotifMessage n) {
+		// TODO Auto-generated method stub
+		int nbLigne1 = 0;
+		int nbLigne2 = 0;
+		try {
+			String req = "insert into Projet_Notification(idNotification,message,destinataire) values(?,?,?)";
+			PreparedStatement ps = conn.prepareStatement(req);
+			int idNotif = idMax() + 1;
+			ps.setInt(1, idNotif);
+			ps.setString(2, n.getMessage());
+			ps.setInt(3, n.getDestinataire().getId());
+			nbLigne1 = ps.executeUpdate();
+			String req2 = "insert into Projet_NotifMessage(idNotification,expediteur) values(?,?)";
+			PreparedStatement ps2 = conn.prepareStatement(req2);
+			ps2.setInt(1, idNotif);
+			ps2.setInt(2, n.getExpediteur().getId());
+			nbLigne2 = ps2.executeUpdate();
+			conn.commit();
+		} catch (SQLException | RemoteException e) {
+			e.printStackTrace();
+		}
+		if (nbLigne1 * nbLigne2 > 0)
+			return (nbLigne1 + nbLigne2);
+		return 0;
+	}
+	
+	/**
+	 * Supprime la notification de message
+	 * 
+	 * @param n
+	 *            notification à supprimer
+	 */
+	public void delete(NotifMessage n) {
+		try {
+			String req = "delete from Projet_Notification where idNotification=?";
+			PreparedStatement ps = conn.prepareStatement(req);
+			ps.setInt(1, n.getId());
+			ps.execute();
+			String req2 = "delete from Projet_NotifMessage where idNotification=?";
+			PreparedStatement ps2 = conn.prepareStatement(req2);
+			ps2.setInt(1, n.getId());
+			ps2.execute();
+			conn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

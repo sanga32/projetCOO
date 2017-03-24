@@ -2,7 +2,9 @@ package message;
 
 import java.sql.Date;
 
+import Interface.MessageInterface;
 import Interface.PersonneInterface;
+import Interface.SalonInterface;
 import domaine.Personne;
 import domaine.Salon;
 
@@ -13,7 +15,7 @@ import domaine.Salon;
  */
 public abstract class MessageAvecOption extends Message {
 
-	Message message;
+	MessageInterface message;
 	
 	public int getId() {
 		return message.getId();
@@ -37,7 +39,7 @@ public abstract class MessageAvecOption extends Message {
 		return message.getDateEnvoi();
 	}
 	
-	public Salon getSalon() {
+	public SalonInterface getSalon() {
 		return message.getSalon();
 	}
 	

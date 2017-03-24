@@ -1,5 +1,6 @@
 package domaine;
 
+import Interface.PersonneInterface;
 import persistance.VirtualProxyPersonne;
 
 /**
@@ -11,18 +12,18 @@ import persistance.VirtualProxyPersonne;
 public abstract class Notification {
 	int id;
 	String message;
-	Personne expediteur;
-	Personne destinataire;
+	PersonneInterface expediteur;
+	PersonneInterface destinataire;
 	
-	public Notification(int id, Personne expediteur, Personne destinataire){
+	public Notification(int id, PersonneInterface expediteur2, PersonneInterface destinataire2){
 		this.id = id;
-		this.expediteur = expediteur;
-		this.destinataire = destinataire;
+		this.expediteur = expediteur2;
+		this.destinataire = destinataire2;
 	}
 	
-	public Notification(Personne expediteur, Personne destinataire){
-		this.expediteur = expediteur;
-		this.destinataire = destinataire;
+	public Notification(PersonneInterface exped, PersonneInterface dest){
+		this.expediteur = exped;
+		this.destinataire = dest;
 	}
 
 	public String toString(){
@@ -45,7 +46,7 @@ public abstract class Notification {
 		this.message = message;
 	}
 
-	public Personne getExpediteur() {
+	public PersonneInterface getExpediteur() {
 		return expediteur;
 	}
 
@@ -53,7 +54,7 @@ public abstract class Notification {
 		this.expediteur = expediteur;
 	}
 
-	public Personne getDestinataire() {
+	public PersonneInterface getDestinataire() {
 		return destinataire;
 	}
 

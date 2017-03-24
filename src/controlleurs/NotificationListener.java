@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Interface.PersonneInterface;
 import domaine.DemandeAmi;
 import domaine.Notification;
 import domaine.Personne;
@@ -90,9 +91,15 @@ public class NotificationListener implements ActionListener{
 
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							Personne expediteur = ((DemandeAmi) notif).getDestinataire();
-							Personne destinataire = ((DemandeAmi) notif).getExpediteur();
-							Reponse rep = new Reponse(true,expediteur,destinataire);
+							PersonneInterface expediteur = ((DemandeAmi) notif).getDestinataire();
+							PersonneInterface destinataire = ((DemandeAmi) notif).getExpediteur();
+							Reponse rep = null;
+							try {
+								rep = new Reponse(true,expediteur,destinataire);
+							} catch (RemoteException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
 							NotificationMapper.getInstance().insert(rep);
 							NotificationMapper.getInstance().delete((DemandeAmi) notif);
 							AmiMapper.getInstance().insert(expediteur, destinataire);
@@ -114,9 +121,15 @@ public class NotificationListener implements ActionListener{
 
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							Personne expediteur = ((DemandeAmi) notif).getDestinataire();
-							Personne destinataire = ((DemandeAmi) notif).getExpediteur();
-							Reponse rep = new Reponse(false,expediteur,destinataire);
+							PersonneInterface expediteur = ((DemandeAmi) notif).getDestinataire();
+							PersonneInterface destinataire = ((DemandeAmi) notif).getExpediteur();
+							Reponse rep = null;
+							try {
+								rep = new Reponse(false,expediteur,destinataire);
+							} catch (RemoteException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 							NotificationMapper.getInstance().insert(rep);
 							NotificationMapper.getInstance().delete((DemandeAmi) notif);
 							lmodel.remove(index);

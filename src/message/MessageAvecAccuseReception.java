@@ -2,6 +2,7 @@ package message;
 
 import java.sql.Date;
 
+import Interface.MessageInterface;
 import domaine.Personne;
 
 /**
@@ -12,7 +13,7 @@ import domaine.Personne;
 
 public class MessageAvecAccuseReception extends MessageAvecOption {
 
-	public MessageAvecAccuseReception(Message m) {
+	public MessageAvecAccuseReception(MessageInterface m) {
 		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.message = m;

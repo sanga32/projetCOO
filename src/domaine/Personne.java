@@ -213,10 +213,10 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 
 	/**
 	 * Ajoute la personne pass�e en param�tre dans la liste d'ami
-	 * @param p
+	 * @param destinataire
 	 */
-	public void addAmi(Personne p){
-		amis.add(p);
+	public void addAmi(PersonneInterface destinataire){
+		amis.add(destinataire);
 	}
 	public void setInterfaceChat(InterfaceChat interfaceChat) {
 		// TODO Auto-generated method stub

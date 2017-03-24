@@ -1,5 +1,7 @@
 package message;
 
+import Interface.MessageInterface;
+
 /**
  * Classe qui hérite de MessageAvecOption et qui représente un message chiffré
  * @author Kevin delporte, alexandre godon, teddy lequette 
@@ -8,7 +10,7 @@ package message;
 
 public class MessageChiffre extends MessageAvecOption{
 
-	public MessageChiffre(Message m){
+	public MessageChiffre(MessageInterface m){
 		this.id = id;
 		this.message=m;
 	}
