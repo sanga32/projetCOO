@@ -5,6 +5,7 @@ import java.util.List;
 
 import Interface.InfoInterface;
 import Interface.MessageInterface;
+import Interface.NotifInterface;
 import Interface.PersonneInterface;
 import Interface.SalonInterface;
 import domaine.Notification;
@@ -32,8 +33,8 @@ public class Info implements InfoInterface {
 	}
 
 	@Override
-	public List<Notification> getNotification(PersonneInterface p) throws RemoteException {
-		List<Notification> notifs = NotificationMapper.getInstance().findByPersonne(p.getId());
+	public List<NotifInterface> getNotification(PersonneInterface p) throws RemoteException {
+		List<NotifInterface> notifs = NotificationMapper.getInstance().findByPersonne(p.getId());
 		return notifs;
 	}
 

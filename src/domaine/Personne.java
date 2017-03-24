@@ -1,12 +1,15 @@
 package domaine;
 
+import java.awt.Color;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interface.InfoInterface;
 import Interface.MessageInterface;
+import Interface.NotifInterface;
 import Interface.PersonneInterface;
 import persistance.VirtualProxyListAmi;
 import vue.InterfaceChat;
@@ -28,6 +31,7 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 	List<SousInteret> sousInterets;
 	List<Salon> salons;
 	List<Notification> notifications;
+	InfoInterface info;
 	private InterfaceChat interfaceChat;
 
 	public Personne() throws RemoteException{
@@ -218,15 +222,24 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 	public void addAmi(PersonneInterface destinataire){
 		amis.add(destinataire);
 	}
-	public void setInterfaceChat(InterfaceChat interfaceChat) {
+	public void setInterfaceChat(InterfaceChat interfaceChat, InfoInterface info) {
 		// TODO Auto-generated method stub
 		this.interfaceChat = interfaceChat;
+		this.info = info;
 	}
 
 	public void receiveMessage(MessageInterface m)
 	{
 		interfaceChat.getCenter().addMessage(m);
 		interfaceChat.getCenter().updateUI();
+	}
+	
+	public void receiveNotif() throws RemoteException
+	{
+		if(info.getNotification(this) != null){
+			interfaceChat.getNorth().getNotif().setBackground(Color.RED);
+		}
+		interfaceChat.getNorth().updateUI();
 	}
 	
 	public boolean equal(PersonneInterface p) throws RemoteException {

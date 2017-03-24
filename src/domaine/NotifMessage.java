@@ -3,6 +3,7 @@ package domaine;
 import java.rmi.RemoteException;
 
 import Interface.PersonneInterface;
+import persistance.NotificationMapper;
 
 public class NotifMessage extends Notification {
 
@@ -16,6 +17,13 @@ public class NotifMessage extends Notification {
 		// TODO Auto-generated constructor stub
 		super(id_notification, expediteur, destinataire);
 
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		NotificationMapper nm = NotificationMapper.getInstance();
+		nm.delete(this);
 	}
 
 }

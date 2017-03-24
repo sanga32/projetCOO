@@ -2,7 +2,9 @@ package domaine;
 
 import java.rmi.RemoteException;
 
+import Interface.NotifInterface;
 import Interface.PersonneInterface;
+import persistance.NotificationMapper;
 
 /** 
  * Classe que hérite de Notification et qui représente la réponse à une demande d'ami
@@ -10,7 +12,7 @@ import Interface.PersonneInterface;
  *
  */
 
-public class Reponse extends Notification{
+public class Reponse extends Notification implements NotifInterface{
 
 	boolean reponse;
 	public Reponse(int id, boolean rep, Personne expediteur, Personne destinataire) {
@@ -38,6 +40,13 @@ public class Reponse extends Notification{
 	}
 	public void setReponse(boolean reponse) {
 		this.reponse = reponse;
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		NotificationMapper nm = NotificationMapper.getInstance();
+		nm.delete(this);
 	}
 	
 	

@@ -9,4 +9,5 @@ public interface PersonneInterface extends Remote{
 	public void receiveMessage(MessageInterface m) throws RemoteException;
 	public int getId() throws RemoteException;
 	public String getLogin() throws RemoteException;
+	public void receiveNotif() throws RemoteException;
 }

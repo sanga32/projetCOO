@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interface.NotifInterface;
 import domaine.Administrateur;
 import domaine.DemandeAmi;
 import domaine.NotifMessage;
@@ -197,8 +198,8 @@ public class NotificationMapper {
 	 * @return la liste des notification de la personne
 	 * @throws RemoteException 
 	 */
-	public List<Notification> findByPersonne(int id_personne) throws RemoteException {
-		List<Notification> notifs = new ArrayList<Notification>();
+	public List<NotifInterface> findByPersonne(int id_personne) throws RemoteException {
+		List<NotifInterface> notifs = new ArrayList<NotifInterface>();
 		try {
 			String req = "SELECT n.idNotification, message, destinataire, d.expediteur  "
 					+ "FROM Projet_Notification n join Projet_DemandeAmi d on n.idNotification = d.idNotification "
@@ -212,7 +213,7 @@ public class NotificationMapper {
 					String message = rs.getString("message");
 					Personne destinataire = new VirtualProxyPersonne(rs.getInt("destinataire"));
 					Personne expediteur = new VirtualProxyPersonne(rs.getInt("d.expediteur"));
-					Notification notif;
+					DemandeAmi notif;
 					notif = new DemandeAmi(id_notification, expediteur, destinataire);
 					notifs.add(notif);
 				} catch (SQLException e) {
@@ -231,7 +232,7 @@ public class NotificationMapper {
 					int id_notification = rs2.getInt("n.idNotification");
 					Personne destinataire = new VirtualProxyPersonne(rs2.getInt("destinataire"));
 					Personne expediteur = new VirtualProxyPersonne(rs2.getInt("expediteur"));
-					Notification notif;
+					Reponse notif;
 					Boolean reponse = (rs2.getInt("reponse") == 0) ? false : true;
 					notif = new Reponse(id_notification, reponse, expediteur, destinataire);
 					notifs.add(notif);
@@ -244,7 +245,7 @@ public class NotificationMapper {
 					+ "FROM Projet_Notification n join Projet_NotifMessage d on n.idNotification = d.idNotification "
 					+ "WHERE destinataire=?";
 			PreparedStatement ps3 = conn.prepareStatement(req3);
-			ps.setInt(1, id_personne);
+			ps3.setInt(1, id_personne);
 			ResultSet rs3 = ps3.executeQuery();
 			while (rs3.next()) {
 				try {

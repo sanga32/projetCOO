@@ -116,12 +116,15 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 
 		mm.insert(m, this);
 		//connecte.add(exped);
-		for (int i = 0 ; i<connecte.size(); i++){
-			connecte.get(i).receiveMessage(m);
-		}
 		for (int i = 0 ; i<personnes.size(); i++){
 			nm.insert(new NotifMessage(exped, personnes.get(i), this.getNom()) );
 		}
+		for (int i = 0 ; i<connecte.size(); i++){
+			connecte.get(i).receiveMessage(m);
+			connecte.get(i).receiveNotif();
+
+		}
+		
 	}
 	
 	public void connection(PersonneInterface p) throws RemoteException {

@@ -21,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import Interface.InfoInterface;
+import Interface.NotifInterface;
 import Interface.PersonneInterface;
 import domaine.DemandeAmi;
 import domaine.Notification;
@@ -36,10 +38,11 @@ public class NotificationListener implements ActionListener{
 	JPanel panel;
 	JFrame jf;
 	InterfaceChat interfaceChat;
+	InfoInterface info;
 
-	public NotificationListener(Personne p, InterfaceChat interfaceChat) {
+	public NotificationListener(Personne p, InterfaceChat interfaceChat, InfoInterface info) {
 		this.p = p;
-		this.p = p;
+		this.info = info;
 		panel= new JPanel();
 		this.interfaceChat = interfaceChat;
 		jf = new JFrame("Modification de vos informations");
@@ -59,17 +62,17 @@ public class NotificationListener implements ActionListener{
 		JButton jb = (JButton) e.getSource();
 		jb.setBackground(null);
 		
-		JList<Notification> jl = new JList<Notification>();
-		DefaultListModel<Notification> lmodel = new DefaultListModel<Notification>();
+		JList<NotifInterface> jl = new JList<NotifInterface>();
+		DefaultListModel<NotifInterface> lmodel = new DefaultListModel<NotifInterface>();
 
-		List<Notification> notifs = null;
+		List<NotifInterface> notifs = null;
 		try {
-			notifs = NotificationMapper.getInstance().findByPersonne(p.getId());
+			notifs = info.getNotification(p);
 		} catch (RemoteException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		for(Notification n : notifs){
+		for(NotifInterface n : notifs){
 			lmodel.addElement(n);
 		}
 
@@ -80,7 +83,7 @@ public class NotificationListener implements ActionListener{
 				// TODO Auto-generated method stub
 				JList lsm = (JList) e1.getSource();
 				int index = lsm.getSelectionModel().getMinSelectionIndex();
-				Object notif = lsm.getModel().getElementAt(index);
+				NotifInterface notif = (NotifInterface) lsm.getModel().getElementAt(index);
 				if(notif instanceof DemandeAmi){
 					JFrame reponse = new JFrame("Donner votre r�ponse");
 					JPanel pan = new JPanel();
@@ -146,6 +149,14 @@ public class NotificationListener implements ActionListener{
 				}else if(notif instanceof Reponse){
 					lmodel.remove(index);
 					NotificationMapper.getInstance().delete((Reponse) notif);
+				} else {
+					lmodel.remove(index);
+					try {
+						notif.delete();
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		});

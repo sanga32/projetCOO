@@ -1,7 +1,8 @@
 package domaine;
 
+import Interface.NotifInterface;
 import Interface.PersonneInterface;
-import persistance.VirtualProxyPersonne;
+import persistance.NotificationMapper;
 
 /**
  * Classe abstraite représentant une notification
@@ -9,7 +10,7 @@ import persistance.VirtualProxyPersonne;
  *
  */
 
-public abstract class Notification {
+public abstract class Notification implements NotifInterface {
 	int id;
 	String message;
 	PersonneInterface expediteur;
@@ -61,7 +62,6 @@ public abstract class Notification {
 	public void setDestinataire(Personne destinataire) {
 		this.destinataire = destinataire;
 	}
-	
 	
 	
 }
