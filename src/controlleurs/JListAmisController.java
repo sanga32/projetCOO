@@ -17,6 +17,7 @@ import Interface.PersonneInterface;
 import Interface.PriveInterface;
 import Interface.SalonInterface;
 import domaine.Personne;
+import domaine.SalonPrive;
 import message.Message;
 import persistance.AmiMapper;
 import persistance.MessageMapper;
@@ -49,9 +50,8 @@ public class JListAmisController implements ListSelectionListener {
 			}
 			Personne destinataire = (((Personne) lsm.getModel().getElementAt(Index)));
 			List<MessageInterface> messages = null;
-			InfoInterface info;
 			try {
-				info = (InfoInterface) interfaceChat.registry.lookup("info");
+				InfoInterface info = (InfoInterface) interfaceChat.registry.lookup("info");
 
 				String nomSalonPrive;
 				nomSalonPrive = info.salonAmi(p, destinataire);
@@ -81,9 +81,19 @@ public class JListAmisController implements ListSelectionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					AmiMapper am = new AmiMapper().getInstance();
-					am.delete(p, destinataire);
-					p.deleteAmi(destinataire);
+					try {
+						InfoInterface info = (InfoInterface) interfaceChat.registry.lookup("info");
+						String nomSalonPrive;
+						nomSalonPrive = info.salonAmi(p, destinataire);
+						PriveInterface salonPrive = (PriveInterface) interfaceChat.registry.lookup(nomSalonPrive);
+						salonPrive.delete(p, destinataire);
+					} catch (RemoteException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					} catch (NotBoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					try {
 						interfaceChat.getWest().getJListAmis();
 					} catch (RemoteException e1) {

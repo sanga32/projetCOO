@@ -92,17 +92,18 @@ public class AmiMapper {
 	/**
 	 * Delete un couple d'ami
 	 * 
-	 * @param p1
+	 * @param p
 	 * @param p2
 	 *           p1 et p2 sont les 2 amis à supprimer en BDD
+	 * @throws RemoteException 
 	 */
-	public void delete(Personne p1, Personne p2) {
+	public void delete(PersonneInterface p, PersonneInterface p2) throws RemoteException {
 		try {
 			String req = "delete from Projet_Ami where (idPersonne1 =? && idPersonne2 =?) || (idPersonne2 =? && idPersonne1 =?)";
 			PreparedStatement ps = conn.prepareStatement(req);
-			ps.setInt(1, p1.getId());
+			ps.setInt(1, p.getId());
 			ps.setInt(2, p2.getId());
-			ps.setInt(3, p1.getId());
+			ps.setInt(3, p.getId());
 			ps.setInt(4, p2.getId());
 			ps.execute();
 			conn.commit();

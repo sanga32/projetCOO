@@ -17,6 +17,7 @@ import message.MessageChiffre;
 import message.MessagePrioritaire;
 import message.MessagePrive;
 import message.MessageSimple;
+import persistance.AmiMapper;
 import persistance.MessageMapper;
 import persistance.NotificationMapper;
 
@@ -66,6 +67,11 @@ public class SalonPrive extends UnicastRemoteObject implements PriveInterface {
 		List<MessageInterface> messages = MessageMapper.getInstance().findListMessagePrive(p.getId(),p2.getId());
 		return messages;
 		
+	}
+
+	@Override
+	public void delete(PersonneInterface p, PersonneInterface p2) throws RemoteException {
+			AmiMapper.getInstance().delete(p, p2);		
 	}
 
 
