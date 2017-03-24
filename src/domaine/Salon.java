@@ -118,10 +118,11 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 		//connecte.add(exped);
 		for (int i = 0 ; i<personnes.size(); i++){
 			nm.insert(new NotifMessage(exped, personnes.get(i), this.getNom()) );
+			personnes.get(i).receiveNotif();
+
 		}
 		for (int i = 0 ; i<connecte.size(); i++){
 			connecte.get(i).receiveMessage(m);
-			connecte.get(i).receiveNotif();
 
 		}
 		

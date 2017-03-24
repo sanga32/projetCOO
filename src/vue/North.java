@@ -47,7 +47,7 @@ public class North extends JPanel {
 		notification.addActionListener(new NotificationListener(p,interfaceChat, info));
 
 		addInteret.addActionListener(new AddInteret(p));
-		if(info.getNotification(p) != null){
+		if(info.getNotification(p).size()!=0){
 			notification.setBackground(Color.RED);
 		}
 
@@ -63,9 +63,9 @@ public class North extends JPanel {
 		this.add(notification);
 	}
 
-	public JButton getNotif() {
+	public void actNotif() {
 		// TODO Auto-generated method stub
-		return notification;
+		notification.setBackground(Color.RED);
 	}
 
 }
