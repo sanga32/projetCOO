@@ -237,7 +237,7 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 	public void receiveNotif() throws RemoteException
 	{
 
-		//interfaceChat.getNorth().actNotif();
+		interfaceChat.getNorth().actNotif();
 		//interfaceChat.getNorth().updateUI();
 		info.getNotification(this);
 

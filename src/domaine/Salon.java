@@ -118,20 +118,24 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 		//connecte.add(exped);
 		for (int i = 0 ; i<personnes.size(); i++){
 			nm.insert(new NotifMessage(exped, personnes.get(i), this.getNom()) );
-			personnes.get(i).receiveNotif();
+			try{
+				personnes.get(i).receiveNotif();
+			}catch (NullPointerException e ){
+
+			}
 
 		}
 		for (int i = 0 ; i<connecte.size(); i++){
 			connecte.get(i).receiveMessage(m);
 		}
-		
+
 	}
-	
+
 	public void connection(PersonneInterface p) throws RemoteException {
 		System.out.println(p.getId()+"----personne------");
 		connecte.add(p);
 	}
-	
+
 	public void deconnection(PersonneInterface p){
 		connecte.remove(p);
 	}
@@ -140,7 +144,7 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 	public void updateModo(PersonneInterface p) throws RemoteException {
 		SalonMapper.getInstance().updateModo(this, p);
 		this.modo = p;
-		
+
 	}
 
 	public boolean delete() throws RemoteException, NotBoundException {
