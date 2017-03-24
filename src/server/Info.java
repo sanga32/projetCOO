@@ -26,6 +26,8 @@ import persistance.PersonneMapper;
 import persistance.SalonMapper;
 
 public class Info implements InfoInterface {
+	
+	public static List<PersonneInterface> personnes = new ArrayList<PersonneInterface>();
 
 	@Override
 	public int connection(String login, String mdp) throws RemoteException {
@@ -93,6 +95,20 @@ public class Info implements InfoInterface {
 			}
 		}
 		return "";
+	}
+
+	@Override
+	public void connecter(PersonneInterface p) throws RemoteException {
+		personnes.add(p);	
+	}
+	
+	@Override
+	public void deconnecter(PersonneInterface p) throws RemoteException {
+		personnes.remove(p);	
+	}
+	
+	public List<PersonneInterface> getPersonnes() throws RemoteException{
+		return personnes;
 	}
 
 }

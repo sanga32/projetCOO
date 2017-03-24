@@ -9,6 +9,7 @@ import java.sql.SQLException;//github.com/sanga32/projetCOO.git
 import java.util.ArrayList;
 import java.util.List;
 
+import Interface.InfoInterface;
 import Interface.MessageInterface;
 import Interface.PersonneInterface;
 import Interface.SalonInterface;
@@ -101,7 +102,7 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 
 	@Override
 	public void send(String s, PersonneInterface exped, PersonneInterface dest, String date, boolean prio, boolean chiff, boolean exp,
-			boolean ack) throws RemoteException {
+			boolean ack) throws RemoteException, NotBoundException {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		System.out.println(connecte+"----connecte----");
@@ -119,7 +120,13 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 		for (int i = 0 ; i<personnes.size(); i++){
 			nm.insert(new NotifMessage(exped, personnes.get(i), this.getNom()) );
 			try{
-				personnes.get(i).receiveNotif();
+				Registry registry = LocateRegistry.getRegistry(10000);
+				InfoInterface info = (InfoInterface) registry.lookup("info");
+				List<PersonneInterface> connects =info.getPersonnes(); 
+				for (int y=0;y<connects.size();y++){
+					if(connects.get(y).equal(personnes.get(i)))
+						connects.get(y).receiveNotif();
+				}
 			}catch (NullPointerException e ){
 
 			}

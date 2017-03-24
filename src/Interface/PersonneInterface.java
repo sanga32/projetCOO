@@ -10,4 +10,5 @@ public interface PersonneInterface extends Remote{
 	public int getId() throws RemoteException;
 	public String getLogin() throws RemoteException;
 	public void receiveNotif() throws RemoteException;
+	public boolean equal(PersonneInterface personneInterface) throws RemoteException;
 }
