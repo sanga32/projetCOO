@@ -25,10 +25,10 @@ import Interface.PersonneInterface;
 import Interface.SalonInterface;
 import Interface.SalonInterface;
 import domaine.Personne;
-import domaine.Salon;
 import persistance.AmiMapper;
 import persistance.PersonneMapper;
 import persistance.SalonMapper;
+import server.Salon;
 import vue.East;
 
 public class AddPersonneSalonListener implements ActionListener {

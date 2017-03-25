@@ -18,11 +18,11 @@ import Interface.PersonneInterface;
 import Interface.PriveInterface;
 import Interface.SalonInterface;
 import domaine.Personne;
-import domaine.SalonPrive;
 import message.Message;
 import persistance.AmiMapper;
 import persistance.MessageMapper;
 import persistance.PersonneMapper;
+import server.SalonPrive;
 import vue.InterfaceChat;
 
 public class JListAmisController implements ListSelectionListener {

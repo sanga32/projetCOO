@@ -8,8 +8,8 @@ import java.util.List;
 
 import domaine.Notification;
 import domaine.Personne;
-import domaine.Salon;
 import domaine.Utilisateur;
+import server.Salon;
 
 public interface InfoInterface extends Remote, Serializable{
 	public int connection(String login, String mdp) throws RemoteException; //renvoie l'id associé au pseudo et mdp

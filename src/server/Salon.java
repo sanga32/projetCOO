@@ -1,4 +1,4 @@
-package domaine;
+package server;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -13,6 +13,8 @@ import Interface.InfoInterface;
 import Interface.MessageInterface;
 import Interface.PersonneInterface;
 import Interface.SalonInterface;
+import domaine.NotifMessage;
+import domaine.Personne;
 import message.MessageAvecAccuseReception;
 import message.MessageAvecExpiration;
 import message.MessageChiffre;

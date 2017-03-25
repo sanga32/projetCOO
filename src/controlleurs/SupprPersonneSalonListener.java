@@ -22,8 +22,8 @@ import javax.swing.event.ListSelectionListener;
 import Interface.PersonneInterface;
 import Interface.SalonInterface;
 import domaine.Personne;
-import domaine.Salon;
 import persistance.SalonMapper;
+import server.Salon;
 import vue.East;
 
 public class SupprPersonneSalonListener implements ActionListener{

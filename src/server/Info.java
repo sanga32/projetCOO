@@ -17,8 +17,6 @@ import Interface.PriveInterface;
 import Interface.SalonInterface;
 import domaine.Notification;
 import domaine.Personne;
-import domaine.Salon;
-import domaine.SalonPrive;
 import domaine.Utilisateur;
 import persistance.AmiMapper;
 import persistance.MessageMapper;

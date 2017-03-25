@@ -5,7 +5,7 @@ import java.sql.Date;
 
 import Interface.PersonneInterface;
 import domaine.Personne;
-import domaine.Salon;
+import server.Salon;
 
 /**
  * Classe qui hérite de message et qui représente un message entre deux utilisateurs

@@ -12,6 +12,7 @@ import java.util.List;
 import Interface.PersonneInterface;
 import Interface.SalonInterface;
 import domaine.*;
+import server.Salon;
 import settings.ConnectionInfo;
 
 

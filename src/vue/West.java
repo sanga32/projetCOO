@@ -22,8 +22,8 @@ import controlleurs.JListSalonsController;
 import controlleurs.MySalonCellRenderer;
 import controlleurs.SwapSalonAmisListener;
 import domaine.Personne;
-import domaine.Salon;
 import persistance.SalonMapper;
+import server.Salon;
 
 /**
  * Panel permettant de gérer sa liste d'amis et de salons

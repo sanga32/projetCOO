@@ -25,9 +25,9 @@ import controlleurs.JListAmisController;
 import controlleurs.MySalonCellRenderer;
 import controlleurs.SwapSalonAmisListener;
 import domaine.Personne;
-import domaine.Salon;
 import persistance.PersonneMapper;
 import persistance.SalonMapper;
+import server.Salon;
 import sun.security.x509.IssuerAlternativeNameExtension;
 
 /**

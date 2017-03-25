@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import domaine.Personne;
-import domaine.Salon;
+import server.Salon;
 
 /**
  * ProxyPersonne permet de charger une personne uniquement

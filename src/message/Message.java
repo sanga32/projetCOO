@@ -10,7 +10,7 @@ import Interface.MessageInterface;
 import Interface.PersonneInterface;
 import Interface.SalonInterface;
 import domaine.Personne;
-import domaine.Salon;
+import server.Salon;
 
 /**
  * Classe abstraite représentant un message

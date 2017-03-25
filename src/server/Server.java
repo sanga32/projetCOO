@@ -9,7 +9,6 @@ import java.util.List;
 
 import Interface.InfoInterface;
 import Interface.SalonInterface;
-import domaine.Salon;
 import persistance.PersonneMapper;
 import persistance.SalonMapper;
 

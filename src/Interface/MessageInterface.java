@@ -3,8 +3,8 @@ package Interface;
 import java.io.Serializable;
 
 import domaine.Personne;
-import domaine.Salon;
 import message.Message;
+import server.Salon;
 
 public interface MessageInterface extends Serializable{
 	

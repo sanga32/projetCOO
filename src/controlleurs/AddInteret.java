@@ -22,10 +22,10 @@ import javax.swing.event.ListSelectionListener;
 
 import domaine.Interet;
 import domaine.Personne;
-import domaine.Salon;
 import domaine.SousInteret;
 import persistance.InteretPersonneMapper;
 import persistance.SalonMapper;
+import server.Salon;
 import vue.East;
 
 public class AddInteret implements ActionListener{

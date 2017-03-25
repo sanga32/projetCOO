@@ -18,9 +18,9 @@ import java.sql.Date;
 
 import domaine.Administrateur;
 import domaine.Personne;
-import domaine.Salon;
 import domaine.Utilisateur;
 import message.*;
+import server.Salon;
 import settings.ConnectionInfo;
 
 

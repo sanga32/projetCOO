@@ -16,6 +16,7 @@ import Interface.PersonneInterface;
 import Interface.PriveInterface;
 import Interface.SalonInterface;
 import persistance.VirtualProxyListAmi;
+import server.Salon;
 import vue.InterfaceChat;
 
 /**

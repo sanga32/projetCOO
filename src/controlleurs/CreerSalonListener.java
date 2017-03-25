@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import domaine.Personne;
-import domaine.Salon;
 import persistance.SalonMapper;
+import server.Salon;
 import vue.West;
 
 public class CreerSalonListener implements ActionListener{

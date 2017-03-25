@@ -3,6 +3,8 @@ package domaine;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import server.Salon;
+
 /** 
  * Classe qui hérite de Personne et qui représente un administrateur
  * @author Kevin delporte, alexandre godon, teddy lequetet
