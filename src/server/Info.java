@@ -85,7 +85,7 @@ public class Info implements InfoInterface {
 			} catch (NotBoundException e1) {
 				List<PersonneInterface> list = new ArrayList<PersonneInterface>();
 				list.add(dest); list.add(exp);
-				PriveInterface salon = new SalonPrive(list);
+				PriveInterface salon = new SalonPrive(exp.getLogin()+dest.getLogin(), list);
 				try {
 					registry.bind(exp.getLogin()+dest.getLogin(), salon);
 				} catch (AlreadyBoundException e2) {

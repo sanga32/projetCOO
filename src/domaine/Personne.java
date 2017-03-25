@@ -1,6 +1,8 @@
 package domaine;
 
 import java.awt.Color;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
@@ -11,6 +13,8 @@ import Interface.InfoInterface;
 import Interface.MessageInterface;
 import Interface.NotifInterface;
 import Interface.PersonneInterface;
+import Interface.PriveInterface;
+import Interface.SalonInterface;
 import persistance.VirtualProxyListAmi;
 import vue.InterfaceChat;
 
@@ -32,6 +36,11 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 	List<Salon> salons;
 	List<Notification> notifications;
 	InfoInterface info;
+	String salon = "";
+	String prive = "";
+	
+	
+
 	private InterfaceChat interfaceChat;
 
 	public Personne() throws RemoteException{
@@ -246,6 +255,31 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 	public boolean equal(PersonneInterface p) throws RemoteException {
 		if(this.id == p.getId()) return true;
 		return false;
+	}
+	
+	public String getSalon() {
+		return salon;
+	}
+	public void setSalon(String salon) {
+		this.salon = salon;
+	}
+	public String getPrive() {
+		return prive;
+	}
+	public void setPrive(String prive) {
+		this.prive = prive;
+	}
+	public void deconnection() throws AccessException, RemoteException, NotBoundException {
+		if(!"".equals(this.getSalon())){
+			SalonInterface oldSalon = (SalonInterface) InterfaceChat.registry.lookup(this.getSalon());
+			oldSalon.deconnection(this);
+			this.setSalon("");
+		}else if(!"".equals(this.getPrive())){
+			PriveInterface oldSalon = (PriveInterface) InterfaceChat.registry.lookup(this.getPrive());
+			oldSalon.deconnection(this);
+			this.setPrive("");
+		}
+		
 	}
 
 }

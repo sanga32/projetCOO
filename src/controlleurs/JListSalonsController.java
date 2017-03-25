@@ -16,6 +16,7 @@ import javax.swing.event.ListSelectionListener;
 
 import Interface.InfoInterface;
 import Interface.MessageInterface;
+import Interface.PriveInterface;
 import Interface.SalonInterface;
 import domaine.Personne;
 import vue.InterfaceChat;
@@ -49,7 +50,9 @@ public class JListSalonsController implements ListSelectionListener {
 				SalonInterface salon = (SalonInterface) InterfaceChat.registry.lookup(nomSalon);
 				List<MessageInterface> message = info.getMessage(salon, p);
 				interfaceChat.getCenter().getDiscussion(message);
+				p.deconnection();
 				salon.connection(p);
+				p.setSalon(salon.getNom());
 				if (p.equal(salon.getModo())) {
 					try {
 						interfaceChat.getWest().getJListSalons();

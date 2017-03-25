@@ -23,11 +23,13 @@ import persistance.NotificationMapper;
 
 public class SalonPrive extends UnicastRemoteObject implements PriveInterface {
 
+	public String nom;
 	private List<PersonneInterface> personnes;
 	List<PersonneInterface> connecte;
 	
-	public SalonPrive(List<PersonneInterface> personnes) throws RemoteException {
+	public SalonPrive(String string, List<PersonneInterface> personnes) throws RemoteException {
 		super();
+		this.nom = nom;
 		this.personnes = personnes;
 		connecte = new ArrayList<PersonneInterface>();
 	}
@@ -74,5 +76,13 @@ public class SalonPrive extends UnicastRemoteObject implements PriveInterface {
 			AmiMapper.getInstance().delete(p, p2);		
 	}
 
+	public String getNom() {
+		return nom;
+	}
 
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	
 }

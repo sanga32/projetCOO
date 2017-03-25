@@ -27,9 +27,9 @@ import vue.InterfaceChat;
 public class JListAmisController implements ListSelectionListener {
 
 	InterfaceChat interfaceChat;
-	PersonneInterface p;
+	Personne p;
 
-	public JListAmisController(InterfaceChat interfaceChat, PersonneInterface p) {
+	public JListAmisController(InterfaceChat interfaceChat, Personne p) {
 		this.interfaceChat = interfaceChat;
 		this.p = p;
 	}
@@ -48,13 +48,19 @@ public class JListAmisController implements ListSelectionListener {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
+			try {
+				p.deconnection();
+			} catch (RemoteException | NotBoundException e3) {
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
+			}
 			Personne destinataire = (((Personne) lsm.getModel().getElementAt(Index)));
 			List<MessageInterface> messages = null;
 			try {
 				InfoInterface info = (InfoInterface) interfaceChat.registry.lookup("info");
 
-				String nomSalonPrive;
-				nomSalonPrive = info.salonAmi(p, destinataire);
+				String nomSalonPrive = info.salonAmi(p, destinataire);
+				p.setPrive(nomSalonPrive);
 				PriveInterface salonPrive = (PriveInterface) interfaceChat.registry.lookup(nomSalonPrive);
 				salonPrive.connection(p);
 				messages = salonPrive.getMessages(p, destinataire);
