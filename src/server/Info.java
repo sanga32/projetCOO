@@ -43,7 +43,7 @@ public class Info implements InfoInterface {
 	}
 
 	@Override
-	public List<NotifInterface> getNotification(PersonneInterface p) throws RemoteException {
+	public List<NotifInterface> getNotification(PersonneInterface p) throws RemoteException, SQLException {
 		List<NotifInterface> notifs = NotificationMapper.getInstance().findByPersonne(p.getId());
 		return notifs;
 	}

@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -69,6 +70,9 @@ public class NotificationListener implements ActionListener{
 		try {
 			notifs = info.getNotification(p);
 		} catch (RemoteException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (SQLException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}

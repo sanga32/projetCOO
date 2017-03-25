@@ -102,7 +102,7 @@ public class Salon extends UnicastRemoteObject implements SalonInterface{
 
 	@Override
 	public void send(String s, PersonneInterface exped, PersonneInterface dest, String date, boolean prio, boolean chiff, boolean exp,
-			boolean ack) throws RemoteException, NotBoundException {
+			boolean ack) throws RemoteException, NotBoundException, SQLException {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		System.out.println(connecte+"----connecte----");

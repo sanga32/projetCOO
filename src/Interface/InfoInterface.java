@@ -16,7 +16,7 @@ public interface InfoInterface extends Remote, Serializable{
 	public List<PersonneInterface> getAmis(PersonneInterface p) throws RemoteException;
 	public List<SalonInterface> getSalons(PersonneInterface p) throws RemoteException;
 	public SalonInterface getSalon(String s) throws RemoteException;
-	public List<NotifInterface> getNotification(PersonneInterface p) throws RemoteException;
+	public List<NotifInterface> getNotification(PersonneInterface p) throws RemoteException, SQLException;
 	public List<PersonneInterface> getAmi(PersonneInterface p) throws RemoteException;
 	public List<MessageInterface> getMessage(SalonInterface s, PersonneInterface p) throws RemoteException, SQLException;
 	public String salonAmi(PersonneInterface exp, PersonneInterface dest) throws RemoteException;

@@ -197,8 +197,10 @@ public class NotificationMapper {
 	 * 						id de la personne 
 	 * @return la liste des notification de la personne
 	 * @throws RemoteException 
+	 * @throws SQLException 
 	 */
-	public List<NotifInterface> findByPersonne(int id_personne) throws RemoteException {
+	public List<NotifInterface> findByPersonne(int id_personne) throws RemoteException, SQLException {
+		conn = DriverManager.getConnection(ConnectionInfo.DB_URL, ConnectionInfo.COMPTE, ConnectionInfo.MDP);
 		List<NotifInterface> notifs = new ArrayList<NotifInterface>();
 		try {
 			String req = "SELECT n.idNotification, message, destinataire, d.expediteur  "
@@ -275,8 +277,10 @@ public class NotificationMapper {
 	 * @param p
 	 * 			personne
 	 * @return true si la personne a de nouvelle notification
+	 * @throws SQLException 
 	 */
-	public boolean newNotification(Personne p){
+	public boolean newNotification(Personne p) throws SQLException{
+		conn = DriverManager.getConnection(ConnectionInfo.DB_URL, ConnectionInfo.COMPTE, ConnectionInfo.MDP);
 		try {
 			String req = "SELECT idNotification FROM Projet_Notification WHERE destinataire=?";
 			PreparedStatement ps = conn.prepareStatement(req);

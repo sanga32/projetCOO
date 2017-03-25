@@ -243,7 +243,7 @@ public abstract class Personne extends UnicastRemoteObject implements PersonneIn
 		interfaceChat.getCenter().updateUI();
 	}
 
-	public void receiveNotif() throws RemoteException
+	public void receiveNotif() throws RemoteException, SQLException
 	{
 
 		interfaceChat.getNorth().actNotif();

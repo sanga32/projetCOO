@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -82,6 +83,9 @@ public class EnvoyerMessageListener implements ActionListener{
 			} catch (NotBoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		}
@@ -125,7 +129,7 @@ public class EnvoyerMessageListener implements ActionListener{
 		center.updateUI();
 	}
 
-	public void envoiMessageSalon(String s, Personne exped, Personne dest, String date, SalonInterface salon) throws RemoteException, NotBoundException{
+	public void envoiMessageSalon(String s, Personne exped, Personne dest, String date, SalonInterface salon) throws RemoteException, NotBoundException, SQLException{
 		boolean ack;
 		boolean exp;
 		boolean chiff;
