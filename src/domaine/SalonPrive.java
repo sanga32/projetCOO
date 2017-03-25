@@ -65,7 +65,7 @@ public class SalonPrive extends UnicastRemoteObject implements PriveInterface {
 	}
 
 	@Override
-	public List<MessageInterface> getMessages(PersonneInterface p, PersonneInterface p2) throws RemoteException {
+	public List<MessageInterface> getMessages(PersonneInterface p, PersonneInterface p2) throws RemoteException, SQLException {
 		List<MessageInterface> messages = MessageMapper.getInstance().findListMessagePrive(p.getId(),p2.getId());
 		return messages;
 		

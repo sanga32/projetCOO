@@ -5,6 +5,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class Info implements InfoInterface {
 	}
 
 	@Override
-	public List<MessageInterface> getMessage(SalonInterface s, PersonneInterface p) throws RemoteException {
+	public List<MessageInterface> getMessage(SalonInterface s, PersonneInterface p) throws RemoteException, SQLException {
 		List<MessageInterface> messages = MessageMapper.getInstance().findListMessageSalon(s.getId(), p);
 		return messages;
 	}

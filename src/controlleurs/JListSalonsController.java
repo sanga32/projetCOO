@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -143,7 +144,10 @@ public class JListSalonsController implements ListSelectionListener {
 				 */} catch (RemoteException | NotBoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			} catch (SQLException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
 		}
 		interfaceChat.getCenter().updateUI();
 		interfaceChat.getEast().updateUI();

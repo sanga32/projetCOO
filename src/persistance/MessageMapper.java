@@ -137,8 +137,10 @@ public class MessageMapper {
 	 * 			id de la personne avec qui l'utilisateur veux parler
 	 * @return la liste des messages
 	 * @throws RemoteException 
+	 * @throws SQLException 
 	 */
-	public List<MessageInterface> findListMessagePrive(int id_personne1, int id_personne2) throws RemoteException {
+	public List<MessageInterface> findListMessagePrive(int id_personne1, int id_personne2) throws RemoteException, SQLException {
+		conn = DriverManager.getConnection(ConnectionInfo.DB_URL, ConnectionInfo.COMPTE, ConnectionInfo.MDP);
 		List<MessageInterface> messages = new ArrayList<MessageInterface>();
 		try {
 			String req = "SELECT idMessage, message, expediteur, destinataire, dateHeure, "
@@ -196,8 +198,10 @@ public class MessageMapper {
 	 * 		 	l'utilisateur courant
 	 * @return la liste des messages du salon
 	 * @throws RemoteException 
+	 * @throws SQLException 
 	 */
-	public List<MessageInterface> findListMessageSalon(int id_salon, PersonneInterface utilisateur) throws RemoteException {
+	public List<MessageInterface> findListMessageSalon(int id_salon, PersonneInterface utilisateur) throws RemoteException, SQLException {
+		conn = DriverManager.getConnection(ConnectionInfo.DB_URL, ConnectionInfo.COMPTE, ConnectionInfo.MDP);
 		List<MessageInterface> messages = new ArrayList<MessageInterface>();
 		try {
 			String req = "SELECT idMessage, idSalon, idPersonne, message, isReception, "
