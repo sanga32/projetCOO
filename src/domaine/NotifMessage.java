@@ -13,9 +13,10 @@ public class NotifMessage extends Notification {
 		this.message = exped.getLogin() + " vous a envoyé un message dans le salon "+ salon;
 	}
 
-	public NotifMessage(int id_notification, PersonneInterface expediteur, PersonneInterface destinataire) {
+	public NotifMessage(int id_notification, PersonneInterface exped, PersonneInterface destinataire) throws RemoteException {
 		// TODO Auto-generated constructor stub
-		super(id_notification, expediteur, destinataire);
+		super(id_notification, exped, destinataire);
+		this.message = exped.getLogin() + " vous a envoyé un message ";
 
 	}
 

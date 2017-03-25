@@ -2,11 +2,14 @@ package domaine;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Interface.InfoInterface;
 import Interface.MessageInterface;
 import Interface.PersonneInterface;
 import Interface.PriveInterface;
@@ -26,7 +29,7 @@ public class SalonPrive extends UnicastRemoteObject implements PriveInterface {
 	public String nom;
 	private List<PersonneInterface> personnes;
 	List<PersonneInterface> connecte;
-	
+
 	public SalonPrive(String string, List<PersonneInterface> personnes) throws RemoteException {
 		super();
 		this.nom = nom;
@@ -40,6 +43,8 @@ public class SalonPrive extends UnicastRemoteObject implements PriveInterface {
 		// TODO Auto-generated method stub
 		System.out.println(connecte+"----connecte----");
 
+		NotificationMapper nm = NotificationMapper.getInstance();
+
 		MessageMapper mm =  MessageMapper.getInstance();
 		MessageInterface m = new MessagePrive(s, exped, dest, date);
 		if (prio) m = new MessagePrioritaire(m);
@@ -49,6 +54,12 @@ public class SalonPrive extends UnicastRemoteObject implements PriveInterface {
 
 		mm.insert(m);
 		//connecte.add(exped);
+		for (int i = 0 ; i<personnes.size(); i++){
+			for (int j=0 ; j<connecte.size(); j++ ){
+				if ((personnes.get(i).getId() != connecte.get(j).getId()) && !personnes.get(i).equal(exped))
+					nm.insert(new NotifMessage(exped, personnes.get(i), this.getNom()) );
+			}
+		}
 		for (int i = 0 ; i<connecte.size(); i++){
 			connecte.get(i).receiveMessage(m);
 		}
@@ -59,7 +70,7 @@ public class SalonPrive extends UnicastRemoteObject implements PriveInterface {
 	public void connection(PersonneInterface p) throws RemoteException {
 		connecte.add(p);
 	}
-	
+
 	public void deconnection(PersonneInterface p){
 		connecte.remove(p);
 	}
@@ -68,12 +79,12 @@ public class SalonPrive extends UnicastRemoteObject implements PriveInterface {
 	public List<MessageInterface> getMessages(PersonneInterface p, PersonneInterface p2) throws RemoteException, SQLException {
 		List<MessageInterface> messages = MessageMapper.getInstance().findListMessagePrive(p.getId(),p2.getId());
 		return messages;
-		
+
 	}
 
 	@Override
 	public void delete(PersonneInterface p, PersonneInterface p2) throws RemoteException {
-			AmiMapper.getInstance().delete(p, p2);		
+		AmiMapper.getInstance().delete(p, p2);		
 	}
 
 	public String getNom() {
@@ -84,5 +95,5 @@ public class SalonPrive extends UnicastRemoteObject implements PriveInterface {
 		this.nom = nom;
 	}
 
-	
+
 }
