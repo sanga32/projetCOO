@@ -60,7 +60,7 @@ public class SalonPrive extends UnicastRemoteObject implements PriveInterface {
 				if ((personnes.get(i).equal(connecte.get(j))))
 					conn = true;
 			}
-			if(conn == false && !personnes.get(i).equal(exped)) nm.insert(new NotifMessage(exped, personnes.get(i), this.getNom()) );
+			if(conn == false && !personnes.get(i).equal(exped)) nm.insert(new NotifMessage(exped, personnes.get(i), "null") );
 		}
 		for (int i = 0 ; i<connecte.size(); i++){
 			connecte.get(i).receiveMessage(m);
